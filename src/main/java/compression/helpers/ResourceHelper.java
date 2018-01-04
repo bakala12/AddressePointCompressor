@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class ResourceHelper {
-    public static List<?> readResource(IFileReader<?> reader, String resourceName){
+    public static <T> List<T> readResource(IFileReader<T> reader, String resourceName){
         try(InputStream stream = ResourceHelper.class.getResourceAsStream(resourceName)){
             return reader.readFile(stream);
         }

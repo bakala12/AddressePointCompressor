@@ -1,7 +1,10 @@
 package compression;
 
+import compression.io.AddressFileReader;
+
 public class Program {
     public static void main(String[] args){
-        System.out.println("Hello!");
+        CompressionApplication app = new CompressionApplication(new AddressFileReader());
+        app.run();
     }
 }
