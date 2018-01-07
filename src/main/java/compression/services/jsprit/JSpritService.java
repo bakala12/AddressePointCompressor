@@ -48,12 +48,11 @@ public class JSpritService implements IJSpritService {
     private void setRoutingCost(VehicleRoutingProblem.Builder builder, VRPProblem problem){
         VehicleRoutingTransportCosts matrix = JSpritProblemBuilder.getDistancesMatrix(problem);
         builder.setRoutingCost(matrix);
-        builder.setFleetSize(VehicleRoutingProblem.FleetSize.FINITE);
     }
 
     private void createVehicleFleet(VehicleRoutingProblem.Builder builder){
         VehicleTypeImpl.Builder vehicleTypeBuilder = VehicleTypeImpl.Builder.newInstance("vehicleType");
-        VehicleType vehicleType = vehicleTypeBuilder.addCapacityDimension(0, 2).build();
+        VehicleType vehicleType = vehicleTypeBuilder.addCapacityDimension(0, 10).build();
 
         VehicleImpl.Builder vehicleBuilder = VehicleImpl.Builder.newInstance("vehicle");
         Vehicle vehicle = vehicleBuilder.setType(vehicleType)
