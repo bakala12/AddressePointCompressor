@@ -7,11 +7,11 @@ import compression.model.VRPProblem;
 
 public class JSpritProblemBuilder {
 
-    public VehicleRoutingTransportCosts getDistancesMatrix(VRPProblem problem){
+    public static VehicleRoutingTransportCosts getDistancesMatrix(VRPProblem problem){
         VehicleRoutingTransportCostsMatrix.Builder builder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         for (AddressPoint from : problem.getAddressPoints()) {
             for(AddressPoint to : problem.getAddressPoints()){
-                builder.addTransportDistance(from.getName(), to.getName(), problem.getDistanceMatrix().getDistance(from, to));
+                builder.addTransportDistance(from.getId(), to.getId(), problem.getDistanceMatrix().getDistance(from, to));
             }
         }
         return builder.build();

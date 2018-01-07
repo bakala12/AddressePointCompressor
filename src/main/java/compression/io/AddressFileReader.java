@@ -17,9 +17,11 @@ public class AddressFileReader implements IFileReader<AddressPoint> {
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             String line;
             reader.readLine();
+            Integer i=0;
             while((line = reader.readLine()) != null){
                 String[] split = line.split(",");
-                addresses.add(new AddressPoint(split[3], Double.parseDouble(split[1]), Double.parseDouble(split[2])));
+                addresses.add(new AddressPoint(i.toString(), split[3], Double.parseDouble(split[1]), Double.parseDouble(split[2])));
+                i++;
             }
             return addresses;
         }

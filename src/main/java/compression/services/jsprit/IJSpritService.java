@@ -1,5 +1,8 @@
 package compression.services.jsprit;
 
-public interface IJSpritService {
+import compression.model.VRPProblem;
+import compression.model.VRPResult;
 
+public interface IJSpritService {
+    VRPResult solveProblem(VRPProblem problem);
 }

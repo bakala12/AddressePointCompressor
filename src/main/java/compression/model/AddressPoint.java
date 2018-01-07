@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressPoint {
     @Getter
+    private String id;
+    @Getter
     private String name;
     @Getter
     private Double latitude;
