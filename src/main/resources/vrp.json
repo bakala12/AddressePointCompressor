@@ -1,0 +1,2885 @@
+{
+  "Seed": 1034889077,
+  "Options": {
+    "Date": "2017-12-25T00:00:00",
+    "WasteType": "zmieszane",
+    "AreaId": 7,
+    "PlanType": "TestPlaner",
+    "Guid": "00000000-0000-0000-0000-000000000000",
+    "PsoParticles": 1,
+    "PsoIterations": 1,
+    "PsoReloadIterations": 5,
+    "TimeLimit": 3600,
+    "Static": true,
+    "NoDebug": false,
+    "QuickInsert": false,
+    "Quick2OPT": false,
+    "NoInvert": false,
+    "Filename": "",
+    "CreateMethod": 3,
+    "ObsoleteData": "2018-01-09",
+    "NoOptimization": false
+  },
+  "Definition": {
+    "vehicles": [
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 1490.0,
+        "totalCapacity": 1490.0,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 803,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 10394.75,
+        "totalCapacity": 10394.75,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 7247,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 11389.2,
+        "totalCapacity": 11389.2,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 7248,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 11926.415327929308,
+        "totalCapacity": 11926.415327929308,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 7352,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 11805.0,
+        "totalCapacity": 11805.0,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 8117,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 8875.0,
+        "totalCapacity": 8875.0,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 8119,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      },
+      {
+        "startTime": 19800.0,
+        "endTime": 48600.0,
+        "startCapacity": 10009.95,
+        "totalCapacity": 10009.95,
+        "startLocation": 31906,
+        "unloadLocation": 29656,
+        "idcar": 8334,
+        "voronoiSeeds": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "endBase": {
+          "timeEstimation": 1013.8321060382916,
+          "completedAt": 0.0,
+          "rank": 0.0,
+          "_fixed": false,
+          "idcar": 0,
+          "idLocation": 31906,
+          "massEstimation": 0.0,
+          "x": 20.97089,
+          "y": 52.25454,
+          "PGOs": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "LocationsEnRoutes": [
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 31906,
+            "massEstimation": 0.0,
+            "x": 20.97089,
+            "y": 52.25454,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "timeEstimation": 1013.8321060382916,
+            "completedAt": 0.0,
+            "rank": 0.0,
+            "_fixed": false,
+            "idcar": 0,
+            "idLocation": 29656,
+            "massEstimation": 0.0,
+            "x": 20.8801,
+            "y": 52.28044,
+            "PGOs": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "Routes": [
+          {
+            "TotalMass": 0.0,
+            "Distance": 9790.96200943367,
+            "Time": 2214.7679110781437,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 31906,
+              "massEstimation": 0.0,
+              "x": 20.97089,
+              "y": 52.25454,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 31906,
+                "massEstimation": 0.0,
+                "x": 20.97089,
+                "y": 52.25454,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          },
+          {
+            "TotalMass": 0.0,
+            "Distance": 0.0,
+            "Time": 1013.8321060382916,
+            "InitialPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "DestinationPoint": {
+              "timeEstimation": 1013.8321060382916,
+              "completedAt": 0.0,
+              "rank": 0.0,
+              "_fixed": false,
+              "idcar": 0,
+              "idLocation": 29656,
+              "massEstimation": 0.0,
+              "x": 20.8801,
+              "y": 52.28044,
+              "PGOs": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            },
+            "LocationsEnRoute": [
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              {
+                "timeEstimation": 1013.8321060382916,
+                "completedAt": 0.0,
+                "rank": 0.0,
+                "_fixed": false,
+                "idcar": 0,
+                "idLocation": 29656,
+                "massEstimation": 0.0,
+                "x": 20.8801,
+                "y": 52.28044,
+                "PGOs": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "IsSealed": false,
+            "HasAssigned": false
+          }
+        ],
+        "HasActiveAndAvailableRoutes": false,
+        "IsAvailableAndEmpty": true,
+        "FinishTime": 19800.0,
+        "Distance": 0.0
+      }
+    ],
+    "locations": [
+      {
+        "timeEstimation": 107.24498220168221,
+        "completedAt": 34494.7143086,
+        "rank": 2.894775470950826,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 130,
+        "massEstimation": 73.333333333333343,
+        "x": 21.01565,
+        "y": 52.22853,
+        "PGOs": [
+          [
+            130,
+            130
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 156.94638743476713,
+        "completedAt": 34494.7143086,
+        "rank": 0.014845966714757042,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 61,
+        "massEstimation": 109.96970233249567,
+        "x": 21.01932,
+        "y": 52.24638,
+        "PGOs": [
+          [
+            12011,
+            61
+          ],
+          [
+            61,
+            61
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 298.08093297366736,
+        "completedAt": 34494.7143086,
+        "rank": -0.67925559892725507,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 39,
+        "massEstimation": 182.5,
+        "x": 21.02803,
+        "y": 52.23878,
+        "PGOs": [
+          [
+            39,
+            39
+          ],
+          [
+            37,
+            37
+          ],
+          [
+            36,
+            36
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 469.01205085595456,
+        "completedAt": 34494.7143086,
+        "rank": 2.9309039424426215,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 141,
+        "massEstimation": 102.84001319478806,
+        "x": 21.01652,
+        "y": 52.22897,
+        "PGOs": [
+          [
+            147,
+            147
+          ],
+          [
+            143,
+            143
+          ],
+          [
+            141,
+            141
+          ],
+          [
+            149,
+            149
+          ],
+          [
+            148,
+            148
+          ],
+          [
+            144,
+            144
+          ],
+          [
+            146,
+            146
+          ],
+          [
+            145,
+            145
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 133.52023447962196,
+        "completedAt": 34494.7143086,
+        "rank": 3.0981202623548345,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 93,
+        "massEstimation": 66.25,
+        "x": 21.01913,
+        "y": 52.22928,
+        "PGOs": [
+          [
+            94,
+            94
+          ],
+          [
+            93,
+            93
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 98.1617354865742,
+        "completedAt": 34494.7143086,
+        "rank": 2.7657469374278336,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 119,
+        "massEstimation": 97.333333333333329,
+        "x": 21.0138626,
+        "y": 52.2290459,
+        "PGOs": [
+          [
+            120,
+            120
+          ],
+          [
+            119,
+            119
+          ],
+          [
+            121,
+            121
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 273.76956600424853,
+        "completedAt": 34494.7143086,
+        "rank": 2.980095036124037,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 136,
+        "massEstimation": 66.520039584364184,
+        "x": 21.017168,
+        "y": 52.2286873,
+        "PGOs": [
+          [
+            139,
+            139
+          ],
+          [
+            138,
+            138
+          ],
+          [
+            137,
+            137
+          ],
+          [
+            140,
+            140
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 98.424876138926,
+        "completedAt": 34494.7143086,
+        "rank": 2.8730813998897324,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 126,
+        "massEstimation": 101.66666666666666,
+        "x": 21.01525,
+        "y": 52.2285,
+        "PGOs": [
+          [
+            127,
+            127
+          ],
+          [
+            128,
+            128
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 376.41730353847549,
+        "completedAt": 34494.7143086,
+        "rank": -1.4101505556028577,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 20,
+        "massEstimation": 47.0,
+        "x": 21.02902,
+        "y": 52.23535,
+        "PGOs": [
+          [
+            20,
+            20
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            21,
+            21
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 81.378609002461,
+        "completedAt": 34494.7143086,
+        "rank": -0.70823459187830107,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 38,
+        "massEstimation": 32.0,
+        "x": 21.02747,
+        "y": 52.23829,
+        "PGOs": [
+          [
+            38,
+            38
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 126.71886240492557,
+        "completedAt": 34494.7143086,
+        "rank": -1.1210699933407844,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 72,
+        "massEstimation": 40.0,
+        "x": 21.03232,
+        "y": 52.23715,
+        "PGOs": [
+          [
+            72,
+            72
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 41.7637170972288,
+        "completedAt": 34494.7143086,
+        "rank": 2.8426675002091404,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 117,
+        "massEstimation": 50.0,
+        "x": 21.01497,
+        "y": 52.22882,
+        "PGOs": [
+          [
+            117,
+            117
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 56.019840540803862,
+        "completedAt": 34494.7143086,
+        "rank": 2.7994587309177352,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 115,
+        "massEstimation": 101.66666666666666,
+        "x": 21.01465,
+        "y": 52.22927,
+        "PGOs": [
+          [
+            115,
+            116
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 114.62388102735119,
+        "completedAt": 34494.7143086,
+        "rank": -0.5760342461466923,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 47,
+        "massEstimation": 62.5,
+        "x": 21.02658,
+        "y": 52.23888,
+        "PGOs": [
+          [
+            48,
+            48
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 50.7215657829722,
+        "completedAt": 34494.7143086,
+        "rank": 2.8354983243159131,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 113,
+        "massEstimation": 98.333333333333343,
+        "x": 21.01535,
+        "y": 52.22942,
+        "PGOs": [
+          [
+            113,
+            113
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 355.69746361939553,
+        "completedAt": 34494.7143086,
+        "rank": 2.9661053820131436,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 106,
+        "massEstimation": 182.5,
+        "x": 21.0175,
+        "y": 52.22988,
+        "PGOs": [
+          [
+            108,
+            108
+          ],
+          [
+            12513,
+            108
+          ],
+          [
+            12512,
+            108
+          ],
+          [
+            104,
+            104
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 125.847804846195,
+        "completedAt": 34494.7143086,
+        "rank": 0.19496331122944555,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 14,
+        "massEstimation": 62.5,
+        "x": 21.01527,
+        "y": 52.24375,
+        "PGOs": [
+          [
+            15,
+            15
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 114.15703473669353,
+        "completedAt": 34494.7143086,
+        "rank": -1.4093175377067106,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 29,
+        "massEstimation": 66.666666666666657,
+        "x": 21.03,
+        "y": 52.23542,
+        "PGOs": [
+          [
+            30,
+            30
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 134.0023501812216,
+        "completedAt": 34494.7143086,
+        "rank": -0.637694766202014,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 44,
+        "massEstimation": 90.0,
+        "x": 21.02763,
+        "y": 52.23893,
+        "PGOs": [
+          [
+            44,
+            44
+          ],
+          [
+            45,
+            45
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 45.626630820941166,
+        "completedAt": 34494.7143086,
+        "rank": 2.7596856462415871,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 123,
+        "massEstimation": 36.666666666666671,
+        "x": 21.01373,
+        "y": 52.22902,
+        "PGOs": [
+          [
+            123,
+            123
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 107.552739048309,
+        "completedAt": 34494.7143086,
+        "rank": 0.21038480817877803,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 7,
+        "massEstimation": 80.0,
+        "x": 21.0174026,
+        "y": 52.2390671,
+        "PGOs": [
+          [
+            7,
+            7
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 114.89852660504711,
+        "completedAt": 34494.7143086,
+        "rank": -0.18346742136534303,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 57,
+        "massEstimation": 125.0,
+        "x": 21.02325,
+        "y": 52.2422,
+        "PGOs": [
+          [
+            57,
+            57
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 197.35872749872755,
+        "completedAt": 34494.7143086,
+        "rank": 0.28685417389144741,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 90,
+        "massEstimation": 179.93940466499134,
+        "x": 21.01568,
+        "y": 52.24018,
+        "PGOs": [
+          [
+            90,
+            90
+          ],
+          [
+            96,
+            96
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 98.679363749363773,
+        "completedAt": 34494.7143086,
+        "rank": -0.52128751007723662,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 54,
+        "massEstimation": 89.969702332495672,
+        "x": 21.02437,
+        "y": 52.2379,
+        "PGOs": [
+          [
+            54,
+            54
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 89.4409829053617,
+        "completedAt": 34494.7143086,
+        "rank": 2.7832781011559096,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 97,
+        "massEstimation": 201.25,
+        "x": 21.0141,
+        "y": 52.22898,
+        "PGOs": [
+          [
+            98,
+            98
+          ],
+          [
+            99,
+            99
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 98.679363749363773,
+        "completedAt": 34494.7143086,
+        "rank": 2.4659323065917822,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 1,
+        "massEstimation": 89.969702332495672,
+        "x": 21.00634,
+        "y": 52.22839,
+        "PGOs": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 114.54963347824493,
+        "completedAt": 34494.7143086,
+        "rank": 0.056049114570963281,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 62,
+        "massEstimation": 76.666666666666657,
+        "x": 21.01815,
+        "y": 52.24613,
+        "PGOs": [
+          [
+            62,
+            62
+          ]
+        ]
+      },
+      {
+        "timeEstimation": 55.158098981270264,
+        "completedAt": 34494.7143086,
+        "rank": -0.51869830036051945,
+        "_fixed": false,
+        "idcar": 0,
+        "idLocation": 53,
+        "massEstimation": 41.666666666666671,
+        "x": 21.02437,
+        "y": 52.23792,
+        "PGOs": [
+          [
+            53,
+            53
+          ]
+        ]
+      }
+    ],
+    "Dimension": 28,
+    "RandomSolution": [
+      21.030894544138327,
+      52.2284510483528,
+      21.008514927126779,
+      52.24345821046473,
+      21.02522288106784,
+      52.227717453410285,
+      21.009802066173272,
+      52.226056341362948,
+      21.029587117845235,
+      52.232151535789463,
+      21.015881090355506,
+      52.22647470605547,
+      21.017463160503247,
+      52.241547336230212,
+      21.007440258168142,
+      52.24307711512661,
+      21.031992520397402,
+      52.231355003432093,
+      21.028033644504855,
+      52.237901062148019,
+      21.019182162784674,
+      52.231711448509678,
+      21.011109504673122,
+      52.237313404367512,
+      21.00828879106998,
+      52.235969030039954,
+      21.026152691157289,
+      52.229358080993258
+    ],
+    "InitializationRadius": 0.00899505615234375
+  },
+  "Locations": {
+    "130": {
+      "timeEstimation": 107.24498220168221,
+      "completedAt": 34494.7143086,
+      "rank": 2.894775470950826,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 130,
+      "massEstimation": 73.333333333333343,
+      "x": 21.01565,
+      "y": 52.22853,
+      "PGOs": [
+        [
+          130,
+          130
+        ]
+      ]
+    },
+    "61": {
+      "timeEstimation": 156.94638743476713,
+      "completedAt": 34494.7143086,
+      "rank": 0.014845966714757042,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 61,
+      "massEstimation": 109.96970233249567,
+      "x": 21.01932,
+      "y": 52.24638,
+      "PGOs": [
+        [
+          12011,
+          61
+        ],
+        [
+          61,
+          61
+        ]
+      ]
+    },
+    "39": {
+      "timeEstimation": 298.08093297366736,
+      "completedAt": 34494.7143086,
+      "rank": -0.67925559892725507,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 39,
+      "massEstimation": 182.5,
+      "x": 21.02803,
+      "y": 52.23878,
+      "PGOs": [
+        [
+          39,
+          39
+        ],
+        [
+          37,
+          37
+        ],
+        [
+          36,
+          36
+        ]
+      ]
+    },
+    "141": {
+      "timeEstimation": 469.01205085595456,
+      "completedAt": 34494.7143086,
+      "rank": 2.9309039424426215,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 141,
+      "massEstimation": 102.84001319478806,
+      "x": 21.01652,
+      "y": 52.22897,
+      "PGOs": [
+        [
+          147,
+          147
+        ],
+        [
+          143,
+          143
+        ],
+        [
+          141,
+          141
+        ],
+        [
+          149,
+          149
+        ],
+        [
+          148,
+          148
+        ],
+        [
+          144,
+          144
+        ],
+        [
+          146,
+          146
+        ],
+        [
+          145,
+          145
+        ]
+      ]
+    },
+    "93": {
+      "timeEstimation": 133.52023447962196,
+      "completedAt": 34494.7143086,
+      "rank": 3.0981202623548345,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 93,
+      "massEstimation": 66.25,
+      "x": 21.01913,
+      "y": 52.22928,
+      "PGOs": [
+        [
+          94,
+          94
+        ],
+        [
+          93,
+          93
+        ]
+      ]
+    },
+    "119": {
+      "timeEstimation": 98.1617354865742,
+      "completedAt": 34494.7143086,
+      "rank": 2.7657469374278336,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 119,
+      "massEstimation": 97.333333333333329,
+      "x": 21.0138626,
+      "y": 52.2290459,
+      "PGOs": [
+        [
+          120,
+          120
+        ],
+        [
+          119,
+          119
+        ],
+        [
+          121,
+          121
+        ]
+      ]
+    },
+    "136": {
+      "timeEstimation": 273.76956600424853,
+      "completedAt": 34494.7143086,
+      "rank": 2.980095036124037,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 136,
+      "massEstimation": 66.520039584364184,
+      "x": 21.017168,
+      "y": 52.2286873,
+      "PGOs": [
+        [
+          139,
+          139
+        ],
+        [
+          138,
+          138
+        ],
+        [
+          137,
+          137
+        ],
+        [
+          140,
+          140
+        ]
+      ]
+    },
+    "126": {
+      "timeEstimation": 98.424876138926,
+      "completedAt": 34494.7143086,
+      "rank": 2.8730813998897324,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 126,
+      "massEstimation": 101.66666666666666,
+      "x": 21.01525,
+      "y": 52.2285,
+      "PGOs": [
+        [
+          127,
+          127
+        ],
+        [
+          128,
+          128
+        ]
+      ]
+    },
+    "20": {
+      "timeEstimation": 376.41730353847549,
+      "completedAt": 34494.7143086,
+      "rank": -1.4101505556028577,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 20,
+      "massEstimation": 47.0,
+      "x": 21.02902,
+      "y": 52.23535,
+      "PGOs": [
+        [
+          20,
+          20
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ]
+      ]
+    },
+    "38": {
+      "timeEstimation": 81.378609002461,
+      "completedAt": 34494.7143086,
+      "rank": -0.70823459187830107,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 38,
+      "massEstimation": 32.0,
+      "x": 21.02747,
+      "y": 52.23829,
+      "PGOs": [
+        [
+          38,
+          38
+        ]
+      ]
+    },
+    "72": {
+      "timeEstimation": 126.71886240492557,
+      "completedAt": 34494.7143086,
+      "rank": -1.1210699933407844,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 72,
+      "massEstimation": 40.0,
+      "x": 21.03232,
+      "y": 52.23715,
+      "PGOs": [
+        [
+          72,
+          72
+        ]
+      ]
+    },
+    "117": {
+      "timeEstimation": 41.7637170972288,
+      "completedAt": 34494.7143086,
+      "rank": 2.8426675002091404,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 117,
+      "massEstimation": 50.0,
+      "x": 21.01497,
+      "y": 52.22882,
+      "PGOs": [
+        [
+          117,
+          117
+        ]
+      ]
+    },
+    "115": {
+      "timeEstimation": 56.019840540803862,
+      "completedAt": 34494.7143086,
+      "rank": 2.7994587309177352,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 115,
+      "massEstimation": 101.66666666666666,
+      "x": 21.01465,
+      "y": 52.22927,
+      "PGOs": [
+        [
+          115,
+          116
+        ]
+      ]
+    },
+    "47": {
+      "timeEstimation": 114.62388102735119,
+      "completedAt": 34494.7143086,
+      "rank": -0.5760342461466923,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 47,
+      "massEstimation": 62.5,
+      "x": 21.02658,
+      "y": 52.23888,
+      "PGOs": [
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    "113": {
+      "timeEstimation": 50.7215657829722,
+      "completedAt": 34494.7143086,
+      "rank": 2.8354983243159131,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 113,
+      "massEstimation": 98.333333333333343,
+      "x": 21.01535,
+      "y": 52.22942,
+      "PGOs": [
+        [
+          113,
+          113
+        ]
+      ]
+    },
+    "106": {
+      "timeEstimation": 355.69746361939553,
+      "completedAt": 34494.7143086,
+      "rank": 2.9661053820131436,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 106,
+      "massEstimation": 182.5,
+      "x": 21.0175,
+      "y": 52.22988,
+      "PGOs": [
+        [
+          108,
+          108
+        ],
+        [
+          12513,
+          108
+        ],
+        [
+          12512,
+          108
+        ],
+        [
+          104,
+          104
+        ]
+      ]
+    },
+    "14": {
+      "timeEstimation": 125.847804846195,
+      "completedAt": 34494.7143086,
+      "rank": 0.19496331122944555,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 14,
+      "massEstimation": 62.5,
+      "x": 21.01527,
+      "y": 52.24375,
+      "PGOs": [
+        [
+          15,
+          15
+        ]
+      ]
+    },
+    "29": {
+      "timeEstimation": 114.15703473669353,
+      "completedAt": 34494.7143086,
+      "rank": -1.4093175377067106,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 29,
+      "massEstimation": 66.666666666666657,
+      "x": 21.03,
+      "y": 52.23542,
+      "PGOs": [
+        [
+          30,
+          30
+        ]
+      ]
+    },
+    "44": {
+      "timeEstimation": 134.0023501812216,
+      "completedAt": 34494.7143086,
+      "rank": -0.637694766202014,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 44,
+      "massEstimation": 90.0,
+      "x": 21.02763,
+      "y": 52.23893,
+      "PGOs": [
+        [
+          44,
+          44
+        ],
+        [
+          45,
+          45
+        ]
+      ]
+    },
+    "123": {
+      "timeEstimation": 45.626630820941166,
+      "completedAt": 34494.7143086,
+      "rank": 2.7596856462415871,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 123,
+      "massEstimation": 36.666666666666671,
+      "x": 21.01373,
+      "y": 52.22902,
+      "PGOs": [
+        [
+          123,
+          123
+        ]
+      ]
+    },
+    "7": {
+      "timeEstimation": 107.552739048309,
+      "completedAt": 34494.7143086,
+      "rank": 0.21038480817877803,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 7,
+      "massEstimation": 80.0,
+      "x": 21.0174026,
+      "y": 52.2390671,
+      "PGOs": [
+        [
+          7,
+          7
+        ]
+      ]
+    },
+    "57": {
+      "timeEstimation": 114.89852660504711,
+      "completedAt": 34494.7143086,
+      "rank": -0.18346742136534303,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 57,
+      "massEstimation": 125.0,
+      "x": 21.02325,
+      "y": 52.2422,
+      "PGOs": [
+        [
+          57,
+          57
+        ]
+      ]
+    },
+    "90": {
+      "timeEstimation": 197.35872749872755,
+      "completedAt": 34494.7143086,
+      "rank": 0.28685417389144741,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 90,
+      "massEstimation": 179.93940466499134,
+      "x": 21.01568,
+      "y": 52.24018,
+      "PGOs": [
+        [
+          90,
+          90
+        ],
+        [
+          96,
+          96
+        ]
+      ]
+    },
+    "54": {
+      "timeEstimation": 98.679363749363773,
+      "completedAt": 34494.7143086,
+      "rank": -0.52128751007723662,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 54,
+      "massEstimation": 89.969702332495672,
+      "x": 21.02437,
+      "y": 52.2379,
+      "PGOs": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    "97": {
+      "timeEstimation": 89.4409829053617,
+      "completedAt": 34494.7143086,
+      "rank": 2.7832781011559096,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 97,
+      "massEstimation": 201.25,
+      "x": 21.0141,
+      "y": 52.22898,
+      "PGOs": [
+        [
+          98,
+          98
+        ],
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    "1": {
+      "timeEstimation": 98.679363749363773,
+      "completedAt": 34494.7143086,
+      "rank": 2.4659323065917822,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 1,
+      "massEstimation": 89.969702332495672,
+      "x": 21.00634,
+      "y": 52.22839,
+      "PGOs": [
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    "62": {
+      "timeEstimation": 114.54963347824493,
+      "completedAt": 34494.7143086,
+      "rank": 0.056049114570963281,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 62,
+      "massEstimation": 76.666666666666657,
+      "x": 21.01815,
+      "y": 52.24613,
+      "PGOs": [
+        [
+          62,
+          62
+        ]
+      ]
+    },
+    "53": {
+      "timeEstimation": 55.158098981270264,
+      "completedAt": 34494.7143086,
+      "rank": -0.51869830036051945,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 53,
+      "massEstimation": 41.666666666666671,
+      "x": 21.02437,
+      "y": 52.23792,
+      "PGOs": [
+        [
+          53,
+          53
+        ]
+      ]
+    }
+  },
+  "Instalations": {
+    "31906": {
+      "timeEstimation": 1013.8321060382916,
+      "completedAt": 0.0,
+      "rank": 0.0,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 31906,
+      "massEstimation": 0.0,
+      "x": 20.97089,
+      "y": 52.25454,
+      "PGOs": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "29656": {
+      "timeEstimation": 1013.8321060382916,
+      "completedAt": 0.0,
+      "rank": 0.0,
+      "_fixed": false,
+      "idcar": 0,
+      "idLocation": 29656,
+      "massEstimation": 0.0,
+      "x": 20.8801,
+      "y": 52.28044,
+      "PGOs": [
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "Distances": {
+    "31906": {
+      "29656": 9790.96200943367
+    }
+  },
+  "Times": {
+    "31906": {
+      "29656": 1200.9358050398519
+    }
+  }
+}

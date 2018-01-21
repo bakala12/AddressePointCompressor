@@ -1,6 +1,6 @@
 package compression.io;
 
-public class LoadFileException extends Exception {
+public class LoadFileException extends RuntimeException {
     public LoadFileException(String message, Exception ex){
         super(message, ex);
     }

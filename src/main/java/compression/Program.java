@@ -1,10 +1,8 @@
 package compression;
 
-import compression.io.AddressFileReader;
-
 public class Program {
     public static void main(String[] args){
-        CompressionApplication app = new CompressionApplication(new AddressFileReader());
+        CompressionApplication app = new CompressionApplication();
         app.run();
     }
 }

@@ -1,3 +1,4 @@
+/*
 package compression.services.jsprit;
 
 import com.graphhopper.directions.api.client.model.Solution;
@@ -46,8 +47,8 @@ public class JSpritService implements IJSpritService {
     }
 
     private void setRoutingCost(VehicleRoutingProblem.Builder builder, VRPProblem problem){
-        VehicleRoutingTransportCosts matrix = JSpritProblemBuilder.getDistancesMatrix(problem);
-        builder.setRoutingCost(matrix);
+        //VehicleRoutingTransportCosts matrix = JSpritProblemBuilder.getDistancesMatrix(problem);
+        //builder.setRoutingCost(matrix);
     }
 
     private void createVehicleFleet(VehicleRoutingProblem.Builder builder){
@@ -74,4 +75,4 @@ public class JSpritService implements IJSpritService {
             i++;
         }
     }
-}
+}*/

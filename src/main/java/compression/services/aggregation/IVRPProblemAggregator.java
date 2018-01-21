@@ -1,7 +1,7 @@
 package compression.services.aggregation;
 
-import compression.model.VRPProblem;
+//import compression.model.VRPProblem;
 
 public interface IVRPProblemAggregator {
-    VRPProblem aggregate(VRPProblem problem);
+    //VRPProblem aggregate(VRPProblem problem);
 }
