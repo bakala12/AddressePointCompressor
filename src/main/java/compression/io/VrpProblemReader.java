@@ -22,18 +22,18 @@ public class VrpProblemReader implements IProblemReader{
         try(InputStream stream = VrpProblem.class.getResourceAsStream(resourceName)){
             return parse(stream);
         }catch (Exception ex) {
-            throw new LoadFileException(ex.getMessage());
+            throw new LoadFileException(ex.getMessage(), ex);
         }
     }
 
     private VrpProblem parse(InputStream stream) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject)parser.parse(new InputStreamReader(stream));
-        JSONObject definitions = (JSONObject)obj.get("Definitions");
+        JSONObject definitions = (JSONObject)obj.get("Definition");
         JSONArray locationArr = (JSONArray) definitions.get("locations");
         List<Client> clients = parseLocations(locationArr);
         JSONArray vehicleArr = (JSONArray) definitions.get("vehicles");
-        JSONObject installations = (JSONObject) definitions.get("Instalations");
+        JSONObject installations = (JSONObject) obj.get("Instalations");
         List<Vehicle> vehicles = parseVehicles(vehicleArr, installations);
         return new VrpProblem(clients, vehicles);
     }
@@ -46,8 +46,8 @@ public class VrpProblemReader implements IProblemReader{
             double longitude = (double) location.get("y");
             double amount = (double) location.get("massEstimation");
             double time = (double) location.get("timeEstimation");
-            String name = (String) location.get("idLocation");
-            Client loc = new Client(name, latitude, longitude, amount, time);
+            long id = (long) location.get("idLocation");
+            Client loc = new Client(id, latitude, longitude, amount, time);
             list.add(loc);
         }
         return list;
@@ -57,14 +57,14 @@ public class VrpProblemReader implements IProblemReader{
         List<Vehicle> list = new LinkedList<>();
         for (Object obj : vehicles) {
             JSONObject vehicle = (JSONObject) obj;
-            String startLocationId = (String)vehicle.get("startLocation");
+            long startLocationId = (long)vehicle.get("startLocation");
             JSONObject endLocationObj = (JSONObject)vehicle.get("endBase");
-            String endLocationId = (String) endLocationObj.get("idLocation");
-            Location startLocation = parseVehicleLocation(startLocationId, installations);
-            Location endLocation = parseVehicleLocation(endLocationId, installations);
+            long endLocationId = (long) endLocationObj.get("idLocation");
+            Location startLocation = parseVehicleLocation(Long.toString(startLocationId), installations);
+            Location endLocation = parseVehicleLocation(Long.toString(endLocationId), installations);
             double capacity = (double)vehicle.get("totalCapacity");
-            String name = (String)vehicle.get("idCar");
-            Vehicle veh = new Vehicle(name, capacity, startLocation, endLocation);
+            long id = (long)vehicle.get("idcar");
+            Vehicle veh = new Vehicle(id, capacity, startLocation, endLocation);
             list.add(veh);
         }
         return list;

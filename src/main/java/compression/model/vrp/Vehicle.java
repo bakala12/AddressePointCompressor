@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Vehicle {
     @Getter
-    private String name;
+    private long id;
     @Getter
     private double capacity;
     @Getter
