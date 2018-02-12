@@ -9,4 +9,9 @@ public class Location {
     private double latitude;
     @Getter
     private double longitude;
+
+    @Override
+    public String toString(){
+        return longitude+","+latitude;
+    }
 }
