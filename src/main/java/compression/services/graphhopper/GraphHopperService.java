@@ -5,6 +5,7 @@ import compression.model.web.WebResponse;
 import javafx.util.Pair;
 import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.collections.MultiMap;
+import org.json.simple.parser.ParseException;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class GraphHopperService extends BaseService
         parameters.add(new Pair<>("layer", "Omniscale"));
 
         WebResponse response = sendRequest(parameters);
+        //parse
     }
 
 
