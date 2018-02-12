@@ -1,5 +1,6 @@
 package compression.parsing.web;
 
+import compression.model.vrp.Instruction;
 import compression.model.vrp.Location;
 import compression.model.vrp.Route;
 import compression.parsing.BaseParser;
@@ -21,7 +22,8 @@ public class GraphHopperResponseParser extends BaseParser<Route>
         Location to = routeLocations.get(routeLocations.size()-1);
         double distance = (double)paths.get("distance");
         double time = (Long)paths.get("time");
-        return new Route(from, to, routeLocations, distance, time);
+        List<Instruction> instructions = parseInstructions(paths);
+        return new Route(from, to, routeLocations, distance, time, instructions);
     }
 
     private Location parseLocation(JSONArray array){
@@ -39,5 +41,31 @@ public class GraphHopperResponseParser extends BaseParser<Route>
             locations.add(parseLocation(locArr));
         }
         return locations;
+    }
+
+    private Instruction parseInstruction(JSONObject instObj){
+        double distance = 0.0;
+        try{
+            distance = (Double) instObj.get("distance");
+        } catch (ClassCastException e){
+            distance = (Long) instObj.get("distance");
+        }
+        double time = (Long)instObj.get("time");
+        Long sign = (Long)instObj.get("sign");
+        JSONArray intervalArr = (JSONArray)instObj.get("interval");
+        Long[] interval = new Long[2];
+        interval[0] = (Long)intervalArr.get(0);
+        interval[1] = (Long)intervalArr.get(1);
+        return new Instruction(distance, sign, interval, time);
+    }
+
+    private List<Instruction> parseInstructions(JSONObject path){
+        List<Instruction> instructions = new LinkedList<>();
+        JSONArray instrArr = (JSONArray)path.get("instructions");
+        for(Object obj : instrArr){
+            JSONObject instr = (JSONObject)obj;
+            instructions.add(parseInstruction(instr));
+        }
+        return instructions;
     }
 }

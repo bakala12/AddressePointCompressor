@@ -17,4 +17,6 @@ public class Route {
     private double distance;
     @Getter
     private double time;
+    @Getter
+    private List<Instruction> instructions;
 }
