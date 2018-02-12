@@ -2,8 +2,10 @@ package compression;
 
 import compression.io.IProblemReader;
 import compression.io.VrpProblemReader;
+import compression.model.vrp.Route;
 import compression.model.vrp.VrpProblem;
 import compression.parsing.input.VrpProblemParser;
+import compression.parsing.web.GraphHopperResponseParser;
 import compression.services.graphhopper.GraphHopperService;
 import compression.services.graphhopper.IGraphHopperService;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ public class CompressionApplication {
         VrpProblem problem = reader.readProblemInstance("/vrp.json");
         System.out.println(problem.getClients().size());
 
-        IGraphHopperService ghService = new GraphHopperService();
+        IGraphHopperService ghService = new GraphHopperService(new GraphHopperResponseParser());
         ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
     }
 }
