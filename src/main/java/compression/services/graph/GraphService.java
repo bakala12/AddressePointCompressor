@@ -14,8 +14,8 @@ public class GraphService implements IGraphService{
     private final IGraphHopperService graphHopperService;
     private final IDistanceService distanceService;
 
-    private LocationGraph.LocationGraphBuilder getLocationGraphBuilder(VrpProblem problem){
-        LocationGraph.LocationGraphBuilder builder = LocationGraph.LocationGraphBuilder.newInstance();
+    private LocationGraph.GraphBuilder getLocationGraphBuilder(VrpProblem problem){
+        LocationGraph.GraphBuilder builder = LocationGraph.GraphBuilder.newInstance();
         List<? extends Location> locations = problem.getClients();
         builder.specifyLocations(locations);
         return builder;
@@ -23,7 +23,7 @@ public class GraphService implements IGraphService{
 
     @Override
     public LocationGraph minimalSpanningTree(VrpProblem problem){
-        LocationGraph.LocationGraphBuilder builder = getLocationGraphBuilder(problem);
+        LocationGraph.GraphBuilder builder = getLocationGraphBuilder(problem);
         return null;
     }
 }
