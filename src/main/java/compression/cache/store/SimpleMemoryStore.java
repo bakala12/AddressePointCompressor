@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class SimpleMemoryStore<TKey, TValue> implements ICacheStore<TKey, TValue> {
 
-    private Map<TKey, TValue> internalStore;
+    private final Map<TKey, TValue> internalStore;
 
     public SimpleMemoryStore(){
         internalStore = new HashMap<>();
@@ -19,5 +19,15 @@ public class SimpleMemoryStore<TKey, TValue> implements ICacheStore<TKey, TValue
     @Override
     public TValue get(TKey key) {
         return internalStore.get(key);
+    }
+
+    @Override
+    public void add(TKey key, TValue value){
+        internalStore.put(key, value);
+    }
+
+    @Override
+    public void clear(){
+        internalStore.clear();
     }
 }

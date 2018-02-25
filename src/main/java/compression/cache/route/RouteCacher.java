@@ -21,4 +21,9 @@ public class RouteCacher implements IRouteCacher {
     public Route getRouteBetween(Location from, Location to) {
         return store.get(new LocationsKey(from, to));
     }
+
+    @Override
+    public void addRoute(Location from, Location to, Route route){
+        store.add(new LocationsKey(from, to), route);
+    }
 }

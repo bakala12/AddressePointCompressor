@@ -1,5 +1,6 @@
 package compression.services.graphhopper;
 
+import compression.cache.route.IRouteCacher;
 import compression.model.vrp.Location;
 import compression.model.vrp.Route;
 import compression.model.vrp.SimpleRoute;
@@ -24,14 +25,19 @@ public class GraphHopperService extends BaseService
     implements IGraphHopperService {
 
     private final IParser<Route> parser;
+    private final IRouteCacher routeCacher;
 
-    public GraphHopperService(IParser<Route> parser){
+    public GraphHopperService(IParser<Route> parser, IRouteCacher routeCacher){
         super("http://194.29.178.216:8989/route");
         this.parser = parser;
+        this.routeCacher = routeCacher;
     }
 
     @Override
     public Route getRoute(Location from, Location to){
+        if(routeCacher.hasRouteBetween(from, to))
+            return routeCacher.getRouteBetween(from, to);
+
         List<Pair<String, String>> parameters = new LinkedList<>();
 
         parameters.add(new Pair<>("point", from.toString()));
@@ -51,7 +57,9 @@ public class GraphHopperService extends BaseService
             throw new WebServiceExcpetion("Invalid response code");
         }
 
-        return parser.parse(response.getResponseString());
+        Route route = parser.parse(response.getResponseString());
+        routeCacher.addRoute(from, to, route);
+        return route;
     }
 
     @Override

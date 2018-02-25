@@ -6,4 +6,5 @@ import compression.model.vrp.Route;
 public interface IRouteCacher {
     boolean hasRouteBetween(Location from, Location to);
     Route getRouteBetween(Location from, Location to);
+    void addRoute(Location from, Location to, Route route);
 }
