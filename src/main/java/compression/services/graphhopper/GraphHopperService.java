@@ -2,6 +2,7 @@ package compression.services.graphhopper;
 
 import compression.model.vrp.Location;
 import compression.model.vrp.Route;
+import compression.model.vrp.SimpleRoute;
 import compression.model.web.WebResponse;
 import compression.parsing.IParser;
 import javafx.util.Pair;
@@ -29,7 +30,8 @@ public class GraphHopperService extends BaseService
         this.parser = parser;
     }
 
-    public void getRoute(Location from, Location to){
+    @Override
+    public Route getRoute(Location from, Location to){
         List<Pair<String, String>> parameters = new LinkedList<>();
 
         parameters.add(new Pair<>("point", from.toString()));
@@ -49,8 +51,11 @@ public class GraphHopperService extends BaseService
             throw new WebServiceExcpetion("Invalid response code");
         }
 
-        parser.parse(response.getResponseString());
+        return parser.parse(response.getResponseString());
     }
 
-
+    @Override
+    public SimpleRoute getSimpleRouteInformation(Location from, Location to) {
+        return getRoute(from, to);
+    }
 }

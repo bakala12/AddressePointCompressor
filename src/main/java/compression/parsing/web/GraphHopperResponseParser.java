@@ -3,7 +3,9 @@ package compression.parsing.web;
 import compression.model.vrp.Instruction;
 import compression.model.vrp.Location;
 import compression.model.vrp.Route;
+import compression.model.vrp.SimpleRoute;
 import compression.parsing.BaseParser;
+import compression.parsing.IParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -11,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GraphHopperResponseParser extends BaseParser<Route>
-    implements IGraphHopperResponseParser {
+    implements IGraphHopperResponseParser{
 
     @Override
     protected Route parseObject(Object object) {
@@ -23,7 +25,7 @@ public class GraphHopperResponseParser extends BaseParser<Route>
         double distance = (double)paths.get("distance");
         double time = (Long)paths.get("time");
         List<Instruction> instructions = parseInstructions(paths);
-        return new Route(from, to, routeLocations, distance, time, instructions);
+        return new Route(from, to, distance, time, instructions.size(), instructions);
     }
 
     private Location parseLocation(JSONArray array){
