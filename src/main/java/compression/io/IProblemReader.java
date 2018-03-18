@@ -1,7 +1,6 @@
 package compression.io;
 
-import compression.model.vrp.VrpProblem;
-
-public interface IProblemReader {
-    VrpProblem readProblemInstance(String resourceName);
+public interface IProblemReader<TVrpProblem> {
+    TVrpProblem readProblemInstanceFromResources(String resourceName);
+    TVrpProblem readProblemInstanceFromFile(String path);
 }

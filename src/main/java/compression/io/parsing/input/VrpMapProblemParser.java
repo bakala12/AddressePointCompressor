@@ -1,18 +1,18 @@
-package compression.parsing.input;
+package compression.io.parsing.input;
 
+import compression.io.parsing.BaseJsonParser;
 import compression.model.vrp.Client;
 import compression.model.vrp.Location;
 import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
-import compression.parsing.BaseParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class VrpProblemParser extends BaseParser<VrpProblem>
-    implements IVrpProblemParser {
+public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
+    implements IVrpMapProblemParser {
 
     @Override
     protected VrpProblem parseObject(Object object) {

@@ -1,18 +1,16 @@
-package compression.parsing.web;
+package compression.io.parsing.web;
 
+import compression.io.parsing.BaseJsonParser;
 import compression.model.vrp.Instruction;
 import compression.model.vrp.Location;
 import compression.model.vrp.Route;
-import compression.model.vrp.SimpleRoute;
-import compression.parsing.BaseParser;
-import compression.parsing.IParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class GraphHopperResponseParser extends BaseParser<Route>
+public class GraphHopperResponseParser extends BaseJsonParser<Route>
     implements IGraphHopperResponseParser{
 
     @Override

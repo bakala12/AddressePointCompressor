@@ -1,4 +1,4 @@
-package compression.parsing;
+package compression.io.parsing;
 
 public class ParsingException extends RuntimeException {
     public ParsingException(String message){
