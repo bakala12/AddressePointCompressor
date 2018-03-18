@@ -20,9 +20,9 @@ public class CompressionApplication {
         VrpProblem problem = reader.readProblemInstance("/vrp.json");
         System.out.println(problem.getClients().size());
 
-        IGraphHopperService ghService = new GraphHopperService(new GraphHopperResponseParser(), new RouteCacher(new SimpleMemoryStore<>()));
-        Route r1 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
-        Route r2 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
-        System.out.println(r1.equals(r2));
+        //IGraphHopperService ghService = new GraphHopperService(new GraphHopperResponseParser(), new RouteCacher(new SimpleMemoryStore<>()));
+        //Route r1 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
+        //Route r2 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
+        //System.out.println(r1.equals(r2));
     }
 }
