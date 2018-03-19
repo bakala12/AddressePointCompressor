@@ -1,10 +1,10 @@
 package compression.services.distance;
 
-import compression.model.vrp.Distance;
-import compression.model.vrp.Location;
+//import compression.model.vrp.Distance;
+//import compression.model.vrp.Location;
 
-public class DistanceService implements IDistanceService {
-    public Distance getApproximateDistance(Location from, Location to){
+public class DistanceService {//implements IDistanceService {
+    /**public Distance getApproximateDistance(Location from, Location to){
         return new Distance(from, to, distance(from.getLatitude(), from.getLongitude(), to.getLatitude(), to.getLongitude(), "K"));
     }
 
@@ -28,5 +28,5 @@ public class DistanceService implements IDistanceService {
 
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
-    }
+    }**/
 }

@@ -10,7 +10,7 @@ public class Vehicle {
     @Getter
     private double capacity;
     @Getter
-    private Location startLocation;
+    private long startDepotId;
     @Getter
-    private Location endLocation;
+    private long endDepotId;
 }

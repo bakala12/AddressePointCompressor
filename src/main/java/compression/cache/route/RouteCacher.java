@@ -2,7 +2,7 @@ package compression.cache.route;
 
 import compression.cache.store.ICacheStore;
 import compression.model.vrp.Location;
-import compression.model.vrp.Route;
+import compression.model.graphhopper.Route;
 
 public class RouteCacher implements IRouteCacher {
 

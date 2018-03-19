@@ -1,7 +1,7 @@
 package compression.io.parsing.web;
 
-import compression.model.vrp.Route;
 import compression.io.parsing.IParser;
+import compression.model.graphhopper.Route;
 
 public interface IGraphHopperResponseParser extends IParser<Route>{
     Route parse(String json);

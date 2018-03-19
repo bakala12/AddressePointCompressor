@@ -11,4 +11,6 @@ public class VrpProblem {
     private List<Client> clients;
     @Getter
     private List<Vehicle> vehicles;
+    @Getter
+    private List<Depot> depots;
 }

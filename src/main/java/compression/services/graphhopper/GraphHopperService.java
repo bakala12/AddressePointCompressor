@@ -3,8 +3,8 @@ package compression.services.graphhopper;
 import compression.cache.route.IRouteCacher;
 import compression.io.parsing.web.IGraphHopperResponseParser;
 import compression.model.vrp.Location;
-import compression.model.vrp.Route;
-import compression.model.vrp.SimpleRoute;
+import compression.model.graphhopper.Route;
+//import compression.model.vrp.SimpleRoute;
 import compression.model.web.WebResponse;
 import javafx.util.Pair;
 import java.util.LinkedList;
@@ -51,8 +51,8 @@ public class GraphHopperService extends BaseService
         return route;
     }
 
-    @Override
-    public SimpleRoute getSimpleRouteInformation(Location from, Location to) {
-        return getRoute(from, to);
-    }
+    //@Override
+    //public SimpleRoute getSimpleRouteInformation(Location from, Location to) {
+    //    return getRoute(from, to);
+    //}
 }

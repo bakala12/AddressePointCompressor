@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class Distance {
+public class Depot {
     @Getter
-    private Location from;
+    private long id;
     @Getter
-    private Location to;
-    @Getter
-    private double distance;
+    private Location loaction;
 }
