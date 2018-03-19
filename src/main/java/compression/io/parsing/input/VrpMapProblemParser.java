@@ -16,7 +16,7 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
         JSONObject obj = (JSONObject) object;
         JSONObject definitions = (JSONObject)obj.get("Definition");
         JSONArray locationArr = (JSONArray) definitions.get("locations");
-        List<Client> clients = parseLocations(locationArr);
+        List<Client> clients = parseClients(locationArr);
         JSONArray vehicleArr = (JSONArray) definitions.get("vehicles");
         JSONObject installations = (JSONObject) obj.get("Instalations");
         List<Vehicle> vehicles = parseVehicles(vehicleArr);
@@ -24,7 +24,7 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
         return new VrpProblem(clients, vehicles,depots);
     }
 
-    private List<Client> parseLocations(JSONArray locations){
+    private List<Client> parseClients(JSONArray locations){
         List<Client> list = new LinkedList<>();
         for (Object obj : locations) {
             JSONObject location = (JSONObject) obj;
@@ -66,7 +66,7 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
             }
         }
         for(Long id : depotIds){
-            JSONObject locObj = (JSONObject) installation.get(id);
+            JSONObject locObj = (JSONObject) installation.get(id.toString());
             double latitude = (double) locObj.get("x");
             double longitude = (double) locObj.get("y");
             depots.add(new Depot(id,  new Location(latitude, longitude)));
