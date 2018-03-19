@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Depot {
     @Getter
-    private long id;
+    private Long id;
     @Getter
-    private Location loaction;
+    private Long loactionId;
 }

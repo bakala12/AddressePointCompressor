@@ -8,9 +8,17 @@ import java.util.List;
 @AllArgsConstructor
 public class VrpProblem {
     @Getter
+    private String problemName;
+    @Getter
+    private double bestKnownSolution;
+    @Getter
+    private VrpProblemMetric problemMetric;
+    @Getter
     private List<Client> clients;
     @Getter
     private List<Vehicle> vehicles;
     @Getter
     private List<Depot> depots;
+    @Getter
+    private DistanceMatrix distanceMatrix;
 }

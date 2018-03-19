@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Client {
     @Getter
-    private long id;
+    private Long id;
     @Getter
-    public double amount;
+    public Double amount;
     @Getter
-    public double time;
+    public Double time;
     @Getter
-    private Location loaction;
+    private Long loactionId;
 }

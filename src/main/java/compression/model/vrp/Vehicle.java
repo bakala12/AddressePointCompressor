@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Vehicle {
     @Getter
-    private long id;
+    private Long id;
     @Getter
-    private double capacity;
+    private Double capacity;
     @Getter
-    private long startDepotId;
+    private Long startDepotId;
     @Getter
-    private long endDepotId;
+    private Long endDepotId;
 }

@@ -2,9 +2,7 @@ package compression.io.parsing.input;
 
 import compression.io.parsing.ParsingException;
 import compression.model.vrp.VrpProblem;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
+import compression.model.vrp.VrpProblemMetric;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,53 +25,69 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         String line;
         String name = null;
         Double bestSolution = 0.0;
+        Double capacity = 0.0;
+        Integer dimensions = 0;
+        VrpProblemMetric metric = VrpProblemMetric.Unknown;
         while((line = reader.readLine()) != null){
-            ParseResult<String> nameRes = parseName(line);
-            ParseResult<Double> optRes = parseOptimalSolution(line);
-            if(nameRes.hasValue){
-                name = nameRes.data;
+            if(line.startsWith("NAME")){
+                name = parseName(line);
             }
-            if(optRes.hasValue){
-                bestSolution = optRes.data;
+            else if(line.startsWith("COMMENT")){
+                bestSolution = parseBestKnownSolution(line);
             }
+            else if(line.startsWith("DIMENSION")){
+                dimensions = parseDimensions(line);
+            }
+            else if(line.startsWith("CAPACITY")){
+                capacity = parseCapacity(line);
+            }
+            else if(line.startsWith("EDGE_WEIGHT_TYPE")){
+                metric = parseMetrics(line);
+            }
+            else if(line.startsWith("EDGE_WEIGHT_SECTION")){
+                if(metric != VrpProblemMetric.Explicit)
+                    throw new ParsingException("EDGE_WEIGHT_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EXPLICIT");
 
+            }
+            else if(line.startsWith("NODE_COORD_SECTION")){
+
+            }
+            else if(line.startsWith("DEMAND_SECTION")){
+
+            }
+            else if(line.startsWith("DEPOT_SECTION")){
+
+            }
         }
         return null;
     }
 
-    private class ParseResult<TData>{
-        @Getter
-        private TData data;
-        @Getter
-        private boolean hasValue;
-
-        public ParseResult(){
-            hasValue = false;
-        }
-
-        public ParseResult(TData data){
-            hasValue = true;
-            this.data = data;
-        }
+    private String parseName(String line){
+        return line.split(" : ")[1];
     }
 
-    private ParseResult<String> parseName(String line){
-        if(line.startsWith("NAME")){
-            String name = line.split(":")[1];
-            return new ParseResult(name);
-        }
-        return new ParseResult();
+    private Double parseBestKnownSolution(String line){
+        String[] split = line.split(":");
+        String bestKnown = split[split.length-1].replace(")", "");
+        return Double.parseDouble(bestKnown);
     }
 
-    private ParseResult<Double> parseOptimalSolution(String line){
-        if(line.startsWith("COMMENT")){
-            String[] split = line.split(",");
-            String optimalStr = split[2].replace(")", "");
-            String bestSol = optimalStr.split(":")[1];
-            return new ParseResult<Double>(Double.parseDouble(bestSol));
-        }
-        return new ParseResult<>();
+    private Double parseCapacity(String line){
+        return Double.parseDouble(line.split(" : ")[1]);
     }
 
+    private Integer parseDimensions(String line){
+        return Integer.parseInt(line.split(" : ")[1]);
+    }
 
+    private VrpProblemMetric parseMetrics(String line){
+        String metric = line.split(" : ")[1];
+        if(metric.startsWith("EXPLICIT")){
+            return VrpProblemMetric.Explicit;
+        }
+        if(metric.startsWith("EUC2D")){
+            return VrpProblemMetric.Euclidean;
+        }
+        throw new ParsingException("Not supported problem metrics");
+    }
 }
