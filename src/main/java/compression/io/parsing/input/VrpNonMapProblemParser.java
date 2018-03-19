@@ -1,8 +1,7 @@
 package compression.io.parsing.input;
 
-import com.graphhopper.reader.dem.SRTMProvider;
 import compression.io.parsing.ParsingException;
-import compression.model.vrp.VrpNonMapProblem;
+import compression.model.vrp.VrpProblem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,10 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class VrpNonMapProblemParser implements IVrpNonMapProblemParser{
+public class VrpNonMapProblemParser implements IVrpProblemParser{
 
     @Override
-    public VrpNonMapProblem parse(InputStream stream) {
+    public VrpProblem parse(InputStream stream) {
         try(InputStreamReader reader = new InputStreamReader(stream)) {
             try(BufferedReader bufferedReader = new BufferedReader(reader)){
                 return parseReader(bufferedReader);
@@ -24,7 +23,7 @@ public class VrpNonMapProblemParser implements IVrpNonMapProblemParser{
         }
     }
 
-    private VrpNonMapProblem parseReader(BufferedReader reader) throws IOException {
+    private VrpProblem parseReader(BufferedReader reader) throws IOException {
         String line;
         String name = null;
         Double bestSolution = 0.0;

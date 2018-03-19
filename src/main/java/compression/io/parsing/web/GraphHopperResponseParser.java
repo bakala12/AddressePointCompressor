@@ -1,7 +1,7 @@
 package compression.io.parsing.web;
 
 import compression.io.parsing.BaseJsonParser;
-import compression.model.vrp.Instruction;
+import compression.model.graphhopper.Instruction;
 import compression.model.vrp.Location;
 import compression.model.graphhopper.Route;
 import org.json.simple.JSONArray;

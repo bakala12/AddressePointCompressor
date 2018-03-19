@@ -1,6 +1,5 @@
 package compression.model.graphhopper;
 
-import compression.model.vrp.Instruction;
 import compression.model.vrp.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

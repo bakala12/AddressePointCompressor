@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
-    implements IVrpMapProblemParser {
+    implements IVrpProblemParser {
 
     @Override
     protected VrpProblem parseObject(Object object) {
@@ -65,12 +65,12 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
                 depotIds.add(v.getEndDepotId());
             }
         }
-        /*for(Long id : depotIds){
+        for(Long id : depotIds){
             JSONObject locObj = (JSONObject) installation.get(id);
             double latitude = (double) locObj.get("x");
             double longitude = (double) locObj.get("y");
             depots.add(new Depot(id,  new Location(latitude, longitude)));
-        }*/
+        }
         return depots;
     }
 }

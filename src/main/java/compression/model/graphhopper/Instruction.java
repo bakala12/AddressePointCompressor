@@ -1,4 +1,4 @@
-package compression.model.vrp;
+package compression.model.graphhopper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
