@@ -1,0 +1,19 @@
+
+Dsquid:S00108")Either remove or fill this block of code.(Ô‰Êøÿÿÿÿ
+Gsquid:S1481"-Remove this unused "capacity" local variable.(¸úüçøÿÿÿÿ
+Vsquid:S1854"<Remove this useless assignment to local variable "capacity".(¸úüçøÿÿÿÿ
+Xsquid:S1854">Remove this useless assignment to local variable "dimensions".(¢Øìœşÿÿÿÿ
+\squid:S1854"BRemove this useless assignment to local variable "distanceMatrix".(¦˜ó‰úÿÿÿÿ
+Usquid:S1854"@Remove this useless assignment to local variable "bestSolution".(û£°€
+Lsquid:S1854"8Remove this useless assignment to local variable "name".(¶…X
+Ysquid:S1854"=Remove this useless assignment to local variable "locations".(ë‡¦š8ùÑÔœ¤,
+Dsquid:S00108")Either remove or fill this block of code.(Îìâùÿÿÿÿ
+Fsquid:S1481"1Remove this unused "bestSolution" local variable.(ìÊã§
+Usquid:S1854"@Remove this useless assignment to local variable "bestSolution".(ìÊã§
+Qsquid:S1854"<Remove this useless assignment to local variable "capacity".(¤ßÙ 
+Msquid:S1481"3Remove this unused "distanceMatrix" local variable.(¼–“çÿÿÿÿÿ
+Csquid:S1481".Remove this unused "locations" local variable.(¶¦‚è
+Csquid:S1481"/Remove this unused "dimensions" local variable.(’òì'
+Csquid:S1481")Remove this unused "name" local variable.(Ÿ•ï‘ıÿÿÿÿ
+nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(‚Ó¸¾8ùÑÔœ¤,
+Gsquid:S1168"+Return an empty collection instead of null.(¥¹ï8ˆËÚ ¤,

@@ -1,12 +1,15 @@
 package compression.io.parsing.input;
 
 import compression.io.parsing.ParsingException;
+import compression.model.vrp.DistanceMatrix;
+import compression.model.vrp.Location;
 import compression.model.vrp.VrpProblem;
 import compression.model.vrp.VrpProblemMetric;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class VrpNonMapProblemParser implements IVrpProblemParser{
 
@@ -27,7 +30,9 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         Double bestSolution = 0.0;
         Double capacity = 0.0;
         Integer dimensions = 0;
+        DistanceMatrix distanceMatrix = null;
         VrpProblemMetric metric = VrpProblemMetric.Unknown;
+        List<Location> locations = null;
         while((line = reader.readLine()) != null){
             if(line.startsWith("NAME")){
                 name = parseName(line);
@@ -47,10 +52,14 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
             else if(line.startsWith("EDGE_WEIGHT_SECTION")){
                 if(metric != VrpProblemMetric.Explicit)
                     throw new ParsingException("EDGE_WEIGHT_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EXPLICIT");
-
+                else
+                    distanceMatrix = parseDistanceMatrix();
             }
             else if(line.startsWith("NODE_COORD_SECTION")){
-
+                if(metric != VrpProblemMetric.Euclidean)
+                    throw new ParsingException("NODE_COORD_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EUC2D");
+                else
+                    locations = parseLocations();
             }
             else if(line.startsWith("DEMAND_SECTION")){
 
@@ -89,5 +98,13 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
             return VrpProblemMetric.Euclidean;
         }
         throw new ParsingException("Not supported problem metrics");
+    }
+
+    private DistanceMatrix parseDistanceMatrix(){
+        return null;
+    }
+
+    private List<Location> parseLocations(){
+        return null;
     }
 }
