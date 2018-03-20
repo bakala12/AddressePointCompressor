@@ -8,5 +8,5 @@ public class Depot {
     @Getter
     private Long id;
     @Getter
-    private Long loactionId;
+    private Location location;
 }

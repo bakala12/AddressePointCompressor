@@ -18,7 +18,7 @@ public class VrpProblem {
     @Getter
     private List<Vehicle> vehicles;
     @Getter
-    private List<Depot> depots;
+    private Depot depots;
     @Getter
     private DistanceMatrix distanceMatrix;
 }

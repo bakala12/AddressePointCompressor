@@ -1,6 +1,7 @@
 package compression.io.parsing.input;
 
 import compression.io.parsing.BaseJsonParser;
+import compression.io.parsing.ParsingException;
 import compression.model.vrp.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,27 +17,25 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
         JSONObject obj = (JSONObject) object;
         JSONObject definitions = (JSONObject)obj.get("Definition");
         JSONArray locationArr = (JSONArray) definitions.get("locations");
-        List<Location> locations = new LinkedList<>();
-        List<Client> clients = parseClients(locationArr, locations);
+        List<Client> clients = parseClients(locationArr);
         JSONArray vehicleArr = (JSONArray) definitions.get("vehicles");
         JSONObject installations = (JSONObject) obj.get("Instalations");
         List<Vehicle> vehicles = parseVehicles(vehicleArr);
-        List<Depot> depots = parseDepots(vehicles);
-        return new VrpProblem("mapProblem", 0.0, VrpProblemMetric.GraphHopper, clients, vehicles,depots, null);
+        Depot depot = parseDepot(vehicleArr, installations);
+        return new VrpProblem("mapProblem", 0.0, VrpProblemMetric.GraphHopper, clients, vehicles,depot, null);
     }
 
-    private List<Client> parseClients(JSONArray locations, List<Location> locationList){
+    private List<Client> parseClients(JSONArray locations){
         List<Client> list = new LinkedList<>();
-        Long clientId = 1l;
+        Long clientId = 1L;
         for (Object obj : locations) {
             JSONObject location = (JSONObject) obj;
             double latitude = (double) location.get("x");
             double longitude = (double) location.get("y");
             double amount = (double) location.get("massEstimation");
             double time = (double) location.get("timeEstimation");
-            long id = (long) location.get("idLocation");
-            locationList.add(new Location(latitude, longitude));
-            Client loc = new Client(clientId, amount, time, id);
+            Location clientLocation = new Location(latitude, longitude);
+            Client loc = new Client(clientId, amount, time, clientLocation);
             list.add(loc);
         }
         return list;
@@ -46,32 +45,38 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
         List<Vehicle> list = new LinkedList<>();
         for (Object obj : vehicles) {
             JSONObject vehicle = (JSONObject) obj;
-            long startLocationId = (long)vehicle.get("startLocation");
-            JSONObject endLocationObj = (JSONObject)vehicle.get("endBase");
-            long endLocationId = (long) endLocationObj.get("idLocation");
             double capacity = (double)vehicle.get("totalCapacity");
             long id = (long)vehicle.get("idcar");
-            Vehicle veh = new Vehicle(id, capacity, startLocationId, endLocationId);
+            Vehicle veh = new Vehicle(id, capacity);
             list.add(veh);
         }
         return list;
     }
 
-    private List<Depot> parseDepots(List<Vehicle> vehicles){
-        List<Depot> depots = new LinkedList<>();
+    private Depot parseDepot(JSONArray vehicles, JSONObject installation){
         List<Long> depotIds = new LinkedList<>();
-        for(Vehicle v : vehicles){
-            if(!depotIds.contains(v.getStartDepotId())){
-                depotIds.add(v.getStartDepotId());
+        for(Object obj : vehicles){
+            JSONObject vobj = (JSONObject)obj;
+            Long startLocId = (Long)vobj.get("startLocation");
+            JSONObject endLocationObj = (JSONObject)vobj.get("endBase");
+            Long endLocId = (Long) endLocationObj.get("idLocation");
+            if(!depotIds.contains(startLocId)){
+                depotIds.add(startLocId);
             }
-            if(!depotIds.contains(v.getEndDepotId())) {
-                depotIds.add(v.getEndDepotId());
+            if(!depotIds.contains(endLocId)) {
+                depotIds.add(endLocId);
             }
         }
-        Long depotId = 1l;
-        for(Long id : depotIds){
-            depots.add(new Depot(depotId, id));
+        if(depotIds.size()!=1){
+            throw new ParsingException("More than one depot is not supported");
         }
-        return depots;
+        Long locId = depotIds.get(0);
+        JSONObject locationObj = (JSONObject)installation.get(locId.toString());
+        Double x = (Double)locationObj.get("x");
+        Double y = (Double)locationObj.get("y");
+        Location depotLocation = new Location(x,y);
+        return new Depot(1L, depotLocation);
     }
+
+
 }

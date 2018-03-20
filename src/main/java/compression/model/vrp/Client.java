@@ -12,5 +12,5 @@ public class Client {
     @Getter
     public Double time;
     @Getter
-    private Long loactionId;
+    private Location location;
 }

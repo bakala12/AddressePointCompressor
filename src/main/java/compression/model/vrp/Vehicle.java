@@ -9,8 +9,4 @@ public class Vehicle {
     private Long id;
     @Getter
     private Double capacity;
-    @Getter
-    private Long startDepotId;
-    @Getter
-    private Long endDepotId;
 }
