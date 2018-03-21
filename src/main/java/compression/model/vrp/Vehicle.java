@@ -8,7 +8,7 @@ public class Vehicle {
     @Getter
     private Long id;
     @Getter
-    private Double capacity;
+    private Integer capacity;
 
     @Override
     public String toString(){

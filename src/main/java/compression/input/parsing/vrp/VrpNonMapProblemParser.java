@@ -27,7 +27,7 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         String line;
         String name = null;
         Double bestSolution = 0.0;
-        Double capacity = 0.0;
+        Integer capacity = 0;
         Integer dimensions = 0;
         SymmetricalDistanceMatrix distanceMatrix = null;
         VrpProblemMetric metric = VrpProblemMetric.Unknown;
@@ -110,8 +110,8 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         return Double.parseDouble(bestKnown);
     }
 
-    private Double parseCapacity(String line){
-        return Double.parseDouble(line.split(" : ")[1]);
+    private Integer parseCapacity(String line){
+        return Integer.parseInt(line.split(" : ")[1]);
     }
 
     private Integer parseDimensions(String line){
@@ -205,7 +205,7 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         return depotIds;
     }
 
-    private List<Vehicle> convertVehicle(Double capacity){
+    private List<Vehicle> convertVehicle(Integer capacity){
         Vehicle v = new Vehicle(1L, capacity);
         List<Vehicle> list = new LinkedList<>();
         list.add(v);

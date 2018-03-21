@@ -47,7 +47,7 @@ public class VrpMapProblemParser extends BaseJsonParser<VrpProblem>
             JSONObject vehicle = (JSONObject) obj;
             double capacity = (double)vehicle.get("totalCapacity");
             long id = (long)vehicle.get("idcar");
-            Vehicle veh = new Vehicle(id, capacity);
+            Vehicle veh = new Vehicle(id, Double.valueOf(capacity).intValue());
             list.add(veh);
         }
         return list;

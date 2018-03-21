@@ -8,9 +8,9 @@ public class Client {
     @Getter
     private Long id;
     @Getter
-    public Double amount;
+    private Double amount;
     @Getter
-    public Double time;
+    private Double time;
     @Getter
     private Location location;
 
