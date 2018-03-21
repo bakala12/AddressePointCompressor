@@ -148,8 +148,11 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
                 }
                 if(to>=dimensions) {
                     from++;
+                    to = from+1;
                     to %= dimensions;
                 }
+                if(to == 0)
+                    throw new ParsingException("Invalid distance matrix");
                 distanceMatrix.setDistance(from, to, dist);
                 num++;
                 to++;

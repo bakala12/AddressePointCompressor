@@ -28,7 +28,7 @@ public class VrpProblemWriter {
             for(Long from = 1L; from < problem.getDistanceMatrix().getDimensions(); from++){
                 for(Long to = 1L; to < from; to++){
                     Double dist = problem.getDistanceMatrix().getDistance(from, to);
-                    System.out.print((dist != null) ? dist : 0.0);
+                    System.out.print(from+" -> "+to+":"+dist+" ");
                     System.out.print("\t");
                 }
                 System.out.println();
