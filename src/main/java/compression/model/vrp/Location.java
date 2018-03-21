@@ -12,6 +12,6 @@ public class Location {
 
     @Override
     public String toString(){
-        return "("+longitude+","+latitude+")";
+        return "("+latitude+","+longitude+")";
     }
 }

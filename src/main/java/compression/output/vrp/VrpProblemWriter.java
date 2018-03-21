@@ -25,10 +25,10 @@ public class VrpProblemWriter {
         System.out.println("DEPOT: "+ problem.getDepot());
         if(problem.getProblemMetric() == VrpProblemMetric.Explicit){
             System.out.println("DISTANCE MATRIX: ");
-            for(Long from = 1L; from < problem.getDistanceMatrix().getDimensions(); from++){
+            for(Long from = 2L; from <= problem.getDistanceMatrix().getDimensions(); from++){
                 for(Long to = 1L; to < from; to++){
                     Double dist = problem.getDistanceMatrix().getDistance(from, to);
-                    System.out.print(from+" -> "+to+":"+dist+" ");
+                    System.out.print(dist);
                     System.out.print("\t");
                 }
                 System.out.println();

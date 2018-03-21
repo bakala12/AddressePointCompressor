@@ -123,7 +123,7 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         if(metric.startsWith("EXPLICIT")){
             return VrpProblemMetric.Explicit;
         }
-        if(metric.startsWith("EUC2D")){
+        if(metric.startsWith("EUC_2D")){
             return VrpProblemMetric.Euclidean;
         }
         throw new ParsingException("Not supported problem metrics");
@@ -196,8 +196,10 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
     private List<Integer> parseDepots(BufferedReader bufferedReader) throws IOException {
         List<Integer> depotIds = new LinkedList<>();
         String line;
-        while((line = bufferedReader.readLine()) != null && !line.equals("-1")){
-            Integer id = Integer.parseInt(line);
+        while((line = bufferedReader.readLine()) != null){
+            Integer id = Integer.parseInt(line.replace(" ", ""));
+            if(id < 0)
+                break;
             depotIds.add(id);
         }
         return depotIds;
