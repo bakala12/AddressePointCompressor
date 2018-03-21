@@ -1,14 +1,13 @@
 package compression.io.parsing.input;
 
 import compression.io.parsing.ParsingException;
-import compression.model.vrp.DistanceMatrix;
-import compression.model.vrp.Location;
-import compression.model.vrp.VrpProblem;
-import compression.model.vrp.VrpProblemMetric;
+import compression.model.vrp.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.List;
 
 public class VrpNonMapProblemParser implements IVrpProblemParser{
@@ -30,9 +29,11 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         Double bestSolution = 0.0;
         Double capacity = 0.0;
         Integer dimensions = 0;
-        DistanceMatrix distanceMatrix = null;
+        SymmetricalDistanceMatrix distanceMatrix = null;
         VrpProblemMetric metric = VrpProblemMetric.Unknown;
-        List<Location> locations = null;
+        Location[] locations = null;
+        Double[] demands = null;
+        List<Integer> depotIds = null;
         while((line = reader.readLine()) != null){
             if(line.startsWith("NAME")){
                 name = parseName(line);
@@ -53,22 +54,42 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
                 if(metric != VrpProblemMetric.Explicit)
                     throw new ParsingException("EDGE_WEIGHT_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EXPLICIT");
                 else
-                    distanceMatrix = parseDistanceMatrix();
+                    distanceMatrix = parseDistanceMatrix(reader, dimensions);
             }
             else if(line.startsWith("NODE_COORD_SECTION")){
                 if(metric != VrpProblemMetric.Euclidean)
                     throw new ParsingException("NODE_COORD_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EUC2D");
-                else
-                    locations = parseLocations();
+                else{
+                    if(dimensions == 0)
+                        throw new ParsingException("Invalid dimensions");
+                    locations = parseLocations(reader, dimensions);
+                }
             }
             else if(line.startsWith("DEMAND_SECTION")){
-
+                if(dimensions == 0)
+                    throw new ParsingException("Invalid dimensions");
+                demands = parseDemands(reader, dimensions);
             }
             else if(line.startsWith("DEPOT_SECTION")){
-
+                depotIds = parseDepots(reader);
+            }
+            else if(line.trim() == ""){
+                continue;
+            }
+            else if(line == "EOF"){
+                break;
+            }
+            else{
+                throw new ParsingException("Invalid input file format");
             }
         }
-        return null;
+        List<Vehicle> vehicles = convertVehicle(capacity);
+        if(depotIds.size() != 1){
+            throw new ParsingException("Only one depot is supported");
+        }
+        Depot depot = convertDepot(depotIds.get(0), locations);
+        List<Client> clients = convertClients(depotIds.get(0), demands, locations);
+        return new VrpProblem(name, bestSolution, metric, clients, vehicles, depot, distanceMatrix);
     }
 
     private String parseName(String line){
@@ -100,11 +121,88 @@ public class VrpNonMapProblemParser implements IVrpProblemParser{
         throw new ParsingException("Not supported problem metrics");
     }
 
-    private DistanceMatrix parseDistanceMatrix(){
-        return null;
+    private SymmetricalDistanceMatrix parseDistanceMatrix(BufferedReader reader, Integer dimensions) throws IOException {
+        Integer remainingLocations = dimensions*(dimensions-1)/2;
+        SymmetricalDistanceMatrix distanceMatrix = new SymmetricalDistanceMatrix(dimensions);
+        Integer num = 0;
+        while (num < remainingLocations){
+            String[] items = reader.readLine().split(" ");
+            if(items.length == 0)
+                throw new ParsingException("Invalid distance matrix line");
+            for(String i : items){
+                Double dist = Double.parseDouble(i);
+                distanceMatrix.setDistance(num/dimensions, num%dimensions, dist);
+                num++;
+            }
+        }
+        return distanceMatrix;
     }
 
-    private List<Location> parseLocations(){
-        return null;
+    private Location[] parseLocations(BufferedReader reader, Integer dimensions) throws IOException {
+        List<Location> locations = new LinkedList<>();
+        for(int i=1; i<=dimensions; i++){
+            String[] items = reader.readLine().split(" ");
+            if(items.length != 3){
+                throw new ParsingException("Invalid location");
+            }
+            Integer id = Integer.parseInt(items[0]);
+            Double latitude = Double.parseDouble(items[1]);
+            Double longitude = Double.parseDouble(items[2]);
+            if(id != i)
+                throw new ParsingException("Invalid location id");
+            locations.add(new Location(latitude, longitude));
+        }
+        return locations.toArray(new Location[locations.size()]);
+    }
+
+    private Double[] parseDemands(BufferedReader reader, Integer dimensions) throws IOException {
+        List<Double> demands = new LinkedList<>();
+        for(int i=1; i<= dimensions; i++){
+            String[] items = reader.readLine().split(" ");
+            if(items.length != 2)
+                throw new ParsingException("Invalid demand");
+            Integer id = Integer.parseInt(items[0]);
+            Double demand = Double.parseDouble(items[1]);
+            if(id != i)
+                throw new ParsingException("Invalid demand id");
+            demands.add(demand);
+        }
+        return demands.toArray(new Double[demands.size()]);
+    }
+
+    private List<Integer> parseDepots(BufferedReader bufferedReader) throws IOException {
+        List<Integer> depotIds = new LinkedList<>();
+        String line;
+        while((line = bufferedReader.readLine()) != "-1"){
+            Integer id = Integer.parseInt(line);
+            depotIds.add(id);
+        }
+        return depotIds;
+    }
+
+    private List<Vehicle> convertVehicle(Double capacity){
+        Vehicle v = new Vehicle(1L, capacity);
+        List<Vehicle> list = new LinkedList<>();
+        list.add(v);
+        return list;
+    }
+
+    private Depot convertDepot(Integer depotLocationId, Location[] locations){
+        return new Depot(1L, locations[depotLocationId-1]);
+    }
+
+    private List<Client> convertClients(Integer depotLocationId, Double[] demands, Location[] locations){
+        List<Client> clients = new LinkedList<>();
+        Long id = 2L;
+        for(int i=0; i<demands.length; i++){
+            if(i == depotLocationId-1){
+                if(demands[i]>0)
+                    throw new ParsingException("Cannot set demand to depot");
+                continue;
+            }
+            clients.add(new Client(id, demands[i], 0.0, locations[i]));
+            id++;
+        }
+        return clients;
     }
 }

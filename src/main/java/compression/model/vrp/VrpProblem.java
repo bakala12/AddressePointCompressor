@@ -20,5 +20,5 @@ public class VrpProblem {
     @Getter
     private Depot depots;
     @Getter
-    private DistanceMatrix distanceMatrix;
+    private SymmetricalDistanceMatrix distanceMatrix;
 }
