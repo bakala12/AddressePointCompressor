@@ -13,4 +13,9 @@ public class Client {
     public Double time;
     @Getter
     private Location location;
+
+    @Override
+    public String toString(){
+        return "ID: "+id+" Amount: "+amount+" Time: "+ time + " Location: " + location;
+    }
 }

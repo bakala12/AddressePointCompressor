@@ -12,13 +12,15 @@ public class VrpProblem {
     @Getter
     private double bestKnownSolution;
     @Getter
+    private int dimensions;
+    @Getter
     private VrpProblemMetric problemMetric;
     @Getter
     private List<Client> clients;
     @Getter
     private List<Vehicle> vehicles;
     @Getter
-    private Depot depots;
+    private Depot depot;
     @Getter
     private SymmetricalDistanceMatrix distanceMatrix;
 }

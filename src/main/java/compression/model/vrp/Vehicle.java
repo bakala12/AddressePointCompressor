@@ -9,4 +9,9 @@ public class Vehicle {
     private Long id;
     @Getter
     private Double capacity;
+
+    @Override
+    public String toString(){
+        return "ID: "+id+" CAPACITY: "+capacity;
+    }
 }

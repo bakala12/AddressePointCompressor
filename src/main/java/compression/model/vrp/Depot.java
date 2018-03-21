@@ -9,4 +9,9 @@ public class Depot {
     private Long id;
     @Getter
     private Location location;
+
+    @Override
+    public String toString(){
+        return "ID: "+id+" LOCATION: "+location;
+    }
 }

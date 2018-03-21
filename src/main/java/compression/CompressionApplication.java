@@ -1,19 +1,21 @@
 package compression;
 
-import compression.io.IProblemReader;
-import compression.io.VrpProblemReader;
-import compression.io.parsing.input.VrpMapProblemParser;
+import compression.input.IProblemReader;
+import compression.input.VrpProblemReader;
+import compression.input.parsing.vrp.VrpNonMapProblemParser;
 import compression.model.vrp.VrpProblem;
+import compression.output.vrp.VrpProblemWriter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class CompressionApplication {
 
     public void run(){
-        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/vrp.json");
-        System.out.println(problem.getClients().size());
+        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
+        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n13-k4.vrp");
 
+        VrpProblemWriter writer = new VrpProblemWriter();
+        writer.writeProblem(problem);
         //IGraphHopperService ghService = new GraphHopperService(new GraphHopperResponseParser(), new RouteCacher(new SimpleMemoryStore<>()));
         //Route r1 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
         //Route r2 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));

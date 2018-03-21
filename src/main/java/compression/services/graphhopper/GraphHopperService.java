@@ -1,7 +1,7 @@
 package compression.services.graphhopper;
 
 import compression.cache.route.IRouteCacher;
-import compression.io.parsing.web.IGraphHopperResponseParser;
+import compression.input.parsing.web.IGraphHopperResponseParser;
 import compression.model.vrp.Location;
 import compression.model.graphhopper.Route;
 //import compression.model.vrp.SimpleRoute;
