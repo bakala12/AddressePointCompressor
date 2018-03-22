@@ -19,8 +19,9 @@ public class JSpritService implements IJSpritService {
             VehicleTypeImpl vti = vtb.build();
             VehicleImpl.Builder vb = VehicleImpl.Builder.newInstance(veh.getId().toString());
             vb.setType(vti);
+            //there is no way to specify a depot -> vehicle start location is depot location
+            vb.setStartLocation(Location.newInstance(problem.getDepot().getLocation().getLatitude(), problem.getDepot().getLocation().getLongitude()));
             VehicleImpl vimpl = vb.build();
-            //TODO::start location, end location
             problemBuilder.addVehicle(vimpl);
         }
         //clients
@@ -32,7 +33,7 @@ public class JSpritService implements IJSpritService {
                     .build();
             problemBuilder.addJob(s);
         }
-        //depot
+        VehicleRoutingProblem vrp = problemBuilder.build();
         
     }
 }
