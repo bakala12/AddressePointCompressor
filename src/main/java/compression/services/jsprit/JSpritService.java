@@ -1,15 +1,21 @@
 package compression.services.jsprit;
 
+import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
+import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Service;
+import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
 import compression.model.vrp.Client;
 import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
 
+import java.util.Collection;
+
 public class JSpritService implements IJSpritService {
+    @Override
     public void solve(VrpProblem problem){
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
         //vehicle
@@ -34,6 +40,10 @@ public class JSpritService implements IJSpritService {
             problemBuilder.addJob(s);
         }
         VehicleRoutingProblem vrp = problemBuilder.build();
-        
+        VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
+        Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
+        for (VehicleRoutingProblemSolution sol: solutions) {
+            System.out.println(sol.getCost());
+        }
     }
 }

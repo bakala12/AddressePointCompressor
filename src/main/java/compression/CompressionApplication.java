@@ -5,6 +5,8 @@ import compression.input.VrpProblemReader;
 import compression.input.parsing.vrp.VrpNonMapProblemParser;
 import compression.model.vrp.VrpProblem;
 import compression.output.vrp.VrpProblemWriter;
+import compression.services.jsprit.IJSpritService;
+import compression.services.jsprit.JSpritService;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -16,6 +18,9 @@ public class CompressionApplication {
 
         VrpProblemWriter writer = new VrpProblemWriter();
         writer.writeProblem(problem);
+
+        IJSpritService jSpritService = new JSpritService();
+        jSpritService.solve(problem);
         //IGraphHopperService ghService = new GraphHopperService(new GraphHopperResponseParser(), new RouteCacher(new SimpleMemoryStore<>()));
         //Route r1 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
         //Route r2 = ghService.getRoute(problem.getClients().get(0), problem.getClients().get(1));
