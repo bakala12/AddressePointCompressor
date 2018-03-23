@@ -18,7 +18,7 @@ public class CompressionApplication {
 
     public void run(){
         IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n22-k4.vrp");
+        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n13-k4.vrp");
 
         VrpProblemWriter writer = new VrpProblemWriter();
         writer.writeProblem(problem);

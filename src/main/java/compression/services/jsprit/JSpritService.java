@@ -13,6 +13,7 @@ import compression.model.vrp.Client;
 import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
 import compression.services.jsprit.conversion.EuclideanMetricVrpProblemToJSpritConverter;
+import compression.services.jsprit.conversion.ExplicitMetricVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.IVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.ProblemConversionException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -28,7 +29,7 @@ public class JSpritService implements IJSpritService {
                 case Euclidean:
                     return new EuclideanMetricVrpProblemToJSpritConverter();
                 case Explicit:
-                    throw  new NotImplementedException();
+                    return new ExplicitMetricVrpProblemToJSpritConverter();
                 case GraphHopper:
                     throw new NotImplementedException();
                 default:
