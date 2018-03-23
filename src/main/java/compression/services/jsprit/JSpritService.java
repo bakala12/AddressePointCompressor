@@ -8,42 +8,46 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
 import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
+import compression.model.jsprit.VrpSolution;
 import compression.model.vrp.Client;
 import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
+import compression.services.jsprit.conversion.EuclideanMetricVrpProblemToJSpritConverter;
+import compression.services.jsprit.conversion.IVrpProblemToJSpritConverter;
+import compression.services.jsprit.conversion.ProblemConversionException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class JSpritService implements IJSpritService {
+    private static class JSpritConvertersFactory{
+        public static IVrpProblemToJSpritConverter getConverter(VrpProblem problem) {
+            switch (problem.getProblemMetric()){
+                case Euclidean:
+                    return new EuclideanMetricVrpProblemToJSpritConverter();
+                case Explicit:
+                    throw  new NotImplementedException();
+                case GraphHopper:
+                    throw new NotImplementedException();
+                default:
+                    throw new ProblemConversionException("Unsupported or unknown problem metrics");
+            }
+        }
+    }
+
     @Override
-    public void solve(VrpProblem problem){
-        VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
-        //vehicle
-        for(Vehicle veh : problem.getVehicles()){
-            VehicleTypeImpl.Builder vtb = VehicleTypeImpl.Builder.newInstance(veh.getId().toString());
-            vtb.addCapacityDimension(0, veh.getCapacity());
-            VehicleTypeImpl vti = vtb.build();
-            VehicleImpl.Builder vb = VehicleImpl.Builder.newInstance(veh.getId().toString());
-            vb.setType(vti);
-            //there is no way to specify a depot -> vehicle start location is depot location
-            vb.setStartLocation(Location.newInstance(problem.getDepot().getLocation().getLatitude(), problem.getDepot().getLocation().getLongitude()));
-            VehicleImpl vimpl = vb.build();
-            problemBuilder.addVehicle(vimpl);
-        }
-        //clients
-        for(Client cl : problem.getClients()){
-            Service s = Service.Builder.newInstance(cl.getId().toString())
-                    .setLocation(Location.newInstance(cl.getLocation().getLatitude(), cl.getLocation().getLongitude()))
-                    .addSizeDimension(0, cl.getAmount().intValue()) //TODO:: INT VALUE
-                    .setServiceTime(cl.getTime())
-                    .build();
-            problemBuilder.addJob(s);
-        }
-        VehicleRoutingProblem vrp = problemBuilder.build();
+    public Collection<VrpSolution> solve(VrpProblem problem){
+        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
+        VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
+
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        for (VehicleRoutingProblemSolution sol: solutions) {
-            System.out.println(sol.getCost());
+        List<VrpSolution> solutionToReturn = new LinkedList<>();
+        for(VehicleRoutingProblemSolution sol: solutions){
+            solutionToReturn.add(new VrpSolution(sol.getCost()));
         }
+        return solutionToReturn;
     }
 }
