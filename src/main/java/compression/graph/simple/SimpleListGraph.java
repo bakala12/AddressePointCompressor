@@ -1,30 +1,31 @@
 package compression.graph.simple;
 
+import compression.graph.IEdge;
 import compression.graph.IGraph;
+import compression.graph.IVertex;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SimpleListGraph<T>
-        extends SimpleGraph<T>
-        implements IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> {
+public class SimpleListGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>>
+        extends SimpleGraph<TVertex, TEdge> {
 
-    private final List<SimpleEdge<SimpleVertex<T>>>[] edges;
+    private final List<TEdge>[] edges;
 
-    public SimpleListGraph(Collection<T> items){
+    public SimpleListGraph(Collection<TVertex> items){
         super(items);
-        edges = (List<SimpleEdge<SimpleVertex<T>>>[]) new Object[verticesCount];
+        edges = (List<TEdge>[]) new Object[verticesCount];
         for(int i =0; i<verticesCount; i++){
             edges[i] = new LinkedList<>();
         }
     }
 
     @Override
-    public List<SimpleEdge<SimpleVertex<T>>> getAllEdges() {
-        LinkedList<SimpleEdge<SimpleVertex<T>>> edgeList = new LinkedList<>();
+    public List<TEdge> getAllEdges() {
+        LinkedList<TEdge> edgeList = new LinkedList<>();
         for(int from = 0; from<verticesCount; from++){
-            for(SimpleEdge<SimpleVertex<T>> e : edges[from]){
+            for(TEdge e : edges[from]){
                 if(e != null)
                     edgeList.add(e);
             }
@@ -33,15 +34,15 @@ public class SimpleListGraph<T>
     }
 
     @Override
-    public void addEdge(SimpleEdge<SimpleVertex<T>> edge) {
+    public void addEdge(TEdge edge) {
         int from = verticesMap.get(edge.getFrom());
-        List<SimpleEdge<SimpleVertex<T>>> neighbours = edges[from];
+        List<TEdge> neighbours = edges[from];
         neighbours.remove(edge);
         neighbours.add(edge);
     }
 
     @Override
-    public IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> emptyGraph() {
-        return new SimpleListGraph<T>(this.items);
+    public IGraph<TVertex, TEdge> emptyGraph() {
+        return new SimpleListGraph<>(this.items);
     }
 }

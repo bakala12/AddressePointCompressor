@@ -1,23 +1,25 @@
 package compression.graph.simple;
 
+import compression.graph.IEdge;
 import compression.graph.IGraph;
+import compression.graph.IVertex;
 
 import java.util.*;
 
-public abstract class SimpleGraph<T> implements IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> {
+public abstract class SimpleGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>>
+        implements IGraph<TVertex, TEdge> {
 
-    protected final List<SimpleVertex<T>> vertices;
-    protected final Map<SimpleVertex<T>, Integer> verticesMap = new HashMap<>();
+    protected final List<TVertex> vertices;
+    protected final Map<TVertex, Integer> verticesMap = new HashMap<>();
     protected final int verticesCount;
-    protected final Collection<T> items;
+    protected final Collection<TVertex> items;
 
-    protected SimpleGraph(Collection<T> items){
+    protected SimpleGraph(Collection<TVertex> items){
         this.items = items;
         verticesCount = items.size();
         vertices = new LinkedList<>();
         int num = 0;
-        for(T i : items){
-            SimpleVertex<T> v = new SimpleVertex<>(i);
+        for(TVertex v : items){
             vertices.add(v);
             verticesMap.put(v, num);
             num++;
@@ -25,16 +27,16 @@ public abstract class SimpleGraph<T> implements IGraph<SimpleVertex<T>, SimpleEd
     }
 
     @Override
-    public List<SimpleVertex<T>> getAllVertices() {
+    public List<TVertex> getAllVertices() {
         return vertices;
     }
 
     @Override
-    public abstract List<SimpleEdge<SimpleVertex<T>>> getAllEdges();
+    public abstract List<TEdge> getAllEdges();
 
     @Override
-    public abstract void addEdge(SimpleEdge<SimpleVertex<T>> edge);
+    public abstract void addEdge(TEdge edge);
 
     @Override
-    public abstract IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> emptyGraph();
+    public abstract IGraph<TVertex, TEdge> emptyGraph();
 }

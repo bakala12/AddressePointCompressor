@@ -1,26 +1,27 @@
 package compression.graph.simple;
 
+import compression.graph.IEdge;
 import compression.graph.IGraph;
+import compression.graph.IVertex;
 
 import java.util.*;
 
-public class SimpleMatrixGraph<T>
-        extends SimpleGraph<T>
-        implements IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> {
+public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>>
+        extends SimpleGraph<TVertex, TEdge> {
 
-    private final SimpleEdge<SimpleVertex<T>>[][] edges;
+    private final TEdge[][] edges;
 
-    public SimpleMatrixGraph(Collection<T> items){
+    public SimpleMatrixGraph(Collection<TVertex> items){
         super(items);
-        edges = (SimpleEdge<SimpleVertex<T>>[][]) new Object[verticesCount][verticesCount];
+        edges = (TEdge[][]) new Object[verticesCount][verticesCount];
     }
 
     @Override
-    public List<SimpleEdge<SimpleVertex<T>>> getAllEdges() {
-        LinkedList<SimpleEdge<SimpleVertex<T>>> edgeList = new LinkedList<>();
+    public List<TEdge> getAllEdges() {
+        LinkedList<TEdge> edgeList = new LinkedList<>();
         for(int from = 0; from<verticesCount; from++){
             for(int to = 0; to<verticesCount; to++){
-                SimpleEdge<SimpleVertex<T>> e = edges[from][to];
+                TEdge e = edges[from][to];
                 if(e != null)
                     edgeList.add(e);
             }
@@ -29,14 +30,14 @@ public class SimpleMatrixGraph<T>
     }
 
     @Override
-    public void addEdge(SimpleEdge<SimpleVertex<T>> edge) {
+    public void addEdge(TEdge edge) {
         int from = verticesMap.get(edge.getFrom());
         int to = verticesMap.get(edge.getTo());
         edges[from][to] = edge;
     }
 
     @Override
-    public IGraph<SimpleVertex<T>, SimpleEdge<SimpleVertex<T>>> emptyGraph(){
+    public IGraph<TVertex, TEdge> emptyGraph(){
         return new SimpleMatrixGraph<>(this.items);
     }
 }

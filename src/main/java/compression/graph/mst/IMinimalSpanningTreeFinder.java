@@ -1,4 +1,4 @@
-package compression.services.algorithm;
+package compression.graph.mst;
 
 import compression.graph.IEdge;
 import compression.graph.IGraph;

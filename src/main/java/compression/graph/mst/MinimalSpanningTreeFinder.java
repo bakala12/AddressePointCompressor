@@ -1,4 +1,4 @@
-package compression.services.algorithm;
+package compression.graph.mst;
 
 import compression.model.disjointset.DisjointSet;
 import compression.graph.IEdge;
