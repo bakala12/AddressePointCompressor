@@ -31,7 +31,7 @@ public class EuclideanMetricVrpProblemToJSpritConverter implements IVrpProblemTo
         }
 
         for(Client cl : problem.getClients()){
-            Service s = Service.Builder.newInstance(cl.getId().toString())
+            Service s = Service.Builder.newInstance(Long.toString(cl.getId()-1))
                     .setLocation(Location.newInstance(cl.getLocation().getLatitude(), cl.getLocation().getLongitude()))
                     .addSizeDimension(0, cl.getAmount().intValue()) //TODO:: INT VALUE
                     .setServiceTime(cl.getTime())
