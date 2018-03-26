@@ -1,9 +1,11 @@
 package compression.output.vrp;
 
+import compression.model.jsprit.SolutionRoute;
 import compression.model.jsprit.VrpSolution;
 import compression.model.vrp.VrpProblem;
 
 import java.util.Collection;
+import java.util.List;
 
 public class VrpSolutionWriter {
     public void writeSolution(VrpProblem problem, Collection<VrpSolution> solutions){
@@ -13,6 +15,23 @@ public class VrpSolutionWriter {
         for(VrpSolution sol : solutions){
             System.out.println("SOLUTION " + num + " COST: "+ sol.getCost());
             num++;
+            System.out.println();
+        }
+    }
+
+    public void writeRoutes(List<SolutionRoute> solutionRoutes){
+        int routeNum = 1;
+        for(SolutionRoute route : solutionRoutes){
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append("ROUTE"+routeNum+": ");
+            stringBuffer.append(route.getStartId()+" -> ");
+            for(Long cl : route.getClientIds()){
+                stringBuffer.append(cl);
+                stringBuffer.append(" -> ");
+            }
+            stringBuffer.append(route.getEndId());
+            System.out.println(stringBuffer.toString());
+            routeNum++;
         }
     }
 }

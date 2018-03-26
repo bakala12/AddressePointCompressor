@@ -38,7 +38,6 @@ public class EuclideanMetricVrpProblemToJSpritConverter implements IVrpProblemTo
                     .build();
             problemBuilder.addJob(s);
         }
-
         return problemBuilder.build();
     }
 }
