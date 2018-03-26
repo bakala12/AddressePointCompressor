@@ -1,10 +1,8 @@
 package compression.services.jsprit;
 
-import compression.model.jsprit.VrpSolution;
+import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 
-import java.util.Collection;
-
 public interface IJSpritService {
-    Collection<VrpSolution> solve(VrpProblem problem);
+    VrpProblemSolution solve(VrpProblem problem);
 }

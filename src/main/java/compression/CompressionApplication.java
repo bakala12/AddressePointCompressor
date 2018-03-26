@@ -1,12 +1,13 @@
 package compression;
 
+import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
+import com.graphhopper.jsprit.core.util.Solutions;
 import compression.input.IProblemReader;
 import compression.input.VrpProblemReader;
 import compression.input.parsing.vrp.VrpNonMapProblemParser;
-import compression.model.jsprit.VrpSolution;
+import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.vrp.VrpProblemWriter;
-import compression.output.vrp.VrpSolutionWriter;
 import compression.services.jsprit.IJSpritService;
 import compression.services.jsprit.JSpritService;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,9 @@ public class CompressionApplication {
         writer.writeProblem(problem);
 
         IJSpritService jSpritService = new JSpritService();
-        Collection<VrpSolution> solutions = jSpritService.solve(problem);
+        VrpProblemSolution solution = jSpritService.solve(problem);
 
-        VrpSolutionWriter solutionWriter = new VrpSolutionWriter();
-        solutionWriter.writeSolution(problem, solutions);
+        SolutionPrinter.print(solution.getProblem(), Solutions.bestOf(solution.getSolutions()), SolutionPrinter.Print.VERBOSE);
+
     }
 }
