@@ -30,13 +30,4 @@ public abstract class SimpleGraph<TVertex extends IVertex, TEdge extends IEdge<T
     public List<TVertex> getAllVertices() {
         return vertices;
     }
-
-    @Override
-    public abstract List<TEdge> getAllEdges();
-
-    @Override
-    public abstract void addEdge(TEdge edge);
-
-    @Override
-    public abstract IGraph<TVertex, TEdge> emptyGraph();
 }
