@@ -1,9 +1,9 @@
-package compression.services.aggregation.nonmap;
+package compression.services.compression.nonmap;
 
 import compression.model.vrp.*;
-import compression.services.aggregation.IProblemToGraphConverter;
-import compression.services.aggregation.ProblemGraph;
-import compression.services.aggregation.nonmap.graph.LocationGraph;
+import compression.services.compression.IProblemToGraphConverter;
+import compression.services.compression.ProblemGraph;
+import compression.services.compression.nonmap.graph.LocationGraph;
 
 import java.util.LinkedList;
 import java.util.List;

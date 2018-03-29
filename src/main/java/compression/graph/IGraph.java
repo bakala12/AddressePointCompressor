@@ -1,5 +1,6 @@
 package compression.graph;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>> {
@@ -7,4 +8,5 @@ public interface IGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>> {
     List<TEdge> getAllEdges();
     void addEdge(TEdge edge);
     IGraph<TVertex, TEdge> emptyGraph();
+    Collection<TEdge> getEdgesFrom(IVertex vertex);
 }

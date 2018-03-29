@@ -1,4 +1,4 @@
-package compression.services.aggregation.nonmap.graph;
+package compression.services.compression.nonmap.graph;
 
 import compression.graph.IGraph;
 import compression.graph.simple.SimpleListGraph;
@@ -8,6 +8,8 @@ import compression.model.vrp.Location;
 import java.util.*;
 
 public class LocationGraph extends SimpleMatrixGraph<LocationVertex, LocationEdge>{
+
+    private final Map<Location, LocationVertex> locationMap = new HashMap<>();
 
     private static Collection<LocationVertex> convert(Collection<Location> locations){
         List<LocationVertex> loc = new LinkedList<>();
@@ -19,6 +21,9 @@ public class LocationGraph extends SimpleMatrixGraph<LocationVertex, LocationEdg
 
     public LocationGraph(Collection<Location> items) {
         super(convert(items));
+        for(LocationVertex l : getAllVertices()){
+            locationMap.put(l.getLocation(), l);
+        }
     }
 
     @Override
@@ -32,5 +37,9 @@ public class LocationGraph extends SimpleMatrixGraph<LocationVertex, LocationEdg
 
     public void addEuclideanEdge(Location from, Location to){
         addEdge(new LocationEdge(from, to));
+    }
+
+    public LocationVertex getVertex(Location location){
+        return locationMap.get(location);
     }
 }

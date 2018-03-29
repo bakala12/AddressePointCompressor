@@ -4,6 +4,7 @@ import compression.graph.IEdge;
 import compression.graph.IGraph;
 import compression.graph.IVertex;
 
+import javax.swing.text.EditorKit;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,5 +45,11 @@ public class SimpleListGraph<TVertex extends IVertex, TEdge extends IEdge<TVerte
     @Override
     public IGraph<TVertex, TEdge> emptyGraph() {
         return new SimpleListGraph<>(this.items);
+    }
+
+    @Override
+    public List<TEdge> getEdgesFrom(IVertex vertex) {
+        int v = verticesMap.get(vertex);
+        return this.edges[v];
     }
 }

@@ -1,4 +1,4 @@
-package compression.services.aggregation;
+package compression.services.compression;
 
 import compression.graph.IGraph;
 import compression.model.vrp.VrpProblem;

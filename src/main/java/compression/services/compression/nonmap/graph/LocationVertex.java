@@ -1,4 +1,4 @@
-package compression.services.aggregation.nonmap.graph;
+package compression.services.compression.nonmap.graph;
 
 import compression.graph.IVertex;
 import compression.model.vrp.Location;

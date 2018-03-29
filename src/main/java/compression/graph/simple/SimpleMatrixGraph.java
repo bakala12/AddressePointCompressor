@@ -13,7 +13,7 @@ public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVer
 
     public SimpleMatrixGraph(Collection<TVertex> items){
         super(items);
-        edges = (TEdge[][]) new Object[verticesCount][verticesCount];
+        //edges = (TEdge[][]) new Object[verticesCount][verticesCount];
     }
 
     @Override
@@ -39,5 +39,18 @@ public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVer
     @Override
     public IGraph<TVertex, TEdge> emptyGraph(){
         return new SimpleMatrixGraph<>(this.items);
+    }
+
+    @Override
+    public Collection<TEdge> getEdgesFrom(IVertex vertex) {
+        List<TEdge> edges = new LinkedList<>();
+        int v = verticesMap.get(vertex);
+        for(int i=0; i<verticesCount; i++){
+            TEdge e = this.edges[v][i];
+            if(e != null){
+                edges.add(e);
+            }
+        }
+        return edges;
     }
 }
