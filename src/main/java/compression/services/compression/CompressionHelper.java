@@ -40,7 +40,8 @@ public final class CompressionHelper {
             findBranches(tree, outEdges.get(0).getTo(), visited, currentBranch, allBranches);
         }
         else {
-            allBranches.add(currentBranch);
+            if(currentBranch.size()>1)
+                allBranches.add(currentBranch);
             for(TEdge edge : outEdges){
                 List<TVertex> branch = new LinkedList<>();
                 branch.add(current);

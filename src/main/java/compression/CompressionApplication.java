@@ -1,6 +1,5 @@
 package compression;
 
-import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import compression.graph.mst.MinimalSpanningTreeFinder;
