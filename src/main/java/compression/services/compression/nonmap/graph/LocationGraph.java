@@ -20,7 +20,7 @@ public class LocationGraph extends SimpleMatrixGraph<LocationVertex, LocationEdg
     }
 
     public LocationGraph(Collection<Location> items) {
-        super(convert(items));
+        super(convert(items), LocationEdge.class);
         for(LocationVertex l : getAllVertices()){
             locationMap.put(l.getLocation(), l);
         }

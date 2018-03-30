@@ -5,6 +5,7 @@ import compression.graph.IGraph;
 import compression.graph.IVertex;
 
 import javax.swing.text.EditorKit;
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,8 @@ public class SimpleListGraph<TVertex extends IVertex, TEdge extends IEdge<TVerte
 
     public SimpleListGraph(Collection<TVertex> items){
         super(items);
-        edges = (List<TEdge>[]) new Object[verticesCount];
+        List<TEdge> l = new LinkedList<>();
+        edges = (List<TEdge>[])Array.newInstance(l.getClass(), verticesCount);
         for(int i =0; i<verticesCount; i++){
             edges[i] = new LinkedList<>();
         }

@@ -30,7 +30,8 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
     private void addEuclideanDistances(LocationGraph graph, List<Location> locations){
         for(Location from : locations){
             for(Location to : locations){
-                graph.addEuclideanEdge(from, to);
+                if(from != to)
+                    graph.addEuclideanEdge(from, to);
             }
         }
     }
@@ -41,7 +42,8 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
         Location depotLoc = problem.getDepot().getLocation();
         for(Client cfrom : problem.getClients()){
             for(Client cto : problem.getClients()){
-                graph.addExplicitEdge(cfrom.getLocation(), cto.getLocation(), dm.getDistance(cfrom.getId(), cto.getId()));
+                if(cfrom.getId() != cto.getId())
+                    graph.addExplicitEdge(cfrom.getLocation(), cto.getLocation(), dm.getDistance(cfrom.getId(), cto.getId()));
             }
             graph.addExplicitEdge(cfrom.getLocation(), depotLoc, dm.getDistance(cfrom.getId(), depotId));
             graph.addExplicitEdge(depotLoc, cfrom.getLocation(), dm.getDistance(depotId, cfrom.getId()));

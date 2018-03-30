@@ -4,16 +4,20 @@ import compression.graph.IEdge;
 import compression.graph.IGraph;
 import compression.graph.IVertex;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVertex>>
         extends SimpleGraph<TVertex, TEdge> {
 
+    private final Class<TEdge> edgeClass;
     private final TEdge[][] edges;
 
-    public SimpleMatrixGraph(Collection<TVertex> items){
+    public SimpleMatrixGraph(Collection<TVertex> items, Class<TEdge> cl){
         super(items);
-        //edges = (TEdge[][]) new Object[verticesCount][verticesCount];
+        edges = (TEdge[][])Array.newInstance(cl, verticesCount, verticesCount);
+        edgeClass = cl;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVer
 
     @Override
     public IGraph<TVertex, TEdge> emptyGraph(){
-        return new SimpleMatrixGraph<>(this.items);
+        return new SimpleMatrixGraph<>(this.items, edgeClass);
     }
 
     @Override

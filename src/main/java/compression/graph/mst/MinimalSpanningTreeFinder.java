@@ -25,6 +25,7 @@ public class MinimalSpanningTreeFinder implements IMinimalSpanningTreeFinder{
             if(v1 != v2){
                 tree.addEdge(edge);
                 forest.union(v1,v2);
+                edgesCount++;
             }
         }
         return tree;
@@ -35,6 +36,8 @@ public class MinimalSpanningTreeFinder implements IMinimalSpanningTreeFinder{
         @Override
         public int compare(TEdge o1, TEdge o2) {
             Double diff = o1.getWeight() - o2.getWeight();
+            if (diff == 0)
+                return 0;
             return diff>0 ? 1 : -1;
         }
     }
