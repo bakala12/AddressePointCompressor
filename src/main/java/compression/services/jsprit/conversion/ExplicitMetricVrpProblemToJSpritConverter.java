@@ -46,6 +46,11 @@ public class ExplicitMetricVrpProblemToJSpritConverter implements IVrpProblemToJ
         return problemBuilder.build();
     }
 
+    @Override
+    public VehicleRoutingProblem compressAndConvertToJSprit(VrpProblem problem) {
+        return null;
+    }
+
     private void copyDistanceMatrix(VrpProblem problem, VehicleRoutingTransportCostsMatrix.Builder matirxCostBuilder){
         SymmetricalDistanceMatrix matrix = problem.getDistanceMatrix();
         if(matrix == null)

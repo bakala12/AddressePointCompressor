@@ -2,16 +2,12 @@ package compression;
 
 import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
-import compression.graph.mst.MinimalSpanningTreeFinder;
 import compression.input.IProblemReader;
 import compression.input.VrpProblemReader;
 import compression.input.parsing.vrp.VrpNonMapProblemParser;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.vrp.VrpProblemWriter;
-import compression.services.compression.ICompressionService;
-import compression.services.compression.nonmap.NonMapCompressionService;
-import compression.services.compression.nonmap.NonMapProblemToGraphConverter;
 import compression.services.jsprit.IJSpritService;
 import compression.services.jsprit.JSpritService;
 import lombok.NoArgsConstructor;
@@ -31,7 +27,8 @@ public class CompressionApplication {
 
         SolutionPrinter.print(solution.getProblem(), Solutions.bestOf(solution.getSolutions()), SolutionPrinter.Print.VERBOSE);
 
-        ICompressionService service = new NonMapCompressionService(new NonMapProblemToGraphConverter(), new MinimalSpanningTreeFinder());
-        service.compress(problem);
+        System.out.println("Solving compressed problem");
+        VrpProblemSolution solution1 = jSpritService.compressAndSolve(problem);
+        SolutionPrinter.print(solution1.getProblem(), Solutions.bestOf(solution1.getSolutions()), SolutionPrinter.Print.VERBOSE);
     }
 }

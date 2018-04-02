@@ -5,4 +5,5 @@ import compression.model.vrp.VrpProblem;
 
 public interface IJSpritService {
     VrpProblemSolution solve(VrpProblem problem);
+    VrpProblemSolution compressAndSolve(VrpProblem problem);
 }

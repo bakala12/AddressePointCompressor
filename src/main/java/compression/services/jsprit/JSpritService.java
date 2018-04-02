@@ -29,13 +29,23 @@ public class JSpritService implements IJSpritService {
         }
     }
 
+    private VrpProblemSolution solveJSpritProblem(VehicleRoutingProblem jSpritProblem){
+        VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(jSpritProblem);
+        Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
+        return new VrpProblemSolution(jSpritProblem, solutions);
+    }
+
     @Override
     public VrpProblemSolution solve(VrpProblem problem){
         IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
+        return solveJSpritProblem(vrp);
+    }
 
-        VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
-        Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        return new VrpProblemSolution(vrp, solutions);
+    @Override
+    public VrpProblemSolution compressAndSolve(VrpProblem problem){
+        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
+        VehicleRoutingProblem vrp = converter.compressAndConvertToJSprit(problem);
+        return solveJSpritProblem(vrp);
     }
 }
