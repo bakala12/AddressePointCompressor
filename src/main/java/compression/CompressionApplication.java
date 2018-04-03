@@ -9,6 +9,7 @@ import compression.model.jsprit.PerformTestParameters;
 import compression.model.jsprit.PerformTestResults;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
+import compression.output.plot.ChartPlotter;
 import compression.output.vrp.TestResultWriter;
 import compression.output.vrp.VrpProblemWriter;
 import compression.services.jsprit.IJSpritPerformTestService;
@@ -43,5 +44,8 @@ public class CompressionApplication {
 
         TestResultWriter resultWriter = new TestResultWriter();
         resultWriter.printTestResults(testResults);
+
+        ChartPlotter plotter = new ChartPlotter();
+        plotter.drawCostPlot(testResults, "C://Users/bakala12/Desktop/test.jpeg");
     }
 }
