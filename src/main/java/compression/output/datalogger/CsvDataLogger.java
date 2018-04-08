@@ -24,10 +24,10 @@ public class CsvDataLogger implements IDataLogger {
     }
 
     @Override
-    public void saveData(String problemName, int iterationNumber, double time, double cost, int numberOfVehicles) {
+    public void saveData(String problemName, int iterationNumber, double time, double cost, int numberOfVehicles, double bestKnownSolution) {
         if(writer == null)
             throw new DataLoggerException("Logger is not open to write");
-        String line = problemName +"," + iterationNumber+","+time+"," + cost +","+ numberOfVehicles;
+        String line = problemName +"," + iterationNumber+","+time+"," + cost +","+ numberOfVehicles +","+ bestKnownSolution;
         writer.println(line);
     }
 

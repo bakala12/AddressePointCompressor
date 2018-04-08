@@ -25,7 +25,7 @@ public class DataCollectorIterationEndListener implements IterationEndsListener,
     public void informIterationEnds(int i, VehicleRoutingProblem vehicleRoutingProblem, Collection<VehicleRoutingProblemSolution> collection) {
         VehicleRoutingProblemSolution best = Solutions.bestOf(collection);
         Double time = stopWatch.getCurrTimeInSeconds();
-        logger.saveData(problem.getProblemName(), i, time, best.getCost(), best.getRoutes().size());
+        logger.saveData(problem.getProblemName(), i, time, best.getCost(), best.getRoutes().size(), problem.getBestKnownSolution());
     }
 
     @Override

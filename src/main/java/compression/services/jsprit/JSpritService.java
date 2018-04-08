@@ -18,10 +18,8 @@ import compression.services.jsprit.conversion.ExplicitMetricVrpProblemToJSpritCo
 import compression.services.jsprit.conversion.IVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.ProblemConversionException;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
-import compression.services.jsprit.extensions.MyShipmentStateUpdater;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -61,14 +59,8 @@ public class JSpritService implements IJSpritService {
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){
-            if(new File(dataPath).isDirectory()){
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-                IDataLogger logger = new CsvDataLogger(dataPath+problem.getProblemName()+"_"+timeStamp+".csv");
-                algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
-            }
-            else{
-                System.out.println("Invalid path to directory");
-            }
+            IDataLogger logger = new CsvDataLogger(dataPath);
+            algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
         }
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
         return new VrpProblemSolution(vrp, solutions);
