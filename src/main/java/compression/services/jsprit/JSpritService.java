@@ -8,21 +8,24 @@ import com.graphhopper.jsprit.core.problem.constraint.ConstraintManager;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.graphhopper.jsprit.core.util.StopWatch;
-import compression.model.jsprit.PerformTestParameters;
-import compression.model.jsprit.PerformTestResults;
+import com.graphhopper.storage.Directory;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
+import compression.output.datalogger.CsvDataLogger;
+import compression.output.datalogger.IDataLogger;
 import compression.services.jsprit.conversion.EuclideanMetricVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.ExplicitMetricVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.IVrpProblemToJSpritConverter;
 import compression.services.jsprit.conversion.ProblemConversionException;
+import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
 import compression.services.jsprit.extensions.MyShipmentStateUpdater;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-public class JSpritService implements IJSpritService, IJSpritPerformTestService {
+public class JSpritService implements IJSpritService {
 
     private static class JSpritConvertersFactory{
         static IVrpProblemToJSpritConverter getConverter(VrpProblem problem) {
@@ -39,55 +42,55 @@ public class JSpritService implements IJSpritService, IJSpritPerformTestService 
         }
     }
 
+    private int maxNumberOfIterations = 2000;
+
+    @Override
+    public void setMaxNumberOfIterations(int maxNumberOfIterations){
+        this.maxNumberOfIterations = maxNumberOfIterations;
+    }
+
     @Override
     public VrpProblemSolution solve(VrpProblem problem){
+        return solve(problem, null);
+    }
+
+    @Override
+    public VrpProblemSolution solve(VrpProblem problem, String dataPath){
         IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
+        algorithm.setMaxIterations(maxNumberOfIterations);
+        if(dataPath != null){
+            if(new File(dataPath).isDirectory()){
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+                IDataLogger logger = new CsvDataLogger(dataPath+problem.getProblemName()+"_"+timeStamp+".csv");
+                algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
+            }
+            else{
+                System.out.println("Invalid path to directory");
+            }
+        }
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        return new VrpProblemSolution(vrp, solutions, 0, 0.0);
+        return new VrpProblemSolution(vrp, solutions);
     }
 
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem){
-        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
-        VehicleRoutingProblem vrp = converter.compressAndConvertToJSprit(problem);
-        Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
+        return compressAndSolve(problem, null);
+    }
+
+    @Override
+    public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath) {
+        //IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
+        //VehicleRoutingProblem vrp = converter.compressAndConvertToJSprit(problem);
+        //Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
         //StateManager stateManager = new StateManager(vrp);
         //ConstraintManager constraintManager = new ConstraintManager(vrp, stateManager);
         //stateManager.addStateUpdater(new MyShipmentStateUpdater(stateManager));
         //algorithmBuilder.setStateAndConstraintManager(stateManager, constraintManager);
-        VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
-        Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        return new VrpProblemSolution(vrp, solutions, 0, 0.0);
-    }
-
-    @Override
-    public PerformTestResults solveWithResults(VrpProblem problem, PerformTestParameters parameters) {
-        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
-        VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
-        Map<Integer, Double> costMap = new HashMap<>();
-        Map<Integer, VrpProblemSolution> solutionMap = new HashMap<>();
-        Map<Integer, Double> timeMap = new HashMap<>();
-        for(Integer iterations : parameters.getNumberOfIterations()){
-            VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
-            algorithm.setMaxIterations(iterations);
-            StopWatch stopWatch = new StopWatch();
-            stopWatch.reset();
-            stopWatch.start();
-            Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-            stopWatch.stop();
-            Double time = stopWatch.getCurrTimeInSeconds();
-            VehicleRoutingProblemSolution solution = Solutions.bestOf(solutions);
-            costMap.put(iterations, solution.getCost());
-            solutionMap.put(iterations, new VrpProblemSolution(vrp, solutions, iterations, time));
-            timeMap.put(iterations, time);
-        }
-        return new PerformTestResults(problem, parameters.getNumberOfIterations(), costMap, solutionMap, timeMap);
-    }
-
-    @Override
-    public PerformTestResults compressSolveWithResults(VrpProblem problem, PerformTestParameters parameters) {
+        //VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
+        //Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
+        //return new VrpProblemSolution(vrp, solutions);
         return null;
     }
 }

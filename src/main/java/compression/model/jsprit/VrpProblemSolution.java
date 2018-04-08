@@ -13,8 +13,4 @@ public class VrpProblemSolution {
     private VehicleRoutingProblem problem;
     @Getter
     private Collection<VehicleRoutingProblemSolution> solutions;
-    @Getter
-    private Integer numberOfIterations;
-    @Getter
-    private Double time;
 }
