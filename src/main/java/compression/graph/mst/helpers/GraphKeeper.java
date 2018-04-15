@@ -132,7 +132,8 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
 
     public GraphKeeper<TVertex, TEdge> shrinkCycle(List<VertexKeeper<TVertex>> cycle,
                                                    Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> edgesMap,
-                                                   GraphKeeper<TVertex, TEdge> p){
+                                                   GraphKeeper<TVertex, TEdge> p,
+                                                   TVertex root){
         List<VertexKeeper<TVertex>> newVertices = new LinkedList<>();
         for(VertexKeeper<TVertex> v : vertices){
             if(!cycle.contains(v)){
@@ -165,6 +166,13 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
                 edgesMap.put(newE, e);
             }
             else if(cycle.contains(e.getFrom()) && !cycle.contains(e.getTo())){
+                Boolean add = true;
+                for(EdgeKeeper<TVertex, TEdge> ne : newEdges){
+                    if(ne.getTo()==e.getTo() && ne.getFrom()==cycleVertex)
+                        add = false;
+                }
+                if(!add)
+                    continue;
                 EdgeKeeper<TVertex, TEdge> newE = new EdgeKeeper<>(cycleVertex, e.getTo(), e.getWeight(), e.getEdge());
                 newEdges.add(newE);
                 edgesMap.put(newE, e);
