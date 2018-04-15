@@ -24,19 +24,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NonMapCompressionService {
 
-    private final IProblemToGraphConverter<LocationGraph> graphConverter;
+    private final IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> graphConverter;
     private final IMinimalSpanningTreeFinder minimalSpanningTreeFinder;
 
     public List<Shipment> getShipmentsForCompressedProblem(VrpProblem problem){
-        ProblemGraph<LocationGraph> problemGraph = graphConverter.convert(problem);
+        ProblemGraph<LocationVertex, LocationEdge, LocationGraph> problemGraph = graphConverter.convert(problem);
         LocationGraph graph = problemGraph.getGraph();
-        IGraph<LocationVertex, LocationEdge> tree = minimalSpanningTreeFinder.findMinimalSpanningTree(graph);
+        //IGraph<LocationVertex, LocationEdge> tree = minimalSpanningTreeFinder.findMinimalSpanningTree(graph);
         LocationVertex depotVertex = graph.getVertex(problem.getDepot().getLocation());
-        List<TreeBranch<LocationVertex>> treeBranches = CompressionHelper.compress(tree, depotVertex);
+        //List<TreeBranch<LocationVertex>> treeBranches = CompressionHelper.compress(tree, depotVertex);
         List<Shipment> shipments = new LinkedList<>();
-        for(TreeBranch<LocationVertex> branch : treeBranches){
-            shipments.add(getShipment(branch, problem));
-        }
+        //for(TreeBranch<LocationVertex> branch : treeBranches){
+        //    shipments.add(getShipment(branch, problem));
+        //}
         return shipments;
     }
 

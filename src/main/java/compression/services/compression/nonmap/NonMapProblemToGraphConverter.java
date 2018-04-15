@@ -3,15 +3,17 @@ package compression.services.compression.nonmap;
 import compression.model.vrp.*;
 import compression.services.compression.IProblemToGraphConverter;
 import compression.services.compression.ProblemGraph;
+import compression.services.compression.nonmap.graph.LocationEdge;
 import compression.services.compression.nonmap.graph.LocationGraph;
+import compression.services.compression.nonmap.graph.LocationVertex;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<LocationGraph>{
+public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph>{
 
     @Override
-    public ProblemGraph<LocationGraph> convert(VrpProblem problem) {
+    public ProblemGraph<LocationVertex, LocationEdge, LocationGraph> convert(VrpProblem problem) {
         List<Location> locations = new LinkedList<>();
         locations.add(problem.getDepot().getLocation());
         for(Client c : problem.getClients()){
@@ -24,7 +26,7 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
         if (problem.getProblemMetric() == VrpProblemMetric.Euclidean){
             addEuclideanDistances(graph, locations);
         }
-        return new ProblemGraph<>(problem, graph);
+        return new ProblemGraph<>(problem, graph, graph.getVertex(locations.get(0)));
     }
 
     private void addEuclideanDistances(LocationGraph graph, List<Location> locations){

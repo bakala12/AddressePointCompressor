@@ -54,4 +54,17 @@ public class SimpleListGraph<TVertex extends IVertex, TEdge extends IEdge<TVerte
         int v = verticesMap.get(vertex);
         return this.edges[v];
     }
+
+    @Override
+    public List<TEdge> getEdgesTo(TVertex vertex){
+        List<TEdge> edges = new LinkedList<>();
+        for(int i=0; i<verticesCount; i++){
+            for(TEdge e : this.edges[i]){
+                if(e.getTo() == vertex){
+                    edges.add(e);
+                }
+            }
+        }
+        return edges;
+    }
 }

@@ -46,11 +46,24 @@ public class SimpleMatrixGraph<TVertex extends IVertex, TEdge extends IEdge<TVer
     }
 
     @Override
-    public Collection<TEdge> getEdgesFrom(IVertex vertex) {
+    public Collection<TEdge> getEdgesFrom(TVertex vertex) {
         List<TEdge> edges = new LinkedList<>();
         int v = verticesMap.get(vertex);
         for(int i=0; i<verticesCount; i++){
             TEdge e = this.edges[v][i];
+            if(e != null){
+                edges.add(e);
+            }
+        }
+        return edges;
+    }
+
+    @Override
+    public Collection<TEdge> getEdgesTo(TVertex vertex){
+        List<TEdge> edges = new LinkedList<>();
+        int v = verticesMap.get(vertex);
+        for(int i=0; i<verticesCount; i++){
+            TEdge e = this.edges[i][v];
             if(e != null){
                 edges.add(e);
             }

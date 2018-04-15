@@ -32,7 +32,6 @@ public class MinimalSpanningTreeFinder implements IMinimalSpanningTreeFinder{
     }
 
     static class EdgesComparator<TVertex extends IVertex, TEdge extends IEdge<TVertex>> implements Comparator<TEdge>{
-
         @Override
         public int compare(TEdge o1, TEdge o2) {
             Double diff = o1.getWeight() - o2.getWeight();
