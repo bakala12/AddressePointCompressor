@@ -94,7 +94,7 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
             if(minEdge != null)
                 newEdges.add(minEdge);
         }
-        return new GraphKeeper<TVertex, TEdge>(vertices, vertexMap, newEdges);
+        return new GraphKeeper(vertices, vertexMap, newEdges);
     }
 
     public Boolean findCycle(List<VertexKeeper<TVertex>> potentialCycle){
@@ -134,6 +134,12 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
                                                    Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> edgesMap,
                                                    GraphKeeper<TVertex, TEdge> p,
                                                    TVertex root){
+        Map<TVertex, VertexKeeper<TVertex>> newMap = new HashMap<>();
+        for(Map.Entry<TVertex, VertexKeeper<TVertex>> e : vertexMap.entrySet()){
+            if(!cycle.contains(e.getValue())){
+                newMap.put(e.getKey(), e.getValue());
+            }
+        }
         List<VertexKeeper<TVertex>> newVertices = new LinkedList<>();
         for(VertexKeeper<TVertex> v : vertices){
             if(!cycle.contains(v)){
@@ -183,7 +189,7 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
                 edgesMap.put(newE, e);
             }
         }
-        return new GraphKeeper(newVertices, newEdges);
+        return new GraphKeeper(newVertices, newMap, newEdges);
     }
 
     public void markEdges(GraphKeeper<TVertex, TEdge> recursiveResult, Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> recursiveMap,

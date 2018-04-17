@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class VertexKeeper<TVertex> implements IVertex{
+public abstract class VertexKeeper<TVertex> {
     @RequiredArgsConstructor
     public static class SingleVertexKeeper<TVertex> extends VertexKeeper<TVertex>{
         @Getter

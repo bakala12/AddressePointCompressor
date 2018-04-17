@@ -36,7 +36,7 @@ public class CompressionApplication {
 
     public void run() {
         IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/mybenchmark2.vrp");
+        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/mybenchmark.vrp");
 
         //VrpProblemWriter writer = new VrpProblemWriter();
         //writer.writeProblem(problem);
@@ -57,6 +57,5 @@ public class CompressionApplication {
         IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> conv = new NonMapProblemToGraphConverter();
         ProblemGraph<LocationVertex, LocationEdge, LocationGraph> gr = conv.convert(problem);
         IGraph<LocationVertex, LocationEdge> minarb = finder.findMinimalArborescence(gr.getGraph(), gr.getDepotVertex());
-        int x=1;
     }
 }

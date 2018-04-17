@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class EdgeKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> implements IEdge<VertexKeeper<TVertex>> {
+public class EdgeKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> {
     @Getter
     private VertexKeeper<TVertex> from;
     @Getter

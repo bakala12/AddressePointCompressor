@@ -27,4 +27,9 @@ public class LocationEdge implements IEdge<LocationVertex>{
         Double longDiff = from.getLongitude() - to.getLongitude();
         return Math.sqrt(latDiff*latDiff+longDiff*longDiff);
     }
+
+    @Override
+    public String toString(){
+        return from+"--"+weight+"-->"+to;
+    }
 }
