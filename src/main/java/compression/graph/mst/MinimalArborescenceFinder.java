@@ -33,6 +33,7 @@ public class MinimalArborescenceFinder implements IMinimalArborescenceFinder {
 
     private <TVertex extends IVertex, TEdge extends IEdge<TVertex>> GraphKeeper<TVertex, TEdge> findMinimalArborescence
             (GraphKeeper<TVertex, TEdge> graph, TVertex root){
+        if(graph.getVertices().size()<=2) return graph;
         graph.removeDestinationEdges(root);
         GraphKeeper<TVertex, TEdge> p = graph.takeSmallestWeightEdgesForEachVertex();
         List<VertexKeeper<TVertex>> cycle = new LinkedList<>();
@@ -40,7 +41,7 @@ public class MinimalArborescenceFinder implements IMinimalArborescenceFinder {
             return p;
         }
         Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> edgeMap = new HashMap<>();
-        GraphKeeper<TVertex, TEdge> newGraph = graph.shrinkCycle(cycle, edgeMap, p, root);
+        GraphKeeper<TVertex, TEdge> newGraph = graph.shrinkCycle(cycle, edgeMap, p);
         VertexKeeper<TVertex> cycleVertex = newGraph.getVertices().get(newGraph.getVertices().size()-1);
         GraphKeeper<TVertex, TEdge> recResult = findMinimalArborescence(newGraph, root); //A'
         EdgeKeeper<TVertex, TEdge> cycleEdge = recResult.getSingleInputEdge(cycleVertex);

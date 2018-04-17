@@ -37,4 +37,9 @@ public class EdgeKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> {
         result = 31 * result + weight.hashCode();
         return result;
     }
+
+    @Override
+    public String toString(){
+        return from.toString()+"--->"+to.toString();
+    }
 }

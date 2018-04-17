@@ -3,6 +3,7 @@ package compression.graph.mst.helpers;
 import compression.graph.IEdge;
 import compression.graph.IGraph;
 import compression.graph.IVertex;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.*;
@@ -129,11 +130,17 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
         return false;
     }
 
+    @AllArgsConstructor
+    private class EdgeKeeperHelper {
+        @Getter
+        private EdgeKeeper<TVertex, TEdge> oldE;
+        @Getter
+        private EdgeKeeper<TVertex, TEdge> newE;
+    }
 
     public GraphKeeper<TVertex, TEdge> shrinkCycle(List<VertexKeeper<TVertex>> cycle,
                                                    Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> edgesMap,
-                                                   GraphKeeper<TVertex, TEdge> p,
-                                                   TVertex root){
+                                                   GraphKeeper<TVertex, TEdge> p){
         Map<TVertex, VertexKeeper<TVertex>> newMap = new HashMap<>();
         for(Map.Entry<TVertex, VertexKeeper<TVertex>> e : vertexMap.entrySet()){
             if(!cycle.contains(e.getValue())){
@@ -154,40 +161,40 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
         newVertices.add(cycleVertex);
         List<EdgeKeeper<TVertex, TEdge>> newEdges = new LinkedList<>();
         edgesMap.clear();
+        HashMap<VertexKeeper<TVertex>, EdgeKeeperHelper> shortestIncoming = new HashMap<>();
+        HashMap<VertexKeeper<TVertex>, EdgeKeeperHelper> shortestOutcomming = new HashMap<>();
         for(EdgeKeeper<TVertex, TEdge> e : edges){
-            if(!cycle.contains(e.getFrom()) && cycle.contains(e.getTo())){
+            if(!cycle.contains(e.getFrom()) && cycle.contains(e.getTo())) {
                 List<EdgeKeeper<TVertex, TEdge>> edgesTo = p.getEdgesTo(e.getTo());
-                if(edgesTo.size() != 1){
-                    throw new RuntimeException();
+                if (edgesTo.size() != 1) {
+                    throw new RuntimeException("Algorithm error - not exactly one incoming edge to vertex.");
                 }
-                Boolean add = true;
-                for(EdgeKeeper<TVertex, TEdge> ne: newEdges){
-                    if(ne.getFrom() == e.getFrom() && ne.getTo()==cycleVertex)
-                        add = false;
-                }
-                if(!add)
-                    continue;
                 EdgeKeeper<TVertex, TEdge> newE = new EdgeKeeper<>(e.getFrom(), cycleVertex, e.getWeight() - edgesTo.get(0).getWeight(), e.getEdge());
-                newEdges.add(newE);
-                edgesMap.put(newE, e);
+                EdgeKeeperHelper minIn = shortestIncoming.getOrDefault(e.getFrom(), null);
+                if (minIn == null || newE.getWeight() < minIn.newE.getWeight()){
+                    shortestIncoming.put(e.getFrom(), new EdgeKeeperHelper(e, newE));
+                }
             }
             else if(cycle.contains(e.getFrom()) && !cycle.contains(e.getTo())){
-                Boolean add = true;
-                for(EdgeKeeper<TVertex, TEdge> ne : newEdges){
-                    if(ne.getTo()==e.getTo() && ne.getFrom()==cycleVertex)
-                        add = false;
-                }
-                if(!add)
-                    continue;
                 EdgeKeeper<TVertex, TEdge> newE = new EdgeKeeper<>(cycleVertex, e.getTo(), e.getWeight(), e.getEdge());
-                newEdges.add(newE);
-                edgesMap.put(newE, e);
+                EdgeKeeperHelper minOut = shortestOutcomming.getOrDefault(e.getTo(), null);
+                if(minOut == null || newE.getWeight() < minOut.newE.getWeight()){
+                    shortestOutcomming.put(e.getTo(), new EdgeKeeperHelper(e, newE));
+                }
             }
             else if(!cycle.contains(e.getFrom()) && !cycle.contains(e.getTo())){
                 EdgeKeeper<TVertex, TEdge> newE = new EdgeKeeper<>(e.getFrom(), e.getTo(), e.getWeight(), e.getEdge());
                 newEdges.add(newE);
                 edgesMap.put(newE, e);
             }
+        }
+        for(Map.Entry<VertexKeeper<TVertex>, EdgeKeeperHelper> e : shortestIncoming.entrySet()){
+            newEdges.add(e.getValue().newE);
+            edgesMap.put(e.getValue().newE, e.getValue().oldE);
+        }
+        for(Map.Entry<VertexKeeper<TVertex>, EdgeKeeperHelper> e : shortestOutcomming.entrySet()){
+            newEdges.add(e.getValue().newE);
+            edgesMap.put(e.getValue().newE, e.getValue().oldE);
         }
         return new GraphKeeper(newVertices, newMap, newEdges);
     }
@@ -199,7 +206,7 @@ public class GraphKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> 
             newEdges.add(recursiveMap.get(e));
         }
         VertexKeeper<TVertex> prev = cycle.get(cycle.size()-1);
-        for(VertexKeeper<TVertex> cv : vertices){
+        for(VertexKeeper<TVertex> cv : cycle){
             if(cv != v){
                 for(EdgeKeeper<TVertex, TEdge> ed : getEdgesTo(cv)){
                     if(ed.getFrom() == prev){

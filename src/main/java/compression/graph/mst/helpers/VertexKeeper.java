@@ -22,7 +22,7 @@ public abstract class VertexKeeper<TVertex> {
 
         @Override
         public String toString(){
-            return "SingleVertexKeeper->"+vertex.toString();
+            return "SVK->"+vertex.toString();
         }
 
         
@@ -36,7 +36,7 @@ public abstract class VertexKeeper<TVertex> {
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
-            builder.append("MultipleVertexKeeper->");
+            builder.append("MVK->");
             for(TVertex v : vertices){
                 builder.append(v.toString()+",");
             }
