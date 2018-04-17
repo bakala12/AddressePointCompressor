@@ -24,6 +24,8 @@ public abstract class VertexKeeper<TVertex> implements IVertex{
         public String toString(){
             return "SingleVertexKeeper->"+vertex.toString();
         }
+
+        
     }
 
     @RequiredArgsConstructor

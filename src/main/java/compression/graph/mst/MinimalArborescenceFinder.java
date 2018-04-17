@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import sun.security.x509.EDIPartyName;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,8 +44,19 @@ public class MinimalArborescenceFinder implements IMinimalArborescenceFinder {
         VertexKeeper<TVertex> cycleVertex = newGraph.getVertices().get(newGraph.getVertices().size()-1);
         GraphKeeper<TVertex, TEdge> recResult = findMinimalArborescence(newGraph, root); //A'
         EdgeKeeper<TVertex, TEdge> cycleEdge = recResult.getSingleInputEdge(cycleVertex);
-        EdgeKeeper<TVertex, TEdge> oldEdgeInCycle = edgeMap.get(cycleEdge); //(u,v), v z C
+        EdgeKeeper<TVertex, TEdge> oldEdgeInCycle = customGet(edgeMap, cycleEdge); //(u,v), v z C
         graph.markEdges(recResult, edgeMap, cycle, oldEdgeInCycle.getTo());
         return graph;
     }
+
+    private <TVertex extends IVertex, TEdge extends IEdge<TVertex>> EdgeKeeper<TVertex, TEdge> customGet(
+            Map<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> map, EdgeKeeper<TVertex, TEdge> key){
+        for(Map.Entry<EdgeKeeper<TVertex, TEdge>, EdgeKeeper<TVertex, TEdge>> e : map.entrySet()){
+            if(e.getKey().getFrom().equals(key.getFrom()) && e.getKey().getTo().equals(key.getTo())){
+                return e.getValue();
+            }
+        }
+        return null;
+    }
+
 }

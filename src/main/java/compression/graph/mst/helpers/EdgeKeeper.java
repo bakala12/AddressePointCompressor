@@ -16,4 +16,25 @@ public class EdgeKeeper<TVertex extends IVertex, TEdge extends IEdge<TVertex>> i
     private Double weight;
     @Getter
     private TEdge edge;
+
+    @Override
+    public boolean equals(Object other)
+    {
+        try {
+            EdgeKeeper<TVertex, TEdge> oe = (EdgeKeeper<TVertex, TEdge>)other;
+            if(oe == null) return false;
+            return from.equals(oe.from) && to.equals(oe.to);
+        } catch (ClassCastException ex){
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 17;
+        result = 31 * result + from.hashCode();
+        result = 31 * result + to.hashCode();
+        result = 31 * result + weight.hashCode();
+        return result;
+    }
 }
