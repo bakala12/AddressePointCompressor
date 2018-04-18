@@ -10,38 +10,24 @@ import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
 import compression.model.vrp.VrpProblemMetric;
 
-public class EuclideanMetricVrpProblemToJSpritConverter implements IVrpProblemToJSpritConverter {
+public class EuclideanMetricVrpProblemToJSpritConverter
+        extends BaseProblemToJSpritConverter
+        implements IVrpProblemToJSpritConverter {
+
     @Override
     public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Euclidean){
             throw new ProblemConversionException("Metrics must be Euclidean for that converter");
         }
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
-
-        addVehicles(problemBuilder, problem);
-
-        for(Client cl : problem.getClients()){
-            Service s = Service.Builder.newInstance(Long.toString(cl.getId()-1))
-                    .setLocation(Location.newInstance(cl.getLocation().getLatitude(), cl.getLocation().getLongitude()))
-                    .addSizeDimension(0, cl.getAmount().intValue()) //TODO:: INT VALUE
-                    .setServiceTime(cl.getTime())
-                    .build();
-            problemBuilder.addJob(s);
-        }
+        Location depot = Location.newInstance(problem.getDepot().getLocation().getLatitude(), problem.getDepot().getLocation().getLongitude());
+        addVehicles(problemBuilder, problem, depot);
+        addClients(problemBuilder, problem);
         return problemBuilder.build();
     }
 
-    private void addVehicles(VehicleRoutingProblem.Builder problemBuilder, VrpProblem problem){
-        for(Vehicle veh : problem.getVehicles()){
-            VehicleTypeImpl.Builder vtb = VehicleTypeImpl.Builder.newInstance(veh.getId().toString());
-            vtb.addCapacityDimension(0, veh.getCapacity());
-            VehicleTypeImpl vti = vtb.build();
-            VehicleImpl.Builder vb = VehicleImpl.Builder.newInstance(veh.getId().toString());
-            vb.setType(vti);
-            //there is no way to specify a depot -> vehicle start location is depot location
-            vb.setStartLocation(Location.newInstance(problem.getDepot().getLocation().getLatitude(), problem.getDepot().getLocation().getLongitude()));
-            VehicleImpl vImpl = vb.build();
-            problemBuilder.addVehicle(vImpl);
-        }
+    @Override
+    protected Location convertLocation(compression.model.vrp.Client client){
+        return Location.newInstance(client.getLocation().getLatitude(), client.getLocation().getLongitude());
     }
 }

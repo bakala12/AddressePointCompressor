@@ -12,38 +12,26 @@ import compression.model.vrp.*;
 
 import javax.sound.midi.Soundbank;
 
-public class ExplicitMetricVrpProblemToJSpritConverter implements IVrpProblemToJSpritConverter {
+public class ExplicitMetricVrpProblemToJSpritConverter
+        extends BaseProblemToJSpritConverter
+        implements IVrpProblemToJSpritConverter {
     @Override
     public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Explicit){
             throw new ProblemConversionException("Metric must be explicit for this converter");
         }
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
-
-        for(Vehicle veh : problem.getVehicles()){
-            VehicleTypeImpl.Builder vtb = VehicleTypeImpl.Builder.newInstance(veh.getId().toString());
-            vtb.addCapacityDimension(0, veh.getCapacity());
-            VehicleTypeImpl vti = vtb.build();
-            VehicleImpl.Builder vb = VehicleImpl.Builder.newInstance(veh.getId().toString());
-            vb.setType(vti);
-            vb.setStartLocation(Location.newInstance(problem.getDepot().getId().toString()));
-            VehicleImpl vimpl = vb.build();
-            problemBuilder.addVehicle(vimpl);
-        }
-
-        for(Client cl : problem.getClients()){
-            Service s = Service.Builder.newInstance(Long.toString(cl.getId()-1))
-                    .setLocation(Location.newInstance(cl.getId().toString()))
-                    .addSizeDimension(0, cl.getAmount().intValue()) //TODO:: INT VALUE
-                    .setServiceTime(cl.getTime())
-                    .build();
-            problemBuilder.addJob(s);
-        }
-
+        addVehicles(problemBuilder, problem, Location.newInstance(problem.getDepot().getId().toString()));
+        addClients(problemBuilder, problem);
         VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(true);
         copyDistanceMatrix(problem, matrixCostBuilder);
         problemBuilder.setRoutingCost(matrixCostBuilder.build());
         return problemBuilder.build();
+    }
+
+    @Override
+    protected Location convertLocation(compression.model.vrp.Client client){
+        return Location.newInstance(client.getId().toString());
     }
 
     private void copyDistanceMatrix(VrpProblem problem, VehicleRoutingTransportCostsMatrix.Builder matirxCostBuilder){

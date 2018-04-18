@@ -4,12 +4,13 @@ import compression.graph.IVertex;
 import compression.model.vrp.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LocationVertex implements IVertex{
     @Getter
-    private Location location;
+    private final Location location;
     @Getter @Setter
     private Double demand;
 
