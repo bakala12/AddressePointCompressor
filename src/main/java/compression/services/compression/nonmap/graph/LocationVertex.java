@@ -4,11 +4,14 @@ import compression.graph.IVertex;
 import compression.model.vrp.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 public class LocationVertex implements IVertex{
     @Getter
     private Location location;
+    @Getter @Setter
+    private Double demand;
 
     @Override
     public boolean equals(Object obj){

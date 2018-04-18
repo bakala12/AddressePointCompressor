@@ -26,6 +26,10 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
         if (problem.getProblemMetric() == VrpProblemMetric.Euclidean){
             addEuclideanDistances(graph, locations);
         }
+        for(Client c : problem.getClients()){
+            graph.getVertex(c.getLocation()).setDemand(c.getAmount());
+        }
+        graph.getVertex(problem.getDepot().getLocation()).setDemand(0.0);
         return new ProblemGraph<>(problem, graph, graph.getVertex(locations.get(0)));
     }
 

@@ -73,7 +73,7 @@ public class JSpritService implements IJSpritService {
 
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath) {
-        //IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
+        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
         //VehicleRoutingProblem vrp = converter.compressAndConvertToJSprit(problem);
         //Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
         //StateManager stateManager = new StateManager(vrp);

@@ -31,19 +31,6 @@ public class EuclideanMetricVrpProblemToJSpritConverter implements IVrpProblemTo
         return problemBuilder.build();
     }
 
-    @Override
-    public VehicleRoutingProblem compressAndConvertToJSprit(VrpProblem problem) {
-        if(problem.getProblemMetric() != VrpProblemMetric.Euclidean){
-            throw new ProblemConversionException("Metrics must be Euclidean for that converter");
-        }
-        VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
-
-        addVehicles(problemBuilder, problem);
-
-
-        return problemBuilder.build();
-    }
-
     private void addVehicles(VehicleRoutingProblem.Builder problemBuilder, VrpProblem problem){
         for(Vehicle veh : problem.getVehicles()){
             VehicleTypeImpl.Builder vtb = VehicleTypeImpl.Builder.newInstance(veh.getId().toString());

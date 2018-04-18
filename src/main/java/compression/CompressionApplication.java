@@ -36,7 +36,7 @@ public class CompressionApplication {
 
     public void run() {
         IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/mybenchmark.vrp");
+        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n22-k4.vrp");
 
         //VrpProblemWriter writer = new VrpProblemWriter();
         //writer.writeProblem(problem);
@@ -52,10 +52,7 @@ public class CompressionApplication {
         //IChartPlotter chartPlotter = new ChartPlotter();
         //chartPlotter.plotCostChart(dataPath,"./solutions/plots/"+problem.getProblemName()+"_cost_"+timeStamp+".jpeg");
         //chartPlotter.plotTimeChart(dataPath, "./solutions/plots/"+problem.getProblemName()+"_time_"+timeStamp+".jpeg");
-
-        IMinimalArborescenceFinder finder = new MinimalArborescenceFinder();
-        IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> conv = new NonMapProblemToGraphConverter();
-        ProblemGraph<LocationVertex, LocationEdge, LocationGraph> gr = conv.convert(problem);
-        IGraph<LocationVertex, LocationEdge> minarb = finder.findMinimalArborescence(gr.getGraph(), gr.getDepotVertex());
+        IJSpritService service = new JSpritService();
+        VrpProblemSolution solution = service.compressAndSolve(problem);
     }
 }

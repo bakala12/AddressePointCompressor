@@ -1,54 +1,66 @@
 package compression.services.compression.nonmap;
 
-import com.graphhopper.jsprit.core.problem.Location;
-import com.graphhopper.jsprit.core.problem.job.Shipment;
 import compression.graph.IGraph;
-import compression.graph.IVertex;
-import compression.graph.mst.IMinimalSpanningTreeFinder;
-import compression.model.vrp.Client;
+import compression.graph.branching.ITreeBranchFinder;
+import compression.graph.mst.IMinimalArborescenceFinder;
+import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
-import compression.model.vrp.VrpProblemMetric;
 import compression.services.compression.IProblemToGraphConverter;
 import compression.services.compression.ProblemGraph;
 import compression.services.compression.nonmap.graph.LocationEdge;
 import compression.services.compression.nonmap.graph.LocationGraph;
 import compression.services.compression.nonmap.graph.LocationVertex;
-import compression.services.compression.nonmap.graph.TreeBranch;
+import compression.graph.branching.TreeBranch;
 import lombok.RequiredArgsConstructor;
-
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class NonMapCompressionService {
 
     private final IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> graphConverter;
-    private final IMinimalSpanningTreeFinder minimalSpanningTreeFinder;
+    private final IMinimalArborescenceFinder minimalArborescenceFinder;
+    private final ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder;
 
-    public List<Shipment> getShipmentsForCompressedProblem(VrpProblem problem){
+    public List<TreeBranch<LocationVertex>> getAggregatedClients(VrpProblem problem) {
         ProblemGraph<LocationVertex, LocationEdge, LocationGraph> problemGraph = graphConverter.convert(problem);
         LocationGraph graph = problemGraph.getGraph();
-        //IGraph<LocationVertex, LocationEdge> tree = minimalSpanningTreeFinder.findMinimalSpanningTree(graph);
-        LocationVertex depotVertex = graph.getVertex(problem.getDepot().getLocation());
-        //List<TreeBranch<LocationVertex>> treeBranches = CompressionHelper.compress(tree, depotVertex);
-        List<Shipment> shipments = new LinkedList<>();
-        //for(TreeBranch<LocationVertex> branch : treeBranches){
-        //    shipments.add(getShipment(branch, problem));
-        //}
-        return shipments;
+        IGraph<LocationVertex, LocationEdge> tree = minimalArborescenceFinder.findMinimalArborescence(graph, problemGraph.getDepotVertex());
+        List<TreeBranch<LocationVertex>> treeBranches = treeBranchFinder.findBranches(tree, problemGraph.getDepotVertex());
+        List<TreeBranch<LocationVertex>> finalBranches = new LinkedList<>();
+        Double maxCapacity = getMexCapavity(problem);
+        for (TreeBranch<LocationVertex> branch : treeBranches) {
+            splitBranchIfNeeded(branch, maxCapacity, finalBranches);
+        }
+        return finalBranches;
     }
 
-    private Shipment getShipment(TreeBranch<LocationVertex> branch, VrpProblem problem){
-        Shipment.Builder builder = Shipment.Builder.newInstance("builder");
-        int demand = 0;
-        compression.model.vrp.Location start = branch.firstVertex().getLocation();
-        compression.model.vrp.Location end = branch.getEndVertex().getLocation();
-        builder.setPickupLocation(Location.newInstance(start.getLatitude(), start.getLongitude()));
-        builder.setDeliveryLocation(Location.newInstance(start.getLatitude(), start.getLongitude()));
-        //TODO: Shipments doesn't support the feature I need
-        builder.addSizeDimension(0, demand);
-        return builder.build();
+    private Double getMexCapavity(VrpProblem problem){
+        Double maxCapacity = 0.0;
+        for(Vehicle vehicle : problem.getVehicles()){
+            if(maxCapacity < vehicle.getCapacity())
+                maxCapacity = vehicle.getCapacity().doubleValue();
+        }
+        return maxCapacity;
+    }
+
+    private void splitBranchIfNeeded(TreeBranch<LocationVertex> branch, Double maxCapacity, List<TreeBranch<LocationVertex>> finalBrances){
+        Double capacity = 0.0;
+        List<LocationVertex> current = new LinkedList<>();
+        for(LocationVertex v : branch.getVertices()){
+            if(v.getDemand()+capacity <= maxCapacity){
+                current.add(v);
+                capacity += v.getDemand();
+            } else{
+                TreeBranch<LocationVertex> b = new TreeBranch<>(current.get(0), current.get(current.size()-1), current);
+                finalBrances.add(b);
+                current.clear();
+                capacity = 0.0;
+            }
+        }
+        if(current.size()>0){
+            TreeBranch<LocationVertex> b = new TreeBranch<>(current.get(0), current.get(current.size()-1), current);
+            finalBrances.add(b);
+        }
     }
 }

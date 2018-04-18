@@ -1,23 +1,26 @@
-package compression.services.compression.nonmap;
+package compression.graph.branching;
 
 import compression.graph.IEdge;
 import compression.graph.IGraph;
 import compression.graph.IVertex;
-import compression.services.compression.nonmap.graph.TreeBranch;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public class CompressionHelper {
-    public static <TVertex extends IVertex, TEdge extends IEdge<TVertex>>
-        List<TreeBranch<TVertex>> compress(IGraph<TVertex, TEdge> tree, TVertex startVertex){
+public class TreeBranchFinder<TVertex extends IVertex, TEdge extends IEdge<TVertex>>
+        implements ITreeBranchFinder<TVertex, TEdge>{
 
+    @Override
+    public List<TreeBranch<TVertex>> findBranches(IGraph<TVertex, TEdge> spanningArborescence, TVertex root) {
         Map<TVertex, Boolean> visited = new HashMap<>();
-        for(TVertex v : tree.getAllVertices()){
+        for(TVertex v : spanningArborescence.getAllVertices()){
             visited.put(v, false);
         }
         List<List<TVertex>> allBranches = new LinkedList<>();
         List<TVertex> currentBranch = new LinkedList<>();
-        findBranches(tree, startVertex, visited, currentBranch, allBranches);
+        findBranches(spanningArborescence, root, visited, currentBranch, allBranches);
         List<TreeBranch<TVertex>> treeBranches = new LinkedList<>();
         for(List<TVertex> l : allBranches){
             treeBranches.add(new TreeBranch(l.get(0), l.get(l.size()-1), l));
@@ -25,9 +28,8 @@ public class CompressionHelper {
         return treeBranches;
     }
 
-    private static <TVertex extends IVertex, TEdge extends IEdge<TVertex>>
-        void findBranches(IGraph<TVertex, TEdge> tree, TVertex current, Map<TVertex, Boolean> visited,
-                          List<TVertex> currentBranch, List<List<TVertex>> allBranches){
+    private void findBranches(IGraph<TVertex, TEdge> tree, TVertex current, Map<TVertex, Boolean> visited,
+                      List<TVertex> currentBranch, List<List<TVertex>> allBranches){
 
         visited.put(current, true);
         List<TEdge> outEdges = outputEdges(tree, current, visited);
@@ -50,8 +52,7 @@ public class CompressionHelper {
         }
     }
 
-    private static <TVertex extends IVertex, TEdge extends IEdge<TVertex>>
-        List<TEdge> outputEdges(IGraph<TVertex, TEdge> graph, TVertex vertex, Map<TVertex, Boolean> visited){
+    private List<TEdge> outputEdges(IGraph<TVertex, TEdge> graph, TVertex vertex, Map<TVertex, Boolean> visited){
         List<TEdge> edges = new LinkedList<>();
         for(TEdge e : graph.getEdgesFrom(vertex)){
             if(!visited.get(e.getTo())){

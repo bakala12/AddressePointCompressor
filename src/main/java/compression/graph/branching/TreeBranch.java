@@ -1,4 +1,4 @@
-package compression.services.compression.nonmap.graph;
+package compression.graph.branching;
 
 import compression.graph.IVertex;
 import lombok.AllArgsConstructor;
@@ -14,8 +14,4 @@ public class TreeBranch<TVertex extends IVertex> {
     private TVertex endVertex;
     @Getter
     private List<TVertex> vertices;
-
-    public TVertex firstVertex(){
-        return vertices.get(1);
-    }
 }
