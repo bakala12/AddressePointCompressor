@@ -43,7 +43,7 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
     }
 
     private void addDistancesFromDistanceMatrix(LocationGraph graph, VrpProblem problem){
-        SymmetricalDistanceMatrix dm = problem.getDistanceMatrix();
+        DistanceMatrix dm = problem.getDistanceMatrix();
         Long depotId = problem.getDepot().getId();
         Location depotLoc = problem.getDepot().getLocation();
         for(Client cfrom : problem.getClients()){

@@ -2,6 +2,7 @@ package compression.model.vrp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class VrpProblem {
     private double bestKnownSolution;
     @Getter
     private int dimensions;
-    @Getter
+    @Getter @Setter
     private VrpProblemMetric problemMetric;
     @Getter
     private List<Client> clients;
@@ -21,6 +22,6 @@ public class VrpProblem {
     private List<Vehicle> vehicles;
     @Getter
     private Depot depot;
-    @Getter
-    private SymmetricalDistanceMatrix distanceMatrix;
+    @Getter @Setter
+    private DistanceMatrix distanceMatrix;
 }

@@ -3,7 +3,17 @@ package compression.services.distance;
 //import compression.model.vrp.Distance;
 //import compression.model.vrp.Location;
 
-public class DistanceService {//implements IDistanceService {
+import compression.model.vrp.Location;
+
+public class DistanceService implements IDistanceService {
+
+    @Override
+    public Double getEuclideanDistance(Location from, Location to) {
+        Double latDiff = from.getLatitude() - to.getLatitude();
+        Double longDiff = from.getLongitude() - to.getLongitude();
+        return Math.sqrt(latDiff*latDiff + longDiff*longDiff);
+    }
+
     /**public Distance getApproximateDistance(Location from, Location to){
         return new Distance(from, to, distance(from.getLatitude(), from.getLongitude(), to.getLatitude(), to.getLongitude(), "K"));
     }

@@ -35,7 +35,7 @@ public class ExplicitMetricVrpProblemToJSpritConverter
     }
 
     private void copyDistanceMatrix(VrpProblem problem, VehicleRoutingTransportCostsMatrix.Builder matirxCostBuilder){
-        SymmetricalDistanceMatrix matrix = problem.getDistanceMatrix();
+        DistanceMatrix matrix = problem.getDistanceMatrix();
         if(matrix == null)
             throw new ProblemConversionException("Distance matrix is obligatory for this converter");
         for(Client from : problem.getClients()){
