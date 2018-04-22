@@ -15,4 +15,6 @@ public class AggregatedService {
     private LocationVertex outputVertex;
     @Getter
     private Double internalCost;
+    @Getter
+    private Long id;
 }
