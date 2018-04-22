@@ -28,8 +28,10 @@ public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<L
         }
         for(Client c : problem.getClients()){
             graph.getVertex(c.getLocation()).setDemand(c.getAmount());
+            graph.getVertex(c.getLocation()).setId(c.getId());
         }
         graph.getVertex(problem.getDepot().getLocation()).setDemand(0.0);
+        graph.getVertex(problem.getDepot().getLocation()).setId(problem.getDepot().getId());
         return new ProblemGraph<>(problem, graph, graph.getVertex(locations.get(0)));
     }
 

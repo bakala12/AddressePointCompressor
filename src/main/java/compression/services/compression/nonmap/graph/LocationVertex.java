@@ -13,6 +13,8 @@ public class LocationVertex implements IVertex{
     private final Location location;
     @Getter @Setter
     private Double demand;
+    @Getter @Setter
+    private Long id;
 
     @Override
     public boolean equals(Object obj){
