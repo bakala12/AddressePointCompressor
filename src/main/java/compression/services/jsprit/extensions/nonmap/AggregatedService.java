@@ -17,4 +17,6 @@ public class AggregatedService {
     private Double internalCost;
     @Getter
     private Long id;
+    @Getter
+    private Double internalDistance;
 }

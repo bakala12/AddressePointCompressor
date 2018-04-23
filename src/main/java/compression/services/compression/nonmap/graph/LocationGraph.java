@@ -32,11 +32,15 @@ public class LocationGraph extends SimpleMatrixGraph<LocationVertex, LocationEdg
     }
 
     public void addExplicitEdge(Location from, Location to, Double distance){
-        addEdge(new LocationEdge(from, to, distance));
+        LocationVertex fromV = locationMap.get(from);
+        LocationVertex toV = locationMap.get(to);
+        addEdge(new LocationEdge(fromV, toV, distance));
     }
 
     public void addEuclideanEdge(Location from, Location to){
-        addEdge(new LocationEdge(from, to));
+        LocationVertex fromV = locationMap.get(from);
+        LocationVertex toV = locationMap.get(to);
+        addEdge(new LocationEdge(fromV, toV));
     }
 
     public LocationVertex getVertex(Location location){

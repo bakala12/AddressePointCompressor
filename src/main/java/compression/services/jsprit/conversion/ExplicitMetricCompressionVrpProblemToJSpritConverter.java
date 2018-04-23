@@ -40,7 +40,7 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
         Location depotLocation = Location.newInstance(problem.getDepot().getId().toString());
         addVehicles(problemBuilder, problem, depotLocation);
-        List<AggregatedService> services = aggregateServices(branches);
+        List<AggregatedService> services = aggregateServices(branches, problem.getDistanceMatrix());
         DistanceMatrix matrix = compressMatrix(services, problem.getDepot(), problem.getDistanceMatrix());
         VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         copyDistanceMatrix(matrix, matrixBuilder);
@@ -55,20 +55,22 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         return problemBuilder.build();
     }
 
-    private List<AggregatedService> aggregateServices(List<TreeBranch<LocationVertex>> branches){
+    private List<AggregatedService> aggregateServices(List<TreeBranch<LocationVertex>> branches, DistanceMatrix distanceMatrix){
         List<AggregatedService> services = new LinkedList<>();
         Long id = 2l;
         for(TreeBranch<LocationVertex> branch : branches){
             Double cost = 0.0;
+            Double internalDistance = 0.0;
             LocationVertex prev = null;
             for(LocationVertex v : branch.getVertices()){
                 if(prev != null){
                     cost += v.getDemand();
+                    internalDistance += distanceMatrix.getDistance(prev.getId(), v.getId());
                 }
                 prev = v;
             }
             branch.getVertices().remove(branch.getStartVertex());
-            AggregatedService service = new AggregatedService(branch.getVertices(), branch.getVertices().get(0), branch.getEndVertex(), cost, id);
+            AggregatedService service = new AggregatedService(branch.getVertices(), branch.getVertices().get(0), branch.getEndVertex(), cost, id, internalDistance);
             id++;
             services.add(service);
         }
@@ -80,13 +82,13 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         for(AggregatedService from : services){
             for(AggregatedService to : services){
                 if(from != to){
-                    Double fromTo = distances.getDistance(from.getOutputVertex().getId(), to.getInputVertex().getId()) + to.getInternalCost();
+                    Double fromTo = distances.getDistance(from.getOutputVertex().getId(), to.getInputVertex().getId()) + to.getInternalDistance();
                     matrix.setDistance(from.getId(), to.getId(), fromTo);
-                    Double toFrom = distances.getDistance(to.getOutputVertex().getId(), from.getInputVertex().getId()) + from.getInternalCost();
+                    Double toFrom = distances.getDistance(to.getOutputVertex().getId(), from.getInputVertex().getId()) + from.getInternalDistance();
                     matrix.setDistance(to.getId(), from.getId(), toFrom);
                 }
             }
-            Double fromDepot = distances.getDistance(depot.getId(), from.getInputVertex().getId())+from.getInternalCost();
+            Double fromDepot = distances.getDistance(depot.getId(), from.getInputVertex().getId())+from.getInternalDistance();
             matrix.setDistance(depot.getId(), from.getId(), fromDepot);
             Double toDepot = distances.getDistance(from.getOutputVertex().getId(), depot.getId());
             matrix.setDistance(from.getId(), depot.getId(), toDepot);

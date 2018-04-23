@@ -13,20 +13,21 @@ import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.datalogger.CsvDataLogger;
 import compression.output.datalogger.IDataLogger;
-import compression.services.jsprit.conversion.EuclideanMetricVrpProblemToJSpritConverter;
-import compression.services.jsprit.conversion.ExplicitMetricVrpProblemToJSpritConverter;
-import compression.services.jsprit.conversion.IVrpProblemToJSpritConverter;
-import compression.services.jsprit.conversion.ProblemConversionException;
+import compression.services.compression.nonmap.NonMapCompressionService;
+import compression.services.distance.IDistanceService;
+import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
+import lombok.RequiredArgsConstructor;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@RequiredArgsConstructor
 public class JSpritService implements IJSpritService {
 
-    private static class JSpritConvertersFactory{
-        static IVrpProblemToJSpritConverter getConverter(VrpProblem problem) {
+    private class JSpritConvertersFactory{
+        public IVrpProblemToJSpritConverter getConverter(VrpProblem problem) {
             switch (problem.getProblemMetric()){
                 case Euclidean:
                     return new EuclideanMetricVrpProblemToJSpritConverter();
@@ -38,7 +39,24 @@ public class JSpritService implements IJSpritService {
                     throw new ProblemConversionException("Unsupported or unknown problem metrics");
             }
         }
+
+        public IVrpProblemToJSpritConverter getCompressedConverter(VrpProblem problem){
+            switch (problem.getProblemMetric()){
+                case Euclidean:
+                    return new EuclideanMetricCompressionVrpToJSpritConverter(nonMapCompressionService, distanceService);
+                case Explicit:
+                    return new ExplicitMetricCompressionVrpProblemToJSpritConverter(nonMapCompressionService);
+                case GraphHopper:
+                    throw new RuntimeException();
+                default:
+                    throw new ProblemConversionException("Unsupported or unknown problem metrics");
+            }
+        }
     }
+
+    private final NonMapCompressionService nonMapCompressionService;
+    private final IDistanceService distanceService;
+    private final JSpritConvertersFactory factory = new JSpritConvertersFactory();
 
     private int maxNumberOfIterations = 2000;
 
@@ -54,7 +72,7 @@ public class JSpritService implements IJSpritService {
 
     @Override
     public VrpProblemSolution solve(VrpProblem problem, String dataPath){
-        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
+        IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
         algorithm.setMaxIterations(maxNumberOfIterations);
@@ -73,16 +91,16 @@ public class JSpritService implements IJSpritService {
 
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath) {
-        IVrpProblemToJSpritConverter converter = JSpritConvertersFactory.getConverter(problem);
-        //VehicleRoutingProblem vrp = converter.compressAndConvertToJSprit(problem);
-        //Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
-        //StateManager stateManager = new StateManager(vrp);
-        //ConstraintManager constraintManager = new ConstraintManager(vrp, stateManager);
-        //stateManager.addStateUpdater(new MyShipmentStateUpdater(stateManager));
-        //algorithmBuilder.setStateAndConstraintManager(stateManager, constraintManager);
-        //VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
-        //Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        //return new VrpProblemSolution(vrp, solutions);
-        return null;
+        IVrpProblemToJSpritConverter converter = factory.getCompressedConverter(problem);
+        VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
+        Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
+        VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
+        algorithm.setMaxIterations(maxNumberOfIterations);
+        if(dataPath != null){
+            IDataLogger logger = new CsvDataLogger(dataPath);
+            algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
+        }
+        Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
+        return new VrpProblemSolution(vrp, solutions);
     }
 }

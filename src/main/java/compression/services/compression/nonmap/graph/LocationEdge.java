@@ -2,8 +2,10 @@ package compression.services.compression.nonmap.graph;
 
 import compression.graph.IEdge;
 import compression.model.vrp.Location;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 public class LocationEdge implements IEdge<LocationVertex>{
     @Getter
     private LocationVertex from;
@@ -12,14 +14,8 @@ public class LocationEdge implements IEdge<LocationVertex>{
     @Getter
     private Double weight;
 
-    public LocationEdge(Location from, Location to){
-        this(from, to, getDistance(from, to));
-    }
-
-    public LocationEdge(Location from, Location to, Double weight){
-        this.from = new LocationVertex(from);
-        this.to = new LocationVertex(to);
-        this.weight = weight;
+    public LocationEdge(LocationVertex from, LocationVertex to){
+        this(from, to, getDistance(from.getLocation(), to.getLocation()));
     }
 
     private static Double getDistance(Location from, Location to){
