@@ -62,14 +62,14 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
             Double cost = 0.0;
             Double internalDistance = 0.0;
             LocationVertex prev = null;
+            branch.getVertices().remove(branch.getStartVertex());
             for(LocationVertex v : branch.getVertices()){
                 if(prev != null){
-                    cost += v.getDemand();
                     internalDistance += distanceMatrix.getDistance(prev.getId(), v.getId());
                 }
+                cost += v.getDemand();
                 prev = v;
             }
-            branch.getVertices().remove(branch.getStartVertex());
             AggregatedService service = new AggregatedService(branch.getVertices(), branch.getVertices().get(0), branch.getEndVertex(), cost, id, internalDistance);
             id++;
             services.add(service);

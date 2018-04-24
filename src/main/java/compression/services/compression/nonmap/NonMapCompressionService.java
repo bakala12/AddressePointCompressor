@@ -47,6 +47,7 @@ public class NonMapCompressionService {
     private void splitBranchIfNeeded(TreeBranch<LocationVertex> branch, Double maxCapacity, List<TreeBranch<LocationVertex>> finalBrances){
         Double capacity = 0.0;
         List<LocationVertex> current = new LinkedList<>();
+        LocationVertex prev = null;
         for(LocationVertex v : branch.getVertices()){
             if(v.getDemand()+capacity <= maxCapacity){
                 current.add(v);
@@ -54,9 +55,14 @@ public class NonMapCompressionService {
             } else{
                 TreeBranch<LocationVertex> b = new TreeBranch<>(current.get(0), current.get(current.size()-1), current);
                 finalBrances.add(b);
-                current.clear();
-                capacity = 0.0;
+                current = new LinkedList<>();
+                if(prev==null)
+                    throw new RuntimeException();
+                current.add(prev);
+                current.add(v);
+                capacity = v.getDemand();
             }
+            prev = v;
         }
         if(current.size()>0){
             TreeBranch<LocationVertex> b = new TreeBranch<>(current.get(0), current.get(current.size()-1), current);

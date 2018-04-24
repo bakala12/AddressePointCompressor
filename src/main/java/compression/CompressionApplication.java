@@ -1,5 +1,6 @@
 package compression;
 
+import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
 import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import compression.graph.IGraph;
@@ -41,7 +42,7 @@ public class CompressionApplication {
 
     public void run() {
         IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n22-k4.vrp");
+        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n101-k8.vrp");
 
         IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new NonMapProblemToGraphConverter();
         IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
@@ -49,6 +50,9 @@ public class CompressionApplication {
         IDistanceService distanceService = new DistanceService();
         NonMapCompressionService compressionService = new NonMapCompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
         IJSpritService service = new JSpritService(compressionService, distanceService);
-        VrpProblemSolution solution = service.compressAndSolve(problem);
+        VrpProblemSolution solutions = service.compressAndSolve(problem);
+        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
+        SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
+        System.out.println(Solutions.bestOf(service.solve(problem).getSolutions()).getCost());
     }
 }
