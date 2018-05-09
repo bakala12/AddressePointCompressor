@@ -41,18 +41,52 @@ import java.util.List;
 public class CompressionApplication {
 
     public void run() {
-        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
-        VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/E-n101-k8.vrp");
-
-        IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new NonMapProblemToGraphConverter();
-        IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
-        ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
-        IDistanceService distanceService = new DistanceService();
-        NonMapCompressionService compressionService = new NonMapCompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
-        IJSpritService service = new JSpritService(compressionService, distanceService);
-        VrpProblemSolution solutions = service.compressAndSolve(problem);
-        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
-        SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
-        System.out.println(Solutions.bestOf(service.solve(problem).getSolutions()).getCost());
+//        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
+        String[] benchmarks = new String[]{
+                //"E-n13-k4.vrp", //- exception
+                "E-n22-k4.vrp",
+                "E-n23-k3.vrp",
+                "E-n30-k3.vrp",
+                //"E-n31-k7.vrp", //- exception
+                "E-n33-k4.vrp",
+                "E-n51-k5.vrp",
+                "E-n76-k7.vrp",
+                "E-n76-k8.vrp",
+                "E-n76-k10.vrp",
+                "E-n101-k8.vrp",
+                "E-n101-k14.vrp"};
+//
+//        for(String b : benchmarks){
+//            try {
+//                VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/" + b);
+//                IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new NonMapProblemToGraphConverter();
+//                IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
+//                ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
+//                IDistanceService distanceService = new DistanceService();
+//                NonMapCompressionService compressionService = new NonMapCompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
+//                IJSpritService service = new JSpritService(compressionService, distanceService);
+//                //Solving original problem
+//                String dataPath = "./solutions/data/" + problem.getProblemName() + ".csv";
+//                String dataPath1 = "./solutions/data/" + problem.getProblemName() + "-compressed.csv";
+//                VrpProblemSolution solutions = service.compressAndSolve(problem, dataPath1);
+//                VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
+//                //SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
+//                VehicleRoutingProblemSolution opt = Solutions.bestOf(service.solve(problem, dataPath).getSolutions());
+//                System.out.println("Problem: " + problem.getProblemName());
+//                System.out.println("Optimal: " + problem.getBestKnownSolution());
+//                System.out.println("Best full: " + opt.getCost());
+//                System.out.println("Best compressed: " + best.getCost());
+//                System.out.println("Original dimension = " + problem.getDimensions() + " Compressed dimension = " + solutions.getProblem().getJobs().size());
+//            } catch (Exception ex){
+//                System.out.println(b);
+//                ex.printStackTrace();
+//            }
+//      }
+        IChartPlotter plotter = new ChartPlotter();
+        for (String b : benchmarks) {
+            String bb = b.replace(".vrp", "");
+            plotter.plotTimeChart("./solutions/data/" + bb + ".csv", "./solutions/plots/" + bb + "-time.jpeg");
+            plotter.plotTimeChart("./solutions/data/" + bb + "-compressed.csv", "./solutions/plots/" + bb + "-compressed-time.jpeg");
+        }
     }
 }
