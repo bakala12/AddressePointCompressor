@@ -2,25 +2,18 @@ package compression.services.jsprit;
 
 import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
-import com.graphhopper.jsprit.core.algorithm.state.StateManager;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
-import com.graphhopper.jsprit.core.problem.constraint.ConstraintManager;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
-import com.graphhopper.jsprit.core.util.Solutions;
-import com.graphhopper.jsprit.core.util.StopWatch;
-import com.graphhopper.storage.Directory;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.datalogger.CsvDataLogger;
 import compression.output.datalogger.IDataLogger;
-import compression.services.compression.nonmap.NonMapCompressionService;
+import compression.services.compression.CompressionService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
 import lombok.RequiredArgsConstructor;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -43,9 +36,9 @@ public class JSpritService implements IJSpritService {
         public IVrpProblemToJSpritConverter getCompressedConverter(VrpProblem problem){
             switch (problem.getProblemMetric()){
                 case Euclidean:
-                    return new EuclideanMetricCompressionVrpToJSpritConverter(nonMapCompressionService, distanceService);
+                    return new EuclideanMetricCompressionVrpToJSpritConverter(compressionService, distanceService);
                 case Explicit:
-                    return new ExplicitMetricCompressionVrpProblemToJSpritConverter(nonMapCompressionService);
+                    return new ExplicitMetricCompressionVrpProblemToJSpritConverter(compressionService);
                 case GraphHopper:
                     throw new RuntimeException();
                 default:
@@ -54,7 +47,7 @@ public class JSpritService implements IJSpritService {
         }
     }
 
-    private final NonMapCompressionService nonMapCompressionService;
+    private final CompressionService compressionService;
     private final IDistanceService distanceService;
     private final JSpritConvertersFactory factory = new JSpritConvertersFactory();
 

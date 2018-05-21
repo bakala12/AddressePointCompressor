@@ -5,14 +5,12 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
 import compression.graph.branching.TreeBranch;
-import compression.model.disjointset.DisjointSet;
 import compression.model.vrp.*;
-import compression.services.compression.nonmap.NonMapCompressionService;
-import compression.services.compression.nonmap.graph.LocationVertex;
-import compression.services.jsprit.extensions.nonmap.AggregatedService;
+import compression.services.compression.CompressionService;
+import compression.services.compression.graph.LocationVertex;
+import compression.services.jsprit.extensions.AggregatedService;
 import lombok.RequiredArgsConstructor;
 
-import java.rmi.activation.ActivationGroup;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         extends BaseProblemToJSpritConverter
         implements IVrpProblemToJSpritConverter {
 
-    private final NonMapCompressionService compressionService;
+    private final CompressionService compressionService;
 
     @Override
     protected Location convertLocation(Client client) {

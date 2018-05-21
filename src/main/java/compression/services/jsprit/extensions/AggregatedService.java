@@ -1,6 +1,6 @@
-package compression.services.jsprit.extensions.nonmap;
+package compression.services.jsprit.extensions;
 
-import compression.services.compression.nonmap.graph.LocationVertex;
+import compression.services.compression.graph.LocationVertex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

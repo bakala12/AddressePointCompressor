@@ -1,8 +1,7 @@
-package compression.services.compression.nonmap.graph;
+package compression.services.compression.graph;
 
 import compression.graph.IVertex;
 import compression.model.vrp.Location;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

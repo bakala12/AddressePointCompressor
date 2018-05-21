@@ -1,4 +1,4 @@
-package compression.services.compression.nonmap.graph;
+package compression.services.compression.graph;
 
 import compression.graph.IEdge;
 import compression.model.vrp.Location;

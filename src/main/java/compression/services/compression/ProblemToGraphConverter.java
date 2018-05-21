@@ -1,16 +1,16 @@
-package compression.services.compression.nonmap;
+package compression.services.compression;
 
 import compression.model.vrp.*;
 import compression.services.compression.IProblemToGraphConverter;
 import compression.services.compression.ProblemGraph;
-import compression.services.compression.nonmap.graph.LocationEdge;
-import compression.services.compression.nonmap.graph.LocationGraph;
-import compression.services.compression.nonmap.graph.LocationVertex;
+import compression.services.compression.graph.LocationEdge;
+import compression.services.compression.graph.LocationGraph;
+import compression.services.compression.graph.LocationVertex;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class NonMapProblemToGraphConverter implements IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph>{
+public class ProblemToGraphConverter implements IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph>{
 
     @Override
     public ProblemGraph<LocationVertex, LocationEdge, LocationGraph> convert(VrpProblem problem) {

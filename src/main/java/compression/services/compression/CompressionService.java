@@ -1,4 +1,4 @@
-package compression.services.compression.nonmap;
+package compression.services.compression;
 
 import compression.graph.IGraph;
 import compression.graph.branching.ITreeBranchFinder;
@@ -7,16 +7,16 @@ import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
 import compression.services.compression.IProblemToGraphConverter;
 import compression.services.compression.ProblemGraph;
-import compression.services.compression.nonmap.graph.LocationEdge;
-import compression.services.compression.nonmap.graph.LocationGraph;
-import compression.services.compression.nonmap.graph.LocationVertex;
+import compression.services.compression.graph.LocationEdge;
+import compression.services.compression.graph.LocationGraph;
+import compression.services.compression.graph.LocationVertex;
 import compression.graph.branching.TreeBranch;
 import lombok.RequiredArgsConstructor;
 import java.util.LinkedList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class NonMapCompressionService {
+public class CompressionService {
 
     private final IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> graphConverter;
     private final IMinimalArborescenceFinder minimalArborescenceFinder;
