@@ -10,7 +10,7 @@ import compression.graph.mst.IMinimalArborescenceFinder;
 import compression.graph.mst.MinimalArborescenceFinder;
 import compression.input.IProblemReader;
 import compression.input.VrpProblemReader;
-import compression.input.parsing.vrp.VrpNonMapProblemParser;
+import compression.input.parsing.vrp.VrpProblemParser;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.plot.ChartPlotter;
@@ -41,7 +41,7 @@ import java.util.List;
 public class CompressionApplication {
 
     public void run() {
-//        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpNonMapProblemParser());
+        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpProblemParser());
         String[] benchmarks = new String[]{
                 //"E-n13-k4.vrp", //- exception
                 "E-n22-k4.vrp",
@@ -55,33 +55,33 @@ public class CompressionApplication {
                 "E-n76-k10.vrp",
                 "E-n101-k8.vrp",
                 "E-n101-k14.vrp"};
-//
-//        for(String b : benchmarks){
-//            try {
-//                VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/" + b);
-//                IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new NonMapProblemToGraphConverter();
-//                IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
-//                ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
-//                IDistanceService distanceService = new DistanceService();
-//                NonMapCompressionService compressionService = new NonMapCompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
-//                IJSpritService service = new JSpritService(compressionService, distanceService);
-//                //Solving original problem
-//                String dataPath = "./solutions/data/" + problem.getProblemName() + ".csv";
-//                String dataPath1 = "./solutions/data/" + problem.getProblemName() + "-compressed.csv";
-//                VrpProblemSolution solutions = service.compressAndSolve(problem, dataPath1);
-//                VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
-//                //SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
-//                VehicleRoutingProblemSolution opt = Solutions.bestOf(service.solve(problem, dataPath).getSolutions());
-//                System.out.println("Problem: " + problem.getProblemName());
-//                System.out.println("Optimal: " + problem.getBestKnownSolution());
-//                System.out.println("Best full: " + opt.getCost());
-//                System.out.println("Best compressed: " + best.getCost());
-//                System.out.println("Original dimension = " + problem.getDimensions() + " Compressed dimension = " + solutions.getProblem().getJobs().size());
-//            } catch (Exception ex){
-//                System.out.println(b);
-//                ex.printStackTrace();
-//            }
-//      }
+
+        for(String b : benchmarks){
+            try {
+                VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/" + b);
+                IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new NonMapProblemToGraphConverter();
+                IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
+                ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
+                IDistanceService distanceService = new DistanceService();
+                NonMapCompressionService compressionService = new NonMapCompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
+                IJSpritService service = new JSpritService(compressionService, distanceService);
+                //Solving original problem
+                String dataPath = "./solutions/data/" + problem.getProblemName() + ".csv";
+                String dataPath1 = "./solutions/data/" + problem.getProblemName() + "-compressed.csv";
+                VrpProblemSolution solutions = service.compressAndSolve(problem, dataPath1);
+                VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
+                //SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
+                VehicleRoutingProblemSolution opt = Solutions.bestOf(service.solve(problem, dataPath).getSolutions());
+                System.out.println("Problem: " + problem.getProblemName());
+                System.out.println("Optimal: " + problem.getBestKnownSolution());
+                System.out.println("Best full: " + opt.getCost());
+                System.out.println("Best compressed: " + best.getCost());
+                System.out.println("Original dimension = " + problem.getDimensions() + " Compressed dimension = " + solutions.getProblem().getJobs().size());
+            } catch (Exception ex){
+                System.out.println(b);
+                ex.printStackTrace();
+            }
+      }
         IChartPlotter plotter = new ChartPlotter();
         for (String b : benchmarks) {
             String bb = b.replace(".vrp", "");

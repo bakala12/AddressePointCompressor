@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VrpNonMapProblemParser implements IVrpProblemParser{
+public class VrpProblemParser implements IVrpProblemParser{
 
     @Override
     public VrpProblem parse(InputStream stream) {
