@@ -1,6 +1,7 @@
 package compression;
 
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import compression.graph.branching.ITreeBranchFinder;
 import compression.graph.branching.TreeBranchFinder;
@@ -15,6 +16,7 @@ import compression.output.plot.ChartPlotter;
 import compression.output.plot.IChartPlotter;
 import compression.services.compression.CompressionService;
 import compression.services.compression.IProblemToGraphConverter;
+import compression.services.compression.ProblemGraph;
 import compression.services.compression.ProblemToGraphConverter;
 import compression.services.compression.graph.LocationEdge;
 import compression.services.compression.graph.LocationGraph;
@@ -25,56 +27,45 @@ import compression.services.jsprit.IJSpritService;
 import compression.services.jsprit.JSpritService;
 import lombok.NoArgsConstructor;
 
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @NoArgsConstructor
 public class CompressionApplication {
 
-    public void run() {
-        IProblemReader<VrpProblem> reader = new VrpProblemReader<VrpProblem>(new VrpProblemParser());
-        String[] benchmarks = new String[]{
-                //"E-n13-k4.vrp", //- exception
-                "E-n22-k4.vrp",
-                "E-n23-k3.vrp",
-                "E-n30-k3.vrp",
-                //"E-n31-k7.vrp", //- exception
-                "E-n33-k4.vrp",
-                "E-n51-k5.vrp",
-                "E-n76-k7.vrp",
-                "E-n76-k8.vrp",
-                "E-n76-k10.vrp",
-                "E-n101-k8.vrp",
-                "E-n101-k14.vrp"};
+    private final IProblemReader<VrpProblem> problemReader = new VrpProblemReader<>(new VrpProblemParser());
+    private final IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new ProblemToGraphConverter();
+    private final MinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
+    private final ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
+    private final IDistanceService distanceService = new DistanceService();
+    private final CompressionService compressionService = new CompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
+    private final IJSpritService service = new JSpritService(compressionService, distanceService);
+    private final IChartPlotter chartPlotter = new ChartPlotter();
 
-        for(String b : benchmarks){
-            try {
-                VrpProblem problem = reader.readProblemInstanceFromResources("/benchmarks/" + b);
-                IProblemToGraphConverter<LocationVertex, LocationEdge, LocationGraph> problemConverter = new ProblemToGraphConverter();
-                IMinimalArborescenceFinder minimalArborescenceFinder = new MinimalArborescenceFinder();
-                ITreeBranchFinder<LocationVertex, LocationEdge> treeBranchFinder = new TreeBranchFinder<>();
-                IDistanceService distanceService = new DistanceService();
-                CompressionService compressionService = new CompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
-                IJSpritService service = new JSpritService(compressionService, distanceService);
-                //Solving original problem
-                String dataPath = "./solutions/data/" + problem.getProblemName() + ".csv";
-                String dataPath1 = "./solutions/data/" + problem.getProblemName() + "-compressed.csv";
-                VrpProblemSolution solutions = service.compressAndSolve(problem, dataPath1);
-                VehicleRoutingProblemSolution best = Solutions.bestOf(solutions.getSolutions());
-                //SolutionPrinter.print(solutions.getProblem(), best, SolutionPrinter.Print.VERBOSE);
-                VehicleRoutingProblemSolution opt = Solutions.bestOf(service.solve(problem, dataPath).getSolutions());
-                System.out.println("Problem: " + problem.getProblemName());
-                System.out.println("Optimal: " + problem.getBestKnownSolution());
-                System.out.println("Best full: " + opt.getCost());
-                System.out.println("Best compressed: " + best.getCost());
-                System.out.println("Original dimension = " + problem.getDimensions() + " Compressed dimension = " + solutions.getProblem().getJobs().size());
-            } catch (Exception ex){
-                System.out.println(b);
-                ex.printStackTrace();
+    public void run(String inputFile, String outputFile, Boolean useCompression, String dataPath, String plotPath){
+        try {
+            VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
+            VrpProblemSolution solution = null;
+            if (useCompression) {
+                System.out.println("Compressed problem");
+                solution = service.compressAndSolve(problem, dataPath);
+            } else {
+                System.out.println("Full problem");
+                solution = service.solve(problem, dataPath);
             }
-      }
-        IChartPlotter plotter = new ChartPlotter();
-        for (String b : benchmarks) {
-            String bb = b.replace(".vrp", "");
-            plotter.plotTimeChart("./solutions/data/" + bb + ".csv", "./solutions/plots/" + bb + "-time.jpeg");
-            plotter.plotTimeChart("./solutions/data/" + bb + "-compressed.csv", "./solutions/plots/" + bb + "-compressed-time.jpeg");
+            System.out.println("Finished");
+            VehicleRoutingProblemSolution best = Solutions.bestOf(solution.getSolutions());
+            PrintWriter printWriter = new PrintWriter(outputFile);
+            SolutionPrinter.print(printWriter, solution.getProblem(), best, SolutionPrinter.Print.VERBOSE);
+            printWriter.flush();
+            if(dataPath!= null && chartPlotter != null){
+                System.out.println("Generating and saving plots");
+                chartPlotter.plotCostChart(dataPath, Paths.get(plotPath, "cost.jpeg").toString());
+                chartPlotter.plotTimeChart(dataPath, Paths.get(plotPath, "time.jpeg").toString());
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 }

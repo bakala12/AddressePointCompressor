@@ -29,7 +29,7 @@ public class VrpProblemParser implements IVrpProblemParser{
         Double bestSolution = 0.0;
         Integer capacity = 0;
         Integer dimensions = 0;
-        SymmetricalDistanceMatrix distanceMatrix = null;
+        DistanceMatrix distanceMatrix = null;
         VrpProblemMetric metric = VrpProblemMetric.Unknown;
         Location[] locations = null;
         Double[] demands = null;
@@ -57,13 +57,9 @@ public class VrpProblemParser implements IVrpProblemParser{
                     distanceMatrix = parseDistanceMatrix(reader, dimensions);
             }
             else if(line.startsWith("NODE_COORD_SECTION")){
-                if(metric != VrpProblemMetric.Euclidean)
-                    throw new ParsingException("NODE_COORD_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EUC2D");
-                else{
-                    if(dimensions == 0)
-                        throw new ParsingException("Invalid dimensions");
-                    locations = parseLocations(reader, dimensions);
-                }
+                if(dimensions == 0)
+                    throw new ParsingException("Invalid dimensions");
+                locations = parseLocations(reader, dimensions);
             }
             else if(line.startsWith("DEMAND_SECTION")){
                 if(dimensions == 0)
