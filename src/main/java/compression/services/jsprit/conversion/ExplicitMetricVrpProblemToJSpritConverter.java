@@ -23,7 +23,7 @@ public class ExplicitMetricVrpProblemToJSpritConverter
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
         addVehicles(problemBuilder, problem, Location.newInstance(problem.getDepot().getId().toString()));
         addClients(problemBuilder, problem);
-        VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(true);
+        VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         copyDistanceMatrix(problem, matrixCostBuilder);
         problemBuilder.setRoutingCost(matrixCostBuilder.build());
         return problemBuilder.build();
@@ -53,6 +53,12 @@ public class ExplicitMetricVrpProblemToJSpritConverter
                 distance = d;
             }
             matirxCostBuilder.addTransportDistance(from.getId().toString(), problem.getDepot().getId().toString(), distance);
+            double distance1 = 0.0;
+            Double d1 = matrix.getDistance(problem.getDepot().getId(), from.getId());
+            if(d1 != null){
+                distance1 = d1;
+            }
+            matirxCostBuilder.addTransportDistance(problem.getDepot().getId().toString(), from.getId().toString(), distance1);
         }
     }
 }

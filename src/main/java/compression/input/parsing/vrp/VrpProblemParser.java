@@ -23,6 +23,12 @@ public class VrpProblemParser implements IVrpProblemParser{
         }
     }
 
+    private enum EdgeWeightFormat{
+        UNKNOWN,
+        LOWER_ROW,
+        FULL_MATRIX
+    }
+
     private VrpProblem parseReader(BufferedReader reader) throws IOException {
         String line;
         String name = null;
@@ -31,6 +37,7 @@ public class VrpProblemParser implements IVrpProblemParser{
         Integer dimensions = 0;
         DistanceMatrix distanceMatrix = null;
         VrpProblemMetric metric = VrpProblemMetric.Unknown;
+        EdgeWeightFormat format = EdgeWeightFormat.UNKNOWN;
         Location[] locations = null;
         Double[] demands = null;
         List<Integer> depotIds = null;
@@ -47,14 +54,24 @@ public class VrpProblemParser implements IVrpProblemParser{
             else if(line.startsWith("CAPACITY")){
                 capacity = parseCapacity(line);
             }
+            else if(line.startsWith("EDGE_WEIGHT_FORMAT")){
+                format = parseEdgeWeightFormat(line);
+            }
             else if(line.startsWith("EDGE_WEIGHT_TYPE")){
                 metric = parseMetrics(line);
             }
             else if(line.startsWith("EDGE_WEIGHT_SECTION")){
                 if(metric != VrpProblemMetric.Explicit)
                     throw new ParsingException("EDGE_WEIGHT_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EXPLICIT");
-                else
-                    distanceMatrix = parseDistanceMatrix(reader, dimensions);
+                else{
+                    if(format == EdgeWeightFormat.UNKNOWN) {
+                        throw new ParsingException("Unknown edge weight format");
+                    } else if(format == EdgeWeightFormat.FULL_MATRIX){
+                        distanceMatrix = parseNonSymmetricalDistanceMatrix(reader, dimensions);
+                    } else if(format == EdgeWeightFormat.LOWER_ROW){
+                        distanceMatrix = parseSymmetricalDistanceMatrix(reader, dimensions);
+                    }
+                }
             }
             else if(line.startsWith("NODE_COORD_SECTION")){
                 if(dimensions == 0)
@@ -83,10 +100,10 @@ public class VrpProblemParser implements IVrpProblemParser{
         Depot depot = null;
         List<Client> clients = new LinkedList<>();
         if(metric == VrpProblemMetric.Explicit){
-            depot = new Depot(1L, null);
+            depot = new Depot(1L, locations[0]);
             Long clId = 2L;
             for(int i = 1; i< dimensions; i++){
-                clients.add(new Client(clId, demands[i], 0.0, null));
+                clients.add(new Client(clId, demands[i], 0.0, locations[i]));
                 clId++;
             }
         } else {
@@ -103,7 +120,11 @@ public class VrpProblemParser implements IVrpProblemParser{
     private Double parseBestKnownSolution(String line){
         String[] split = line.split(":");
         String bestKnown = split[split.length-1].replace(")", "");
-        return Double.parseDouble(bestKnown);
+        try{
+            return Double.parseDouble(bestKnown);
+        } catch(Exception ex) {
+            return 0.0;
+        }
     }
 
     private Integer parseCapacity(String line){
@@ -125,7 +146,33 @@ public class VrpProblemParser implements IVrpProblemParser{
         throw new ParsingException("Not supported problem metrics");
     }
 
-    private SymmetricalDistanceMatrix parseDistanceMatrix(BufferedReader reader, Integer dimensions) throws IOException {
+    private EdgeWeightFormat parseEdgeWeightFormat(String line){
+        String format = line.split(": ")[1];
+        if(format.compareTo(EdgeWeightFormat.FULL_MATRIX.toString())==0)
+            return EdgeWeightFormat.FULL_MATRIX;
+        else if(format.compareTo(EdgeWeightFormat.LOWER_ROW.toString())==0)
+            return EdgeWeightFormat.LOWER_ROW;
+        return EdgeWeightFormat.UNKNOWN;
+    }
+
+    private DistanceMatrix parseNonSymmetricalDistanceMatrix(BufferedReader reader, Integer dimensions) throws IOException{
+        DistanceMatrix distanceMatrix = new DistanceMatrix(dimensions);
+        for (int i=0; i<dimensions; i++){
+            String line = reader.readLine();
+            String[] items = line.split("\\s+");
+            int j=0;
+            for(String item : items){
+                if(item.compareTo("")==0)
+                    continue;
+                Double dist = Double.parseDouble(item);
+                distanceMatrix.setDistance(i,j,dist);
+                j++;
+            }
+        }
+        return distanceMatrix;
+    }
+
+    private DistanceMatrix parseSymmetricalDistanceMatrix(BufferedReader reader, Integer dimensions) throws IOException {
         Integer remainingLocations = dimensions*(dimensions-1)/2;
         SymmetricalDistanceMatrix distanceMatrix = new SymmetricalDistanceMatrix(dimensions);
         Integer num = 0;
