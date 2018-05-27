@@ -23,6 +23,7 @@ public class Program {
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
+        System.out.println("Start");
         if(useDefault()){
             app.run("./src/main/resources/benchmarks/Test.vrp", "./solutions/solution.sol", false,
                     "./solutions/data/data.csv", "./solutions/plots/");
