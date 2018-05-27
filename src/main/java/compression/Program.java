@@ -2,6 +2,7 @@ package compression;
 
 import org.apache.commons.cli.*;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -23,13 +24,12 @@ public class Program {
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
+//        if(useDefault()){
+//            app.run("./Benchmarks/E-n13-k4.vrp", "./solutions/solution.sol", true,
+//                    "./solutions/data/data.csv", "./solutions/plots/");
+//            return;
+//        }
         System.out.println("Start");
-        if(useDefault()){
-            app.run("./src/main/resources/benchmarks/Test.vrp", "./solutions/solution.sol", false,
-                    "./solutions/data/data.csv", "./solutions/plots/");
-            return;
-        }
-
         Options options = new Options();
         Option input = new Option("i", "input", true, "input file path");
         input.setRequired(true);
@@ -41,10 +41,10 @@ public class Program {
         useCompression.setRequired(false);
         options.addOption(useCompression);
         Option collectedDataPath = new Option("d", "datapath", true, "path to file with collected data");
-        collectedDataPath.setRequired(false);
+        collectedDataPath.setRequired(true);
         options.addOption(collectedDataPath);
         Option plotDir = new Option("p", "plotpath", true, "path to directory where plots will be generated");
-        plotDir.setRequired(false);
+        plotDir.setRequired(true);
         options.addOption(plotDir);
 
         CommandLineParser parser = new DefaultParser();
@@ -71,7 +71,11 @@ public class Program {
         if(cmd.hasOption("p")){
             plotPath = cmd.getOptionValue("p");
         }
-
         app.run(inputFilePath, outputFilePath, useCompressionValue, dataPath, plotPath);
+//        try {
+//            System.in.read();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

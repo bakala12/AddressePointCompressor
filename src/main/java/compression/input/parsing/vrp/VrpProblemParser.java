@@ -100,11 +100,21 @@ public class VrpProblemParser implements IVrpProblemParser{
         Depot depot = null;
         List<Client> clients = new LinkedList<>();
         if(metric == VrpProblemMetric.Explicit){
-            depot = new Depot(1L, locations[0]);
-            Long clId = 2L;
-            for(int i = 1; i< dimensions; i++){
-                clients.add(new Client(clId, demands[i], 0.0, locations[i]));
-                clId++;
+            if(locations==null){
+                depot = new Depot(1L, new Location(1.0,1.0));
+                Long clId = 2L;
+                for(int i = 1; i< dimensions; i++){
+                    clients.add(new Client(clId, demands[i], 0.0, new Location(clId.doubleValue(), clId.doubleValue())));
+                    clId++;
+                }
+            }
+            else{
+                depot = new Depot(1L, locations[0]);
+                Long clId = 2L;
+                for(int i = 1; i< dimensions; i++){
+                    clients.add(new Client(clId, demands[i], 0.0, locations[i]));
+                    clId++;
+                }
             }
         } else {
             depot = convertDepot(depotIds.get(0), locations);
@@ -147,10 +157,10 @@ public class VrpProblemParser implements IVrpProblemParser{
     }
 
     private EdgeWeightFormat parseEdgeWeightFormat(String line){
-        String format = line.split(": ")[1];
-        if(format.compareTo(EdgeWeightFormat.FULL_MATRIX.toString())==0)
+        String format = line.split(": ")[1].trim();
+        if(format.compareTo("FULL_MATRIX")==0)
             return EdgeWeightFormat.FULL_MATRIX;
-        else if(format.compareTo(EdgeWeightFormat.LOWER_ROW.toString())==0)
+        else if(format.compareTo("LOWER_ROW")==0)
             return EdgeWeightFormat.LOWER_ROW;
         return EdgeWeightFormat.UNKNOWN;
     }

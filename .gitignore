@@ -3,6 +3,7 @@
 
 # Vrp solution data files
 solutions/
+Results/
 
 # User-specific stuff:
 .idea/**/workspace.xml
