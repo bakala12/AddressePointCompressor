@@ -57,6 +57,7 @@ public class CompressionApplication {
             System.out.println("Finished");
             VehicleRoutingProblemSolution best = Solutions.bestOf(solution.getSolutions());
             PrintWriter printWriter = new PrintWriter(outputFile);
+            System.out.println(best.getCost());
             SolutionPrinter.print(printWriter, solution.getProblem(), best, SolutionPrinter.Print.VERBOSE);
             printWriter.flush();
             if(dataPath!= null && chartPlotter != null){

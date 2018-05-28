@@ -24,8 +24,8 @@ public class Program {
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
-//        if(useDefault()){
-//            app.run("./Benchmarks/E-n13-k4.vrp", "./solutions/solution.sol", true,
+//        if(true){
+//            app.run("./Benchmarks/X-n101-k25.vrp", "./solutions/solution.sol", true,
 //                    "./solutions/data/data.csv", "./solutions/plots/");
 //            return;
 //        }

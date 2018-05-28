@@ -27,10 +27,10 @@ New-Item -Force -Name "$plotDirCompression" -ItemType Directory
 
 $currDir = Split-Path -Path $MyInvocation.MyCommand.Path
 
-Write-Output "Start test for $BenchamrkName"
+Write-Output "Start test for $($BenchmarkName)"
 Start-Process java -ArgumentList "-jar $pathToJar -i $currDir\$inputFile -o $currDir\$outputFile -d $currDir\$dataFile -p $currDir\$plotDirNormal" -Wait -NoNewWindow
-Start-Process java -ArgumentList "-jar $pathToJar -i $inputFile -o $outputFileCompression -d $dataFileCompression -p $plotDirCompression -c" -Wait -NoNewWindow
-Write-Output "End test for $BenchamrkName"
+Start-Process java -ArgumentList "-jar $pathToJar -i $currDir\$inputFile -o $currDir\$outputFile -d $currDir\$dataFile -p $currDir\$plotDirNormal -c" -Wait -NoNewWindow
+Write-Output "End test for $($BenchmarkName)"
 
 
 

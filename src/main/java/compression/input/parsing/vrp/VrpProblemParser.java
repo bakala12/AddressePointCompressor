@@ -124,12 +124,12 @@ public class VrpProblemParser implements IVrpProblemParser{
     }
 
     private String parseName(String line){
-        return line.split(" : ")[1];
+        return line.split("\\s+:\\s+")[1].trim();
     }
 
     private Double parseBestKnownSolution(String line){
-        String[] split = line.split(":");
-        String bestKnown = split[split.length-1].replace(")", "");
+        String[] split = line.split("\\s*:\\s*");
+        String bestKnown = split[split.length-1].trim().replace(")", "");
         try{
             return Double.parseDouble(bestKnown);
         } catch(Exception ex) {
@@ -138,15 +138,15 @@ public class VrpProblemParser implements IVrpProblemParser{
     }
 
     private Integer parseCapacity(String line){
-        return Integer.parseInt(line.split(" : ")[1]);
+        return Integer.parseInt(line.split("\\s+:\\s+")[1].trim());
     }
 
     private Integer parseDimensions(String line){
-        return Integer.parseInt(line.split(" : ")[1]);
+        return Integer.parseInt(line.split("\\s+:\\s+")[1].trim());
     }
 
     private VrpProblemMetric parseMetrics(String line){
-        String metric = line.split(" : ")[1];
+        String metric = line.split("\\s+:\\s+")[1].trim();
         if(metric.startsWith("EXPLICIT")){
             return VrpProblemMetric.Explicit;
         }
@@ -157,7 +157,7 @@ public class VrpProblemParser implements IVrpProblemParser{
     }
 
     private EdgeWeightFormat parseEdgeWeightFormat(String line){
-        String format = line.split(": ")[1].trim();
+        String format = line.split("\\s*:\\s*")[1].trim();
         if(format.compareTo("FULL_MATRIX")==0)
             return EdgeWeightFormat.FULL_MATRIX;
         else if(format.compareTo("LOWER_ROW")==0)
@@ -189,7 +189,7 @@ public class VrpProblemParser implements IVrpProblemParser{
         Integer from = 0;
         Integer to = 0;
         while (num < remainingLocations){
-            String[] items = reader.readLine().split(" ");
+            String[] items = reader.readLine().split("\\s+");
             if(items.length == 0)
                 throw new ParsingException("Invalid distance matrix line");
             for(String i : items){
@@ -217,7 +217,7 @@ public class VrpProblemParser implements IVrpProblemParser{
     private Location[] parseLocations(BufferedReader reader, Integer dimensions) throws IOException {
         List<Location> locations = new LinkedList<>();
         for(int i=1; i<=dimensions; i++){
-            String[] items = reader.readLine().split(" ");
+            String[] items = reader.readLine().split("\\s+");
             if(items.length != 3){
                 throw new ParsingException("Invalid location");
             }
@@ -234,7 +234,7 @@ public class VrpProblemParser implements IVrpProblemParser{
     private Double[] parseDemands(BufferedReader reader, Integer dimensions) throws IOException {
         List<Double> demands = new LinkedList<>();
         for(int i=1; i<= dimensions; i++){
-            String[] items = reader.readLine().split(" ");
+            String[] items = reader.readLine().split("\\s+");
             if(items.length != 2)
                 throw new ParsingException("Invalid demand");
             Integer id = Integer.parseInt(items[0]);
@@ -250,7 +250,7 @@ public class VrpProblemParser implements IVrpProblemParser{
         List<Integer> depotIds = new LinkedList<>();
         String line;
         while((line = bufferedReader.readLine()) != null){
-            Integer id = Integer.parseInt(line.replace(" ", ""));
+            Integer id = Integer.parseInt(line.trim());
             if(id < 0)
                 break;
             depotIds.add(id);
