@@ -51,7 +51,8 @@ public class CompressionService {
         for(LocationVertex v : branch.getVertices()){
             if(v.getDemand()+capacity <= maxCapacity){
                 current.add(v);
-                capacity += v.getDemand();
+                if(prev != null)
+                    capacity += v.getDemand();
             } else{
                 TreeBranch<LocationVertex> b = new TreeBranch<>(current.get(0), current.get(current.size()-1), current);
                 finalBrances.add(b);
