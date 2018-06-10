@@ -4,13 +4,12 @@ import compression.model.vrp.*;
 import compression.services.distance.DistanceService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 public class GraphConverter {
 
     @AllArgsConstructor
-    public class LocationVertex{
+    public static class LocationVertex{
         @Getter
         private Long id;
         @Getter

@@ -24,11 +24,11 @@ public class Program {
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
-//        if(true){
-//            app.run("./Benchmarks/X-n101-k25.vrp", "./solutions/solution.sol", true,
-//                    "./solutions/data/data.csv", "./solutions/plots/");
-//            return;
-//        }
+        if(true){
+            app.run("./Benchmarks/mybenchmark.vrp", "./solutions/solution.sol", true,
+                    "./solutions/data/data.csv", "./solutions/plots/");
+            return;
+        }
         System.out.println("Start");
         Options options = new Options();
         Option input = new Option("i", "input", true, "input file path");
