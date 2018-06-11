@@ -1,25 +1,12 @@
-package compression.graphnew;
+package compression.services;
 
+import compression.model.graph.Edge;
+import compression.model.graph.LocationVertex;
 import compression.model.vrp.*;
 import compression.services.distance.DistanceService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
-public class GraphConverter {
-
-    @AllArgsConstructor
-    public static class LocationVertex{
-        @Getter
-        private Long id;
-        @Getter
-        private Location location;
-
-        @Override
-        public String toString(){
-            return "ID="+id+":"+location.toString();
-        }
-    }
+public class ProblemToGraphConverter {
 
     public SimpleDirectedWeightedGraph<LocationVertex, Edge> convert(VrpProblem problem){
         switch (problem.getProblemMetric()){
@@ -57,7 +44,7 @@ public class GraphConverter {
         g.addVertex(vertices[0]);
         for(Client cf : problem.getClients()) {
             LocationVertex v = new LocationVertex(cf.getId(), cf.getLocation());
-            vertices[v.id.intValue()-1] = v;
+            vertices[v.getId().intValue()-1] = v;
             g.addVertex(v);
         }
         addEdges(g, problem.getDimensions(), vertices, problem.getDistanceMatrix());
@@ -68,7 +55,7 @@ public class GraphConverter {
         for(int i=0; i<dim; i++){
             for(int j=0; j<dim; j++){
                 if(i!=j){
-                    Edge e = new Edge(vertices[i], vertices[j], matrix.getDistance(vertices[i].id, vertices[j].id));
+                    Edge e = new Edge(vertices[i], vertices[j], matrix.getDistance(vertices[i].getId(), vertices[j].getId()));
                     g.addEdge(e.getSource(), e.getTarget(), e);
                     g.setEdgeWeight(e, e.getWeight());
                 }

@@ -2,11 +2,6 @@ package compression.services.jsprit.conversion;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
-import com.graphhopper.jsprit.core.problem.job.Service;
-import com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl;
-import com.graphhopper.jsprit.core.problem.vehicle.VehicleTypeImpl;
-import compression.model.vrp.Client;
-import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
 import compression.model.vrp.VrpProblemMetric;
 

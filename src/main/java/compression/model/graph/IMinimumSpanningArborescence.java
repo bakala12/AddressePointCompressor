@@ -1,4 +1,4 @@
-package compression.graphnew;
+package compression.model.graph;
 
 import java.util.Set;
 

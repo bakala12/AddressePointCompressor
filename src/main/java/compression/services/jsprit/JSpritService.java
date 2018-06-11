@@ -8,7 +8,7 @@ import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.datalogger.CsvDataLogger;
 import compression.output.datalogger.IDataLogger;
-import compression.services.compression.CompressionService;
+import compression.services.compression.ICompressionService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
@@ -47,7 +47,7 @@ public class JSpritService implements IJSpritService {
         }
     }
 
-    private final CompressionService compressionService;
+    private final ICompressionService compressionService;
     private final IDistanceService distanceService;
     private final JSpritConvertersFactory factory = new JSpritConvertersFactory();
 

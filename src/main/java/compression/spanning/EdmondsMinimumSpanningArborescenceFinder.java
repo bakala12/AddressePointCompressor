@@ -1,17 +1,16 @@
-package compression.graphnew;
+package compression.spanning;
 
-import com.sun.javafx.collections.MappingChange;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import compression.model.graph.DefaultMinimumSpanningArborescence;
+import compression.model.graph.Edge;
+import compression.model.graph.IMinimumSpanningArborescence;
 import org.jgrapht.alg.cycle.TarjanSimpleCycles;
-import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.*;
 
 public class EdmondsMinimumSpanningArborescenceFinder<V,E>
-    extends AbstractMinimumArborescenceFinder<V,E>
-    implements IMinimumSpanningArborescenceFinder<V, E>{
+    extends AbstractMinimumSpanningArborescenceFinder<V,E>
+    implements IMinimumSpanningArborescenceFinder<V, E> {
 
     public EdmondsMinimumSpanningArborescenceFinder(){
         super(new IntegerEdmondsMinimumSpanningArborescenceFinder());

@@ -1,9 +1,9 @@
-package compression.graphnew;
+package compression.model.graph;
 
 import java.util.Set;
 
 public class DefaultMinimumSpanningArborescence<V, E>
-    implements IMinimumSpanningArborescence<V, E>{
+    implements IMinimumSpanningArborescence<V, E> {
 
     private V root;
     private Set<E> edges;

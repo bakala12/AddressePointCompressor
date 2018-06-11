@@ -1,5 +1,8 @@
-package compression.graphnew;
+package compression.spanning;
 
+import compression.model.graph.DefaultMinimumSpanningArborescence;
+import compression.model.graph.Edge;
+import compression.model.graph.IMinimumSpanningArborescence;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.HashMap;
@@ -7,12 +10,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class AbstractMinimumArborescenceFinder<V,E>
+public abstract class AbstractMinimumSpanningArborescenceFinder<V,E>
     implements IMinimumSpanningArborescenceFinder<V,E> {
 
     private final IMinimumSpanningArborescenceFinder<Integer, Edge> internalFinder;
 
-    protected AbstractMinimumArborescenceFinder(IMinimumSpanningArborescenceFinder<Integer, Edge> internalFinder){
+    protected AbstractMinimumSpanningArborescenceFinder(IMinimumSpanningArborescenceFinder<Integer, Edge> internalFinder){
         this.internalFinder = internalFinder;
     }
 

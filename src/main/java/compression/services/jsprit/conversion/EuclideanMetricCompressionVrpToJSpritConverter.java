@@ -2,7 +2,7 @@ package compression.services.jsprit.conversion;
 
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import compression.model.vrp.*;
-import compression.services.compression.CompressionService;
+import compression.services.compression.ICompressionService;
 import compression.services.distance.IDistanceService;
 
 
@@ -12,7 +12,7 @@ public class EuclideanMetricCompressionVrpToJSpritConverter
 
     private final IDistanceService distanceService;
 
-    public EuclideanMetricCompressionVrpToJSpritConverter(CompressionService compressionService, IDistanceService distanceService){
+    public EuclideanMetricCompressionVrpToJSpritConverter(ICompressionService compressionService, IDistanceService distanceService){
         super(compressionService);
         this.distanceService = distanceService;
     }

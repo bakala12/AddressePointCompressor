@@ -1,81 +1,19 @@
-package compression.graphnew;
+package compression.spanning;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import compression.model.graph.DefaultMinimumSpanningArborescence;
+import compression.model.graph.Edge;
+import compression.model.graph.IMinimumSpanningArborescence;
+import compression.model.structures.FibonacciHeap;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.*;
 
 public class TarjanMinimumArborescenceFinder<V,E>
-    extends AbstractMinimumArborescenceFinder<V,E>
-    implements IMinimumSpanningArborescenceFinder<V,E>{
+    extends AbstractMinimumSpanningArborescenceFinder<V,E>
+    implements IMinimumSpanningArborescenceFinder<V,E> {
 
     public TarjanMinimumArborescenceFinder(){
         super(new IntegerTarjanMinimumArborescenceFinder());
-    }
-}
-
-@RequiredArgsConstructor
-class SuperVertexKeeper {
-    @Getter
-    private final Integer v;
-    @Getter @Setter
-    private Edge in;
-    @Getter @Setter
-    private Double cons;
-    @Getter @Setter
-    private Integer prev;
-    @Getter @Setter
-    private Integer parent;
-    @Getter @Setter
-    private List<Integer> children;
-    @Getter @Setter
-    private FibonacciHeap<Edge> p;
-}
-
-class SuperVertexManager {
-    private ArrayList<SuperVertexKeeper> list;
-    private int vertices;
-
-    public SuperVertexManager(){
-        list = new ArrayList<>();
-        list.add(new SuperVertexKeeper(-1)); //guard
-        vertices = 0;
-    }
-
-    public SuperVertexKeeper get(Integer v){
-        return list.get(v);
-    }
-
-    public SuperVertexKeeper add(){
-        Integer c = vertices +1;
-        vertices++;
-        SuperVertexKeeper vk = new SuperVertexKeeper(c);
-        list.add(vk);
-        return vk;
-    }
-
-    protected void add(SuperVertexKeeper keeper){
-        list.add(keeper);
-        vertices++;
-    }
-
-    public List<Edge> getAllInEdgesExceptRoot(Integer root, Integer n){
-        List<Edge> e = new ArrayList<>();
-        int i=0;
-        for(SuperVertexKeeper vk : list){
-            if(i==0) {
-                i++;
-                continue;
-            }
-            if(i>n) break;
-            if(vk.getV() != root){
-                e.add(vk.getIn());
-            }
-            i++;
-        }
-        return e;
     }
 }
 

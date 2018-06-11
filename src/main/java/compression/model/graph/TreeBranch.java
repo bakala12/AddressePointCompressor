@@ -1,13 +1,12 @@
-package compression.graph.branching;
+package compression.model.graph;
 
-import compression.graph.IVertex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class TreeBranch<TVertex extends IVertex> {
+public class TreeBranch<TVertex> {
     @Getter
     private TVertex startVertex;
     @Getter

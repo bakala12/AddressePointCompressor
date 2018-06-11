@@ -1,8 +1,7 @@
-package compression.graphnew;
+package compression.model.graph;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 public class Edge {

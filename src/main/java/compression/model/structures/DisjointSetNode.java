@@ -1,4 +1,4 @@
-package compression.model.disjointset;
+package compression.model.structures;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
