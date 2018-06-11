@@ -20,4 +20,9 @@ public class Edge {
     public <T> T getTarget() {
         return (T) target;
     }
+
+    @Override
+    public String toString(){
+        return source.toString()+"-("+weight.toString()+")->"+target.toString();
+    }
 }

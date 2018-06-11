@@ -14,6 +14,11 @@ public class GraphConverter {
         private Long id;
         @Getter
         private Location location;
+
+        @Override
+        public String toString(){
+            return "ID="+id+":"+location.toString();
+        }
     }
 
     public SimpleDirectedWeightedGraph<LocationVertex, Edge> convert(VrpProblem problem){
