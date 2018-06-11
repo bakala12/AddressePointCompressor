@@ -1,7 +1,7 @@
 package compression.services.compression;
 
 //import compression.graphimpl.IGraph;
-//import compression.branching.ITreeBranchFinder;
+//import compression.services.branching.ITreeBranchFinder;
 //import compression.graphimpl.mst.IMinimalArborescenceFinder;
 //import compression.model.vrp.Vehicle;
 //import compression.model.vrp.VrpProblem;

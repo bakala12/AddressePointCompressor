@@ -1,4 +1,4 @@
-package compression.branching;
+package compression.services.branching;
 
 import compression.model.graph.Edge;
 import compression.model.graph.IMinimumSpanningArborescence;
