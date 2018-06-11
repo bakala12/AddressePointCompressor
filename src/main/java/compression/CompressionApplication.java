@@ -53,7 +53,7 @@ public class CompressionApplication {
             GraphConverter conv = new GraphConverter();
             SimpleDirectedWeightedGraph<GraphConverter.LocationVertex, Edge> gr = conv.convert(problem);
             IMinimumSpanningArborescenceFinder<GraphConverter.LocationVertex, Edge> t = new TarjanMinimumArborescenceFinder<>();
-            GraphConverter.LocationVertex d = new GraphConverter.LocationVertex(problem.getDepot().getId(), problem.getDepot().getLocation());
+            GraphConverter.LocationVertex d = (GraphConverter.LocationVertex) gr.vertexSet().toArray()[0];
             Set<Edge> ed = t.getSpanningArborescence(gr, d).getEdges();
             System.out.println("Finished");
 //            VrpProblemSolution solution = null;

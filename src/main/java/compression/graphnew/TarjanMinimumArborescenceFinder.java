@@ -114,7 +114,7 @@ class IntegerTarjanMinimumArborescenceFinder
 
     private void contract(SimpleDirectedWeightedGraph<Integer, Edge> graph){
         initialize(graph);
-        Integer a = 1;
+        Integer a = 2;
         SuperVertexKeeper ak = vertexManager.get(a);
         while (!ak.getP().isEmpty()){
             Edge e = ak.getP().dequeueMin().getValue();
