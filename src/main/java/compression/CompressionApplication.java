@@ -55,6 +55,9 @@ public class CompressionApplication {
             IMinimumSpanningArborescenceFinder<GraphConverter.LocationVertex, Edge> t = new TarjanMinimumArborescenceFinder<>();
             GraphConverter.LocationVertex d = (GraphConverter.LocationVertex) gr.vertexSet().toArray()[0];
             Set<Edge> ed = t.getSpanningArborescence(gr, d).getEdges();
+            for(Edge e : ed){
+                System.out.println(e);
+            }
             System.out.println("Finished");
 //            VrpProblemSolution solution = null;
 //            if (useCompression) {
