@@ -25,7 +25,7 @@ public class Program {
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
         if(true){
-            app.run("./Benchmarks/mybenchmark2.vrp", "./solutions/solution.sol", true,
+            app.run("./Benchmarks/X-n1001-k43.vrp", "./solutions/solution.sol", true,
                     "./solutions/data/data.csv", "./solutions/plots/");
             return;
         }

@@ -114,7 +114,7 @@ class IntegerTarjanMinimumArborescenceFinder
 
     private void contract(SimpleDirectedWeightedGraph<Integer, Edge> graph){
         initialize(graph);
-        Integer a = 2;
+        Integer a = 1;
         SuperVertexKeeper ak = vertexManager.get(a);
         while (!ak.getP().isEmpty()){
             Edge e = ak.getP().dequeueMin().getValue();
@@ -197,6 +197,7 @@ class IntegerTarjanMinimumArborescenceFinder
 
     private IMinimumSpanningArborescence<Integer,Edge> expand(Integer r, int vertices){
         Stack<Integer> R = new Stack<>();
+        dismantle(r, R);
         while(!R.isEmpty()){
             Integer c = R.pop();
             SuperVertexKeeper ck = vertexManager.get(c);
