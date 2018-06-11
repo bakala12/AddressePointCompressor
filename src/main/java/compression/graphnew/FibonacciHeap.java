@@ -578,4 +578,28 @@ public class FibonacciHeap<T> {
         /* Clear the relocated node's parent; it's now a root. */
         entry.mParent = null;
     }
+
+    private String entryString(Entry<T> entry){
+        return entry.getValue()+"[["+entry.getPriority()+"]]\n";
+    }
+
+    private void queueVisitor(Entry<T> entry, List<Entry<T>> visited, StringBuilder builder){
+        if(entry == null)
+            return;
+        if(visited.contains(entry))
+            return;
+        visited.add(entry);
+        builder.append(entryString(entry));
+        queueVisitor(entry.mParent, visited, builder);
+        queueVisitor(entry.mPrev, visited, builder);
+        queueVisitor(entry.mNext, visited, builder);
+        queueVisitor(entry.mChild, visited, builder);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        queueVisitor(mMin, new ArrayList<>(), builder);
+        return builder.toString();
+    }
 }
