@@ -1,10 +1,10 @@
 package compression.services.compression;
 
 import compression.model.vrp.VrpProblem;
+import compression.model.vrp.helpers.AggregatedService;
 
 import java.util.List;
 
 public interface ICompressionService {
-    //todo make use of that
-    List<Object> getAggregatedClients(VrpProblem problem);
+    List<AggregatedService> getAggregatedClients(VrpProblem problem);
 }

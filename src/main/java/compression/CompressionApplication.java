@@ -1,8 +1,10 @@
 package compression;
 
-import compression.model.graph.Edge;
-import compression.model.graph.LocationVertex;
+import compression.model.graph.*;
+import compression.model.vrp.helpers.LocationVertex;
 import compression.services.ProblemToGraphConverter;
+import compression.services.branching.ITreeBranchFinder;
+import compression.services.branching.TreeBranchFinder;
 import compression.spanning.IMinimumSpanningArborescenceFinder;
 import compression.spanning.*;
 import compression.input.IProblemReader;
@@ -10,8 +12,8 @@ import compression.input.VrpProblemReader;
 import compression.input.parsing.vrp.VrpProblemParser;
 import compression.model.vrp.VrpProblem;
 import lombok.NoArgsConstructor;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -30,13 +32,17 @@ public class CompressionApplication {
         try {
             VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
             ProblemToGraphConverter conv = new ProblemToGraphConverter();
-            SimpleDirectedWeightedGraph<LocationVertex, Edge> gr = conv.convert(problem);
+            RoutedGraph<LocationVertex, Edge> gr = conv.convert(problem);
             IMinimumSpanningArborescenceFinder<LocationVertex, Edge> t = new TarjanMinimumArborescenceFinder<>();
-            LocationVertex d = (LocationVertex) gr.vertexSet().toArray()[0];
-            Set<Edge> ed = t.getSpanningArborescence(gr, d).getEdges();
+            LocationVertex d = (LocationVertex) gr.getGraph().vertexSet().toArray()[0];
+            IMinimumSpanningArborescence<LocationVertex, Edge> arb = t.getSpanningArborescence(gr.getGraph(), d);
+            Set<Edge> ed = arb.getEdges();
             for(Edge e : ed){
                 System.out.println(e);
             }
+            System.out.println("Finished");
+            ITreeBranchFinder<LocationVertex> brFinder = new TreeBranchFinder<>();
+            List<TreeBranch<LocationVertex>> branches = brFinder.findBranches(arb);
             System.out.println("Finished");
 //            VrpProblemSolution solution = null;
 //            if (useCompression) {

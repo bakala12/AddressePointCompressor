@@ -1,14 +1,15 @@
 package compression.services;
 
 import compression.model.graph.Edge;
-import compression.model.graph.LocationVertex;
+import compression.model.vrp.helpers.LocationVertex;
+import compression.model.graph.RoutedGraph;
 import compression.model.vrp.*;
 import compression.services.distance.DistanceService;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
-public class ProblemToGraphConverter {
+public class ProblemToGraphConverter implements IProblemToGraphConverter<LocationVertex>{
 
-    public SimpleDirectedWeightedGraph<LocationVertex, Edge> convert(VrpProblem problem){
+    public RoutedGraph<LocationVertex, Edge> convert(VrpProblem problem){
         switch (problem.getProblemMetric()){
             case Euclidean:
                 generateDistanceMatrix(problem);
@@ -37,18 +38,18 @@ public class ProblemToGraphConverter {
         problem.setDistanceMatrix(m);
     }
 
-    private SimpleDirectedWeightedGraph<LocationVertex, Edge> convertExplicit(VrpProblem problem){
+    private RoutedGraph<LocationVertex, Edge> convertExplicit(VrpProblem problem){
         SimpleDirectedWeightedGraph<LocationVertex, Edge> g = new SimpleDirectedWeightedGraph<>(Edge.class);
         LocationVertex[] vertices = new LocationVertex[problem.getDimensions()];
-        vertices[0] = new LocationVertex(problem.getDepot().getId(), problem.getDepot().getLocation());
+        vertices[0] = new LocationVertex(problem.getDepot().getId(), problem.getDepot().getLocation(), 0.0);
         g.addVertex(vertices[0]);
         for(Client cf : problem.getClients()) {
-            LocationVertex v = new LocationVertex(cf.getId(), cf.getLocation());
+            LocationVertex v = new LocationVertex(cf.getId(), cf.getLocation(), cf.getAmount());
             vertices[v.getId().intValue()-1] = v;
             g.addVertex(v);
         }
         addEdges(g, problem.getDimensions(), vertices, problem.getDistanceMatrix());
-        return g;
+        return new RoutedGraph<>(g, vertices[0]);
     }
 
     private void addEdges(SimpleDirectedWeightedGraph<LocationVertex, Edge> g, int dim, LocationVertex[] vertices, DistanceMatrix matrix){

@@ -2,17 +2,9 @@ package compression.services.jsprit.conversion;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
-import com.graphhopper.jsprit.core.problem.job.Service;
-import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
-import compression.model.graph.LocationVertex;
-import compression.model.graph.TreeBranch;
 import compression.model.vrp.*;
 import compression.services.compression.ICompressionService;
-import compression.services.jsprit.extensions.AggregatedService;
 import lombok.RequiredArgsConstructor;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class ExplicitMetricCompressionVrpProblemToJSpritConverter

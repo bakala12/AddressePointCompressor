@@ -1,4 +1,4 @@
-package compression.model.graph;
+package compression.model.vrp.helpers;
 
 import compression.model.vrp.Location;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,8 @@ public class LocationVertex{
     private Long id;
     @Getter
     private Location location;
+    @Getter
+    private Double demand;
 
     @Override
     public String toString(){

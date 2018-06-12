@@ -1,6 +1,5 @@
-package compression.services.jsprit.extensions;
+package compression.model.vrp.helpers;
 
-import compression.model.graph.LocationVertex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
