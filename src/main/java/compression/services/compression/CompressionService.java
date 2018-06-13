@@ -30,8 +30,23 @@ public class CompressionService implements ICompressionService{
         for (TreeBranch<LocationVertex> branch : branches) {
             splitBranchIfNeeded(branch, maxCapacity, finalBranches);
         }
+        //mergebranches
         List<AggregatedService> list = new ArrayList<>();
-        return null;
+        Long id = 2L;
+        for(TreeBranch<LocationVertex> v : finalBranches){
+            Double cost = 0.0;
+            Double dist = 0.0;
+            LocationVertex last = v.getStartVertex();
+            for(LocationVertex vv : v.getVertices()){
+                if(vv==last) continue;
+                cost += vv.getDemand();
+                dist += problem.getDistanceMatrix().getDistance(last.getId(), vv.getId());
+            }
+            AggregatedService s = new AggregatedService(v.getVertices(), v.getStartVertex(), v.getEndVertex(), cost, id, dist);
+            id = id + 1;
+            list.add(s);
+        }
+        return list;
     }
 
     private Double getMexCapavity(VrpProblem problem){
