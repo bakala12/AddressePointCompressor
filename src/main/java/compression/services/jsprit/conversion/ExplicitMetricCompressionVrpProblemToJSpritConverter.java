@@ -48,47 +48,7 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         problemBuilder.setRoutingCost(matrixBuilder.build());
         return problemBuilder.build();
     }
-//        List<TreeBranch<LocationVertex>> branches = compressionService.getAggregatedClients(problem);
-//        VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
-//        Location depotLocation = Location.newInstance(problem.getDepot().getId().toString());
-//        addVehicles(problemBuilder, problem, depotLocation);
-//        List<AggregatedService> services = aggregateServices(branches, problem.getDistanceMatrix());
-//        DistanceMatrix matrix = compressMatrix(services, problem.getDepot(), problem.getDistanceMatrix());
-//        VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
-//        copyDistanceMatrix(matrix, matrixBuilder);
-//        for(AggregatedService s : services){
-//            Service service = Service.Builder.newInstance(s.getId().toString())
-//                    .setLocation(Location.newInstance(s.getId().toString()))
-//                    .addSizeDimension(0, s.getInternalCost().intValue())
-//                    .build();
-//            problemBuilder.addJob(service);
-//        }
-//        problemBuilder.setRoutingCost(matrixBuilder.build());
-//        return problemBuilder.build();
-//    }
-//
-//    private List<AggregatedService> aggregateServices(List<TreeBranch<LocationVertex>> branches, DistanceMatrix distanceMatrix){
-//        List<AggregatedService> services = new LinkedList<>();
-//        Long id = 2l;
-//        for(TreeBranch<LocationVertex> branch : branches){
-//            Double cost = 0.0;
-//            Double internalDistance = 0.0;
-//            LocationVertex prev = null;
-//            branch.getVertices().remove(branch.getStartVertex());
-//            for(LocationVertex v : branch.getVertices()){
-//                if(prev != null){
-//                    internalDistance += distanceMatrix.getDistance(prev.getId(), v.getId());
-//                }
-//                cost += v.getDemand();
-//                prev = v;
-//            }
-//            AggregatedService service = new AggregatedService(branch.getVertices(), branch.getVertices().get(0), branch.getEndVertex(), cost, id, internalDistance);
-//            id++;
-//            services.add(service);
-//        }
-//        return services;
-//    }
-//
+
     private DistanceMatrix compressMatrix(List<AggregatedService> services, Depot depot, DistanceMatrix distances){
         DistanceMatrix matrix = new DistanceMatrix(services.size()+1);
         for(AggregatedService from : services){

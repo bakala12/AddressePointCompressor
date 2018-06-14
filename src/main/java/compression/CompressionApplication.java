@@ -44,7 +44,6 @@ public class CompressionApplication {
     public void run(String inputFile, String outputFile, Boolean useCompression, String dataPath, String plotPath){
         try {
             VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
-            IProblemToGraphConverter conv = new ProblemToGraphConverter();
             VrpProblemSolution solution = null;
             if (useCompression) {
                 System.out.println("Compressed problem");

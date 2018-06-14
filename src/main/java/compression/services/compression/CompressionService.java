@@ -34,15 +34,17 @@ public class CompressionService implements ICompressionService{
         List<AggregatedService> list = new ArrayList<>();
         Long id = 2L;
         for(TreeBranch<LocationVertex> v : finalBranches){
-            Double cost = 0.0;
             Double dist = 0.0;
-            LocationVertex last = v.getStartVertex();
+            v.getVertices().remove(0);
+            LocationVertex prev = v.getVertices().get(0);
+            Double cost = prev.getDemand();
             for(LocationVertex vv : v.getVertices()){
-                if(vv==last) continue;
+                if(vv==prev) continue;
                 cost += vv.getDemand();
-                dist += problem.getDistanceMatrix().getDistance(last.getId(), vv.getId());
+                dist += problem.getDistanceMatrix().getDistance(prev.getId(), vv.getId());
+                prev = vv;
             }
-            AggregatedService s = new AggregatedService(v.getVertices(), v.getStartVertex(), v.getEndVertex(), cost, id, dist);
+            AggregatedService s = new AggregatedService(v.getVertices(), v.getVertices().get(0), v.getEndVertex(), cost, id, dist);
             id = id + 1;
             list.add(s);
         }
