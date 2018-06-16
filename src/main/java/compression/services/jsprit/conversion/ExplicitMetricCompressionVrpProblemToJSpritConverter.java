@@ -6,6 +6,7 @@ import com.graphhopper.jsprit.core.problem.job.Service;
 import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
 import compression.model.vrp.*;
 import compression.model.vrp.helpers.AggregatedService;
+import compression.services.compression.CompressionResult;
 import compression.services.compression.ICompressionService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,14 +25,15 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
     }
 
     @Override
-    public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
+    public ConversionResult convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Explicit){
             throw new ProblemConversionException("Metric type must be explicit for this converter");
         }
         if(problem.getDistanceMatrix() == null){
             throw new ProblemConversionException("Distance matrix cannot be null");
         }
-        List<AggregatedService> services = compressionService.getAggregatedClients(problem);
+        CompressionResult compressionResult = compressionService.getAggregatedClients(problem);
+        List<AggregatedService> services = compressionResult.getAggregatedServices();
         VehicleRoutingProblem.Builder problemBuilder = VehicleRoutingProblem.Builder.newInstance();
         Location depotLocation = Location.newInstance(problem.getDepot().getId().toString());
         addVehicles(problemBuilder, problem, depotLocation);
@@ -46,7 +48,7 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
             problemBuilder.addJob(service);
         }
         problemBuilder.setRoutingCost(matrixBuilder.build());
-        return problemBuilder.build();
+        return new ConversionResult(problemBuilder.build(), compressionResult);
     }
 
     private DistanceMatrix compressMatrix(List<AggregatedService> services, Depot depot, DistanceMatrix distances){

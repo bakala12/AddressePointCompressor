@@ -37,6 +37,9 @@ public class Program {
         Option output = new Option("o", "output", true, "output file");
         output.setRequired(true);
         options.addOption(output);
+        Option result = new Option("r", "result", true, "result file");
+        result.setRequired(true);
+        options.addOption(result);
         Option useCompression = new Option("c", "compression", false, "use compression algorithm");
         useCompression.setRequired(false);
         options.addOption(useCompression);
@@ -46,7 +49,9 @@ public class Program {
         Option plotDir = new Option("p", "plotpath", true, "path to directory where plots will be generated");
         plotDir.setRequired(true);
         options.addOption(plotDir);
-
+        Option iterations = new Option("iter", "iterations", true, "number of JSprit iterations");
+        iterations.setRequired(false);
+        options.addOption(iterations);
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -65,17 +70,25 @@ public class Program {
         Boolean useCompressionValue = cmd.hasOption("c");
         String dataPath = null;
         String plotPath = null;
+        Integer iterNum = 2000;
+        String resultFilePath = cmd.getOptionValue("r");
         if(cmd.hasOption("d")){
             dataPath = cmd.getOptionValue("d");
         }
         if(cmd.hasOption("p")){
             plotPath = cmd.getOptionValue("p");
         }
-        app.run(inputFilePath, outputFilePath, useCompressionValue, dataPath, plotPath);
-//        try {
-//            System.in.read();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        if(cmd.hasOption("iter")){
+            String iterNumStr = cmd.getOptionValue("iter");
+            try{
+                iterNum = Integer.parseInt(iterNumStr);
+                if(iterNum < 0)
+                    throw new Exception();
+            } catch (Exception ex){
+                System.out.println("Invalid iterations parameter");
+                iterNum = 2000;
+            }
+        }
+        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum);
     }
 }

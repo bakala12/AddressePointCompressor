@@ -10,7 +10,7 @@ public class EuclideanMetricVrpProblemToJSpritConverter
         implements IVrpProblemToJSpritConverter {
 
     @Override
-    public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
+    public ConversionResult convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Euclidean){
             throw new ProblemConversionException("Metrics must be Euclidean for that converter");
         }
@@ -18,7 +18,7 @@ public class EuclideanMetricVrpProblemToJSpritConverter
         Location depot = Location.newInstance(problem.getDepot().getLocation().getLatitude(), problem.getDepot().getLocation().getLongitude());
         addVehicles(problemBuilder, problem, depot);
         addClients(problemBuilder, problem);
-        return problemBuilder.build();
+        return new ConversionResult(problemBuilder.build(), null);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package compression.services.compression;
 
+import com.graphhopper.jsprit.core.util.StopWatch;
 import compression.model.graph.*;
 import compression.model.vrp.Vehicle;
 import compression.model.vrp.VrpProblem;
@@ -21,8 +22,11 @@ public class CompressionService implements ICompressionService{
     private final ITreeBranchFinder<LocationVertex> treeBranchFinder;
 
     @Override
-    public List<AggregatedService> getAggregatedClients(VrpProblem problem) {
+    public CompressionResult getAggregatedClients(VrpProblem problem) {
+        StopWatch watch = new StopWatch();
         RoutedGraph<LocationVertex, Edge> graph = problemConverter.convert(problem);
+        watch.reset();
+        watch.start();
         IMinimumSpanningArborescence<LocationVertex, Edge> spanningArborescence = minimumSpanningArborescenceFinder.getSpanningArborescence(graph.getGraph(), graph.getRoot());
         List<TreeBranch<LocationVertex>> branches = treeBranchFinder.findBranches(spanningArborescence);
         List<TreeBranch<LocationVertex>> finalBranches = new ArrayList<>();
@@ -31,6 +35,8 @@ public class CompressionService implements ICompressionService{
             splitBranchIfNeeded(branch, maxCapacity, finalBranches);
         }
         //mergebranches
+        watch.stop();
+        Double time = watch.getCurrTimeInSeconds();
         List<AggregatedService> list = new ArrayList<>();
         Long id = 2L;
         for(TreeBranch<LocationVertex> v : finalBranches){
@@ -48,7 +54,7 @@ public class CompressionService implements ICompressionService{
             id = id + 1;
             list.add(s);
         }
-        return list;
+        return new CompressionResult(list, time);
     }
 
     private Double getMexCapavity(VrpProblem problem){

@@ -4,6 +4,7 @@
 # Vrp solution data files
 solutions/
 Results/
+results.csv
 
 # User-specific stuff:
 .idea/**/workspace.xml

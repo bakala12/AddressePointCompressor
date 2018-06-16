@@ -16,7 +16,7 @@ public class ExplicitMetricVrpProblemToJSpritConverter
         extends BaseProblemToJSpritConverter
         implements IVrpProblemToJSpritConverter {
     @Override
-    public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
+    public ConversionResult convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Explicit){
             throw new ProblemConversionException("Metric must be explicit for this converter");
         }
@@ -26,7 +26,7 @@ public class ExplicitMetricVrpProblemToJSpritConverter
         VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         copyDistanceMatrix(problem, matrixCostBuilder);
         problemBuilder.setRoutingCost(matrixCostBuilder.build());
-        return problemBuilder.build();
+        return new ConversionResult(problemBuilder.build(), null);
     }
 
     @Override

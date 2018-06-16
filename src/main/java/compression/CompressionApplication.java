@@ -8,6 +8,8 @@ import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.helpers.LocationVertex;
 import compression.output.plot.ChartPlotter;
 import compression.output.plot.IChartPlotter;
+import compression.output.result.ISolutionInfoWriter;
+import compression.output.result.SolutionInfoWriter;
 import compression.services.IProblemToGraphConverter;
 import compression.services.ProblemToGraphConverter;
 import compression.services.branching.ITreeBranchFinder;
@@ -40,11 +42,13 @@ public class CompressionApplication {
     private final ICompressionService compressionService = new CompressionService(problemConverter, minimalArborescenceFinder, treeBranchFinder);
     private final IJSpritService service = new JSpritService(compressionService, distanceService);
     private final IChartPlotter chartPlotter = new ChartPlotter();
+    private final ISolutionInfoWriter solutionInfoWriter = new SolutionInfoWriter();
 
-    public void run(String inputFile, String outputFile, Boolean useCompression, String dataPath, String plotPath){
+    public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath, Integer iterations){
         try {
             VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
             VrpProblemSolution solution = null;
+            service.setMaxNumberOfIterations(iterations);
             if (useCompression) {
                 System.out.println("Compressed problem");
                 solution = service.compressAndSolve(problem, dataPath);
@@ -58,6 +62,9 @@ public class CompressionApplication {
                 System.out.println(best.getCost());
                 SolutionPrinter.print(printWriter, solution.getProblem(), best, SolutionPrinter.Print.VERBOSE);
                 printWriter.flush();
+            }
+            if(resultFilePath != null){
+                solutionInfoWriter.writeSolution(resultFilePath, solution.getSolutionInfo());
             }
             if(dataPath!= null){
                 System.out.println("Generating and saving plots");

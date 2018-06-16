@@ -6,5 +6,5 @@ import compression.model.vrp.helpers.AggregatedService;
 import java.util.List;
 
 public interface ICompressionService {
-    List<AggregatedService> getAggregatedClients(VrpProblem problem);
+    CompressionResult getAggregatedClients(VrpProblem problem);
 }

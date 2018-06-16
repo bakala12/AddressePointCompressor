@@ -4,6 +4,10 @@ import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import com.graphhopper.jsprit.core.util.Solutions;
+import com.graphhopper.jsprit.core.util.StopWatch;
+import compression.model.jsprit.ProblemType;
+import compression.model.jsprit.SolutionInfo;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.datalogger.CsvDataLogger;
@@ -66,15 +70,30 @@ public class JSpritService implements IJSpritService {
     @Override
     public VrpProblemSolution solve(VrpProblem problem, String dataPath){
         IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
-        VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
+        VehicleRoutingProblem vrp = converter.convertToJsprit(problem).getConvertedProblem();
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){
             IDataLogger logger = new CsvDataLogger(dataPath);
             algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
         }
+        StopWatch watch = new StopWatch();
+        watch.reset();
+        watch.start();
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        return new VrpProblemSolution(vrp, solutions);
+        watch.stop();
+        Double jspritTime = watch.getCurrTimeInSeconds();
+        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions);
+        SolutionInfo info = new SolutionInfo(problem.getProblemName(),
+                problem.getDimensions(),
+                ProblemType.FULL,
+                problem.getBestKnownSolution(),
+                best.getCost(),
+                jspritTime,
+                null,
+                best.getRoutes().size(),
+                null);
+        return new VrpProblemSolution(vrp, solutions, info);
     }
 
     @Override
@@ -85,7 +104,8 @@ public class JSpritService implements IJSpritService {
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath) {
         IVrpProblemToJSpritConverter converter = factory.getCompressedConverter(problem);
-        VehicleRoutingProblem vrp = converter.convertToJsprit(problem);
+        ConversionResult conversionResult = converter.convertToJsprit(problem);
+        VehicleRoutingProblem vrp = conversionResult.getConvertedProblem();
         Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
         VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
         algorithm.setMaxIterations(maxNumberOfIterations);
@@ -93,7 +113,22 @@ public class JSpritService implements IJSpritService {
             IDataLogger logger = new CsvDataLogger(dataPath);
             algorithm.addListener(new DataCollectorIterationEndListener(problem, logger));
         }
+        StopWatch watch = new StopWatch();
+        watch.reset();
+        watch.start();
         Collection<VehicleRoutingProblemSolution> solutions = algorithm.searchSolutions();
-        return new VrpProblemSolution(vrp, solutions);
+        watch.stop();
+        Double jspritTime = watch.getCurrTimeInSeconds();
+        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions);
+        SolutionInfo info = new SolutionInfo(problem.getProblemName(),
+                problem.getDimensions(),
+                ProblemType.COMPRESSED,
+                problem.getBestKnownSolution(),
+                best.getCost(),
+                jspritTime,
+                conversionResult.getCompressionResult().getTime(),
+                best.getRoutes().size(),
+                vrp.getNuActivities()+1);
+        return new VrpProblemSolution(vrp, solutions, info);
     }
 }

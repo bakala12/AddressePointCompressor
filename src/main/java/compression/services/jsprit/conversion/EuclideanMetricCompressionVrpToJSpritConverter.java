@@ -18,7 +18,7 @@ public class EuclideanMetricCompressionVrpToJSpritConverter
     }
 
     @Override
-    public VehicleRoutingProblem convertToJsprit(VrpProblem problem) {
+    public ConversionResult convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Euclidean){
             throw new ProblemConversionException("Metrics must be Euclidean for that converter");
         }

@@ -2,6 +2,7 @@ package compression.model.jsprit;
 
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,4 +14,6 @@ public class VrpProblemSolution {
     private VehicleRoutingProblem problem;
     @Getter
     private Collection<VehicleRoutingProblemSolution> solutions;
+    @Getter
+    private SolutionInfo solutionInfo;
 }
