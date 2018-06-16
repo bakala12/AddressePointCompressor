@@ -73,7 +73,7 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
     private void copyDistanceMatrix(DistanceMatrix matrix, VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder){
         for(Long from = 1L; from <= matrix.getDimensions(); from++){
             for(Long to = 1L; to <= matrix.getDimensions(); to++){
-                if(from != to) {
+                if(!from.equals(to)) {
                     matrixCostBuilder.addTransportDistance(from.toString(), to.toString(), matrix.getDistance(from, to));
                 }
             }
