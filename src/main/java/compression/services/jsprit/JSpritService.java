@@ -27,11 +27,9 @@ public class JSpritService implements IJSpritService {
         public IVrpProblemToJSpritConverter getConverter(VrpProblem problem) {
             switch (problem.getProblemMetric()){
                 case Euclidean:
-                    return new EuclideanMetricVrpProblemToJSpritConverter();
+                    return new EuclideanMetricVrpProblemToJSpritConverter(distanceService);
                 case Explicit:
-                    return new ExplicitMetricVrpProblemToJSpritConverter();
-                case GraphHopper:
-                    throw new RuntimeException();
+                    return new ExplicitMetricVrpProblemToJSpritConverter(distanceService);
                 default:
                     throw new ProblemConversionException("Unsupported or unknown problem metrics");
             }
@@ -42,9 +40,7 @@ public class JSpritService implements IJSpritService {
                 case Euclidean:
                     return new EuclideanMetricCompressionVrpToJSpritConverter(compressionService, distanceService);
                 case Explicit:
-                    return new ExplicitMetricCompressionVrpProblemToJSpritConverter(compressionService);
-                case GraphHopper:
-                    throw new RuntimeException();
+                    return new ExplicitMetricCompressionVrpProblemToJSpritConverter(compressionService, distanceService);
                 default:
                     throw new ProblemConversionException("Unsupported or unknown problem metrics");
             }

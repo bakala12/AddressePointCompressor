@@ -8,20 +8,24 @@ import compression.model.vrp.*;
 import compression.model.vrp.helpers.AggregatedService;
 import compression.services.compression.CompressionResult;
 import compression.services.compression.ICompressionService;
-import lombok.RequiredArgsConstructor;
+import compression.services.distance.IDistanceService;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         extends BaseProblemToJSpritConverter
         implements IVrpProblemToJSpritConverter {
 
     private final ICompressionService compressionService;
 
+    public ExplicitMetricCompressionVrpProblemToJSpritConverter(ICompressionService compressionService, IDistanceService distanceService){
+        super(distanceService);
+        this.compressionService = compressionService;
+    }
+
     @Override
     protected Location convertLocation(Client client) {
-        return null;
+        return Location.newInstance(client.getId().toString());
     }
 
     @Override
