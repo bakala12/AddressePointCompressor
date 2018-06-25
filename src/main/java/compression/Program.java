@@ -52,6 +52,9 @@ public class Program {
         Option iterations = new Option("iter", "iterations", true, "number of JSprit iterations");
         iterations.setRequired(false);
         options.addOption(iterations);
+        Option solutionRoute = new Option("s", "solutionRoute", true, "path to file with solution route");
+        solutionRoute.setRequired(false);
+        options.addOption(solutionRoute);
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -72,6 +75,7 @@ public class Program {
         String plotPath = null;
         Integer iterNum = 2000;
         String resultFilePath = cmd.getOptionValue("r");
+        String solutionRoutePath = cmd.getOptionValue("s");
         if(cmd.hasOption("d")){
             dataPath = cmd.getOptionValue("d");
         }
@@ -89,6 +93,6 @@ public class Program {
                 iterNum = 2000;
             }
         }
-        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum);
+        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath);
     }
 }
