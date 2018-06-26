@@ -61,7 +61,7 @@ public class VrpProblemParser implements IVrpProblemParser{
                 metric = parseMetrics(line);
             }
             else if(line.startsWith("EDGE_WEIGHT_SECTION")){
-                if(metric != VrpProblemMetric.Explicit)
+                if(metric != VrpProblemMetric.Explicit && metric != VrpProblemMetric.Map)
                     throw new ParsingException("EDGE_WEIGHT_SECTION is supported only when EDGE_WEIGHT_TYPE is set to EXPLICIT");
                 else{
                     if(format == EdgeWeightFormat.UNKNOWN) {
@@ -71,11 +71,16 @@ public class VrpProblemParser implements IVrpProblemParser{
                     } else if(format == EdgeWeightFormat.LOWER_ROW){
                         distanceMatrix = parseSymmetricalDistanceMatrix(reader, dimensions);
                     }
+                    if(locations != null){
+                        metric = VrpProblemMetric.Map;
+                    }
                 }
             }
             else if(line.startsWith("NODE_COORD_SECTION")){
                 if(dimensions == 0)
                     throw new ParsingException("Invalid dimensions");
+                if(metric == VrpProblemMetric.Explicit)
+                    metric = VrpProblemMetric.Map;
                 locations = parseLocations(reader, dimensions);
             }
             else if(line.startsWith("DEMAND_SECTION")){
@@ -86,10 +91,7 @@ public class VrpProblemParser implements IVrpProblemParser{
             else if(line.startsWith("DEPOT_SECTION")){
                 depotIds = parseDepots(reader);
             }
-            else if(line.trim() == ""){
-                continue;
-            }
-            else if(line == "EOF"){
+            else if(line.equals("EOF")){
                 break;
             }
         }
@@ -196,7 +198,7 @@ public class VrpProblemParser implements IVrpProblemParser{
                 if(i.equals(""))
                     continue;
                 Double dist = Double.parseDouble(i);
-                if(from == to){
+                if(from.equals(to)){
                     to=to+1;
                 }
                 if(to>=dimensions) {
