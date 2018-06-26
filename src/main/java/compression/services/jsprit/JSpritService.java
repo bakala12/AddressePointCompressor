@@ -43,6 +43,8 @@ public class JSpritService implements IJSpritService {
                     return new EuclideanMetricCompressionVrpToJSpritConverter(compressionService, distanceService);
                 case Explicit:
                     return new ExplicitMetricCompressionVrpProblemToJSpritConverter(compressionService, distanceService);
+                case Map:
+                    return new MapMetricCompressionVrpProblemToJspritConverter(compressionService, distanceService);
                 default:
                     throw new ProblemConversionException("Unsupported or unknown problem metrics");
             }
