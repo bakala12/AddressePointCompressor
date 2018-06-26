@@ -30,6 +30,8 @@ public class JSpritService implements IJSpritService {
                     return new EuclideanMetricVrpProblemToJSpritConverter(distanceService);
                 case Explicit:
                     return new ExplicitMetricVrpProblemToJSpritConverter(distanceService);
+                case Map:
+                    return new MapMetricVrpProblemToJspritConverter(distanceService);
                 default:
                     throw new ProblemConversionException("Unsupported or unknown problem metrics");
             }
