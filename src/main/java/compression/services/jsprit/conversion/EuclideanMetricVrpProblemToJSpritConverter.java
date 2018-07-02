@@ -24,9 +24,4 @@ public class EuclideanMetricVrpProblemToJSpritConverter
         problem.setProblemMetric(VrpProblemMetric.Explicit);
         return super.convertToJsprit(problem);
     }
-
-    @Override
-    protected Location convertLocation(compression.model.vrp.Client client){
-        return Location.newInstance(client.getId().toString());
-    }
 }

@@ -93,7 +93,7 @@ public class JSpritService implements IJSpritService {
                 null,
                 best.getRoutes().size(),
                 null);
-        return new VrpProblemSolution(vrp, solutions, info);
+        return new VrpProblemSolution(vrp, solutions, info, null);
     }
 
     @Override
@@ -129,6 +129,6 @@ public class JSpritService implements IJSpritService {
                 conversionResult.getCompressionResult().getTime(),
                 best.getRoutes().size(),
                 vrp.getNuActivities()+1);
-        return new VrpProblemSolution(vrp, solutions, info);
+        return new VrpProblemSolution(vrp, solutions, info, conversionResult.getCompressionMap());
     }
 }

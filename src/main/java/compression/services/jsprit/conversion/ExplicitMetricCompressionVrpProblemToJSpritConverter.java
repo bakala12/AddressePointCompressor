@@ -10,7 +10,9 @@ import compression.services.compression.CompressionResult;
 import compression.services.compression.ICompressionService;
 import compression.services.distance.IDistanceService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         extends BaseProblemToJSpritConverter
@@ -44,15 +46,17 @@ public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         DistanceMatrix matrix = compressMatrix(services, problem.getDepot(), problem.getDistanceMatrix());
         VehicleRoutingTransportCostsMatrix.Builder matrixBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         copyDistanceMatrix(matrix, matrixBuilder);
+        Map<Long, AggregatedService> compressionMap = new HashMap<>();
         for(AggregatedService s : services){
             Service service = Service.Builder.newInstance(s.getId().toString())
                     .setLocation(Location.newInstance(s.getId().toString()))
                     .addSizeDimension(0, s.getInternalCost().intValue())
                     .build();
             problemBuilder.addJob(service);
+            compressionMap.put(s.getId(), s);
         }
         problemBuilder.setRoutingCost(matrixBuilder.build());
-        return new ConversionResult(problemBuilder.build(), compressionResult);
+        return new ConversionResult(problemBuilder.build(), compressionResult, compressionMap);
     }
 
     private DistanceMatrix compressMatrix(List<AggregatedService> services, Depot depot, DistanceMatrix distances){

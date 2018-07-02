@@ -22,6 +22,10 @@ import compression.services.distance.DistanceService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.IJSpritService;
 import compression.services.jsprit.JSpritService;
+import compression.services.resolving.CompressedSolutionRouteResolver;
+import compression.services.resolving.FullSolutionRouteResolver;
+import compression.services.resolving.ISolutionRouteResolver;
+import compression.services.resolving.ResolvedSolution;
 import compression.spanning.IMinimumSpanningArborescenceFinder;
 import compression.spanning.*;
 import compression.input.IProblemReader;
@@ -46,6 +50,16 @@ public class CompressionApplication {
     private final IChartPlotter chartPlotter = new ChartPlotter();
     private final ISolutionInfoWriter solutionInfoWriter = new SolutionInfoWriter();
     private final IRouteWriter solutionRouteWriter = new RouteWriter();
+    private final SolutionRouteResolverFactory solutionRoureResolverFactory = new SolutionRouteResolverFactory();
+
+    private final class SolutionRouteResolverFactory{
+        private final ISolutionRouteResolver fullSolutionRouteResolver = new FullSolutionRouteResolver();
+        private final ISolutionRouteResolver compressedSolutionRouteResolver = new CompressedSolutionRouteResolver();
+
+        public ISolutionRouteResolver get(boolean useCompression){
+            return useCompression ? compressedSolutionRouteResolver : fullSolutionRouteResolver;
+        }
+    }
 
     public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath, Integer iterations, String solutionRoutePath){
         try {
@@ -67,7 +81,9 @@ public class CompressionApplication {
                 printWriter.flush();
             }
             if(solutionRoutePath != null){
-                solutionRouteWriter.writeRoute(best, solutionRoutePath);
+                ISolutionRouteResolver resolver = solutionRoureResolverFactory.get(useCompression);
+                ResolvedSolution resolvedSolution = resolver.resolveRoutes(problem, solution);
+                solutionRouteWriter.writeRoute(resolvedSolution, solutionRoutePath);
             }
             if(resultFilePath != null){
                 solutionInfoWriter.writeSolution(resultFilePath, solution.getSolutionInfo());

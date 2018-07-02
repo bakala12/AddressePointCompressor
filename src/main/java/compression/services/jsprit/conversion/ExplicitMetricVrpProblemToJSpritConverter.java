@@ -2,6 +2,7 @@ package compression.services.jsprit.conversion;
 
 import com.graphhopper.jsprit.core.problem.Location;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
+import com.graphhopper.jsprit.core.util.Coordinate;
 import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
 import compression.model.vrp.*;
 import compression.services.distance.IDistanceService;
@@ -25,11 +26,14 @@ public class ExplicitMetricVrpProblemToJSpritConverter
         VehicleRoutingTransportCostsMatrix.Builder matrixCostBuilder = VehicleRoutingTransportCostsMatrix.Builder.newInstance(false);
         copyDistanceMatrix(problem, matrixCostBuilder);
         problemBuilder.setRoutingCost(matrixCostBuilder.build());
-        return new ConversionResult(problemBuilder.build(), null);
+        return new ConversionResult(problemBuilder.build(), null, null);
     }
 
     @Override
-    protected Location convertLocation(compression.model.vrp.Client client){
-        return Location.newInstance(client.getId().toString());
+    protected Location convertLocation(Client client) {
+        Location.Builder b = Location.Builder.newInstance();
+        b.setCoordinate(new Coordinate(client.getLocation().getLongitude(), client.getLocation().getLatitude()));
+        b.setId(client.getId().toString());
+        return b.build();
     }
 }

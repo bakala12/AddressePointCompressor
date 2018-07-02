@@ -7,6 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class AggregatedService {
+    @Getter
     private List<LocationVertex> vertices;
     @Getter
     private LocationVertex inputVertex;

@@ -7,26 +7,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Program {
-    public static Boolean useDefault(){
-        try{
-            Properties p = new Properties();
-            InputStream stream = Program.class.getResourceAsStream("/Config.config");
-            p.load(stream);
-            String def = p.getProperty("USEDEFAULT");
-            int r = def.compareTo("true");
-            return r == 0;
-        } catch (Exception ex){
-            ex.printStackTrace();
-            return false;
-        }
-    }
 
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
 //        if(true){
-//            app.run("./Benchmarks/mybenchmark.vrp", "./solutions/solution.sol", true,
-//                    "./solutions/data/data.csv", "./solutions/plots/");
+//            app.run("./Benchmarks/E-n23-k3.vrp", "./solutions/solution.sol", "./solutions/solution.result",false,
+//                    "./solutions/data/data.csv", "./solutions/plots/", 2000, "./solutions/solution.route");
 //            return;
 //        }
         System.out.println("Start");

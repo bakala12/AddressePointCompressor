@@ -1,7 +1,7 @@
 package compression.output.result;
 
-import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import compression.services.resolving.ResolvedSolution;
 
 public interface IRouteWriter {
-    void writeRoute(VehicleRoutingProblemSolution solution, String path);
+    void writeRoute(ResolvedSolution solution, String path);
 }

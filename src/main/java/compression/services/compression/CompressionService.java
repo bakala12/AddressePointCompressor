@@ -34,7 +34,6 @@ public class CompressionService implements ICompressionService{
         for (TreeBranch<LocationVertex> branch : branches) {
             splitBranchIfNeeded(branch, maxCapacity, finalBranches);
         }
-        //mergebranches
         watch.stop();
         Double time = watch.getCurrTimeInSeconds();
         List<AggregatedService> list = new ArrayList<>();
