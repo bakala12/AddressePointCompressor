@@ -17,15 +17,20 @@ public class RouteWriter implements IRouteWriter{
     @Override
     public void writeRoute(ResolvedSolution solution, String path) {
         try(PrintWriter writer = new PrintWriter(path)) {
+            Long depotId = solution.getOriginalProblem().getDepot().getId();
+            Double depotLat = solution.getOriginalProblem().getDepot().getLocation().getLatitude();
+            Double depotLon = solution.getOriginalProblem().getDepot().getLocation().getLongitude();
             Integer routeId = 1;
+            writer.println("id,lat,lon,routeId");
             for(VrpSolutionRoute route : solution.getRoutes()){
+                writer.println(depotId+","+depotLat+","+depotLon+","+0);
                 for(VrpSolutionRouteNode n : route.getNodes()){
                     Location location = n.getNodeLocation();
                     Coordinate coordinate = location.getCoordinate();
                     if(coordinate != null){
                         Double lat = coordinate.getY();
                         Double lon = coordinate.getX();
-                        writer.println(lat.toString()+" "+lon.toString()+" "+ routeId);
+                        writer.println(n.getNodeId()+","+lat.toString()+","+lon.toString()+","+ routeId);
                     } else{
                         throw new Exception("No coordinate for location: "+location);
                     }

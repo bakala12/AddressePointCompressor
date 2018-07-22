@@ -33,6 +33,6 @@ public class CompressedSolutionRouteResolver extends BaseSolutionRouteResolver i
     }
 
     private Location changeLocation(compression.model.vrp.Location location){
-        return Location.newInstance(location.getLongitude(), location.getLongitude());
+        return Location.newInstance(location.getLongitude(), location.getLatitude());
     }
 }
