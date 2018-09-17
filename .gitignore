@@ -5,6 +5,12 @@
 solutions/
 Results/
 results.csv
+ResultsMap/
+Results.zip
+*.csv
+*.sol
+*.route
+*.result
 
 # User-specific stuff:
 .idea/**/workspace.xml
