@@ -49,17 +49,6 @@ public class CompressionApplication {
     private final IJSpritService service = new JSpritService(compressionService, distanceService);
     private final IChartPlotter chartPlotter = new ChartPlotter();
     private final ISolutionInfoWriter solutionInfoWriter = new SolutionInfoWriter();
-    private final IRouteWriter solutionRouteWriter = new RouteWriter();
-    private final SolutionRouteResolverFactory solutionRoureResolverFactory = new SolutionRouteResolverFactory();
-
-    private final class SolutionRouteResolverFactory{
-        private final ISolutionRouteResolver fullSolutionRouteResolver = new FullSolutionRouteResolver();
-        private final ISolutionRouteResolver compressedSolutionRouteResolver = new CompressedSolutionRouteResolver();
-
-        public ISolutionRouteResolver get(boolean useCompression){
-            return useCompression ? compressedSolutionRouteResolver : fullSolutionRouteResolver;
-        }
-    }
 
     public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath, Integer iterations, String solutionRoutePath){
         try {
@@ -68,10 +57,10 @@ public class CompressionApplication {
             service.setMaxNumberOfIterations(iterations);
             if (useCompression) {
                 System.out.println("Compressed problem");
-                solution = service.compressAndSolve(problem, dataPath);
+                solution = service.compressAndSolve(problem, dataPath, solutionRoutePath);
             } else {
                 System.out.println("Full problem");
-                solution = service.solve(problem, dataPath);
+                solution = service.solve(problem, dataPath, solutionRoutePath);
             }
             System.out.println("Finished");
             VehicleRoutingProblemSolution best = Solutions.bestOf(solution.getSolutions());
@@ -79,11 +68,6 @@ public class CompressionApplication {
                 System.out.println(best.getCost());
                 SolutionPrinter.print(printWriter, solution.getProblem(), best, SolutionPrinter.Print.VERBOSE);
                 printWriter.flush();
-            }
-            if(solutionRoutePath != null){
-                ISolutionRouteResolver resolver = solutionRoureResolverFactory.get(useCompression);
-                ResolvedSolution resolvedSolution = resolver.resolveRoutes(problem, solution);
-                solutionRouteWriter.writeRoute(resolvedSolution, solutionRoutePath);
             }
             if(resultFilePath != null){
                 solutionInfoWriter.writeSolution(resultFilePath, solution.getSolutionInfo());

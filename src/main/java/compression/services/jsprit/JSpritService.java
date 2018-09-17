@@ -12,10 +12,16 @@ import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 import compression.output.datalogger.CsvDataLogger;
 import compression.output.datalogger.IDataLogger;
+import compression.output.result.IRouteWriter;
+import compression.output.result.RouteWriter;
 import compression.services.compression.ICompressionService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
+import compression.services.resolving.CompressedSolutionRouteResolver;
+import compression.services.resolving.FullSolutionRouteResolver;
+import compression.services.resolving.ISolutionRouteResolver;
+import compression.services.resolving.ResolvedSolution;
 import lombok.RequiredArgsConstructor;
 
 import java.util.*;
@@ -54,6 +60,18 @@ public class JSpritService implements IJSpritService {
     private final ICompressionService compressionService;
     private final IDistanceService distanceService;
     private final JSpritConvertersFactory factory = new JSpritConvertersFactory();
+    private final IRouteWriter solutionRouteWriter = new RouteWriter();
+
+    private final SolutionRouteResolverFactory solutionRoureResolverFactory = new SolutionRouteResolverFactory();
+
+    private final class SolutionRouteResolverFactory{
+        private final ISolutionRouteResolver fullSolutionRouteResolver = new FullSolutionRouteResolver();
+        private final ISolutionRouteResolver compressedSolutionRouteResolver = new CompressedSolutionRouteResolver();
+
+        public ISolutionRouteResolver get(boolean useCompression){
+            return useCompression ? compressedSolutionRouteResolver : fullSolutionRouteResolver;
+        }
+    }
 
     private int maxNumberOfIterations = 2000;
 
@@ -69,6 +87,11 @@ public class JSpritService implements IJSpritService {
 
     @Override
     public VrpProblemSolution solve(VrpProblem problem, String dataPath){
+        return solve(problem, dataPath, null);
+    }
+
+    @Override
+    public VrpProblemSolution solve(VrpProblem problem, String dataPath, String solutionRoutePath){
         IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem).getConvertedProblem();
         VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
@@ -93,7 +116,13 @@ public class JSpritService implements IJSpritService {
                 null,
                 best.getRoutes().size(),
                 null);
-        return new VrpProblemSolution(vrp, solutions, info, null);
+        VrpProblemSolution solution = new VrpProblemSolution(vrp, solutions, info, null);
+        if(solutionRoutePath != null){
+            ISolutionRouteResolver resolver = solutionRoureResolverFactory.get(false);
+            ResolvedSolution resolvedSolution = resolver.resolveRoutes(problem, solution);
+            solutionRouteWriter.writeRoute(resolvedSolution, solutionRoutePath);
+        }
+        return solution;
     }
 
     @Override
@@ -102,7 +131,12 @@ public class JSpritService implements IJSpritService {
     }
 
     @Override
-    public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath) {
+    public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath){
+        return compressAndSolve(problem, dataPath, null);
+    }
+
+    @Override
+    public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath, String solutionRoutePath) {
         IVrpProblemToJSpritConverter converter = factory.getCompressedConverter(problem);
         ConversionResult conversionResult = converter.convertToJsprit(problem);
         VehicleRoutingProblem vrp = conversionResult.getConvertedProblem();
@@ -129,6 +163,12 @@ public class JSpritService implements IJSpritService {
                 conversionResult.getCompressionResult().getTime(),
                 best.getRoutes().size(),
                 vrp.getNuActivities()+1);
-        return new VrpProblemSolution(vrp, solutions, info, conversionResult.getCompressionMap());
+        VrpProblemSolution solution = new VrpProblemSolution(vrp, solutions, info, conversionResult.getCompressionMap());
+        if(solutionRoutePath != null){
+            ISolutionRouteResolver resolver = solutionRoureResolverFactory.get(true);
+            ResolvedSolution resolvedSolution = resolver.resolveRoutes(problem, solution);
+            solutionRouteWriter.writeRoute(resolvedSolution, solutionRoutePath);
+        }
+        return solution;
     }
 }
