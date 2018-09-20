@@ -18,10 +18,7 @@ import compression.services.compression.ICompressionService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
-import compression.services.resolving.CompressedSolutionRouteResolver;
-import compression.services.resolving.FullSolutionRouteResolver;
-import compression.services.resolving.ISolutionRouteResolver;
-import compression.services.resolving.ResolvedSolution;
+import compression.services.resolving.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.*;

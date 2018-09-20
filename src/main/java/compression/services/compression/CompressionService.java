@@ -43,13 +43,15 @@ public class CompressionService implements ICompressionService{
             v.getVertices().remove(0);
             LocationVertex prev = v.getVertices().get(0);
             Double cost = prev.getDemand();
+            Double backwardDist = 0.0;
             for(LocationVertex vv : v.getVertices()){
                 if(vv==prev) continue;
                 cost += vv.getDemand();
                 dist += problem.getDistanceMatrix().getDistance(prev.getId(), vv.getId());
+                backwardDist += problem.getDistanceMatrix().getDistance(vv.getId(), prev.getId());
                 prev = vv;
             }
-            AggregatedService s = new AggregatedService(v.getVertices(), v.getVertices().get(0), v.getEndVertex(), cost, id, dist);
+            AggregatedService s = new AggregatedService(v.getVertices(), v.getVertices().get(0), v.getEndVertex(), cost, id, dist, backwardDist);
             id = id + 1;
             list.add(s);
         }

@@ -19,4 +19,6 @@ public class AggregatedService {
     private Long id;
     @Getter
     private Double internalDistance;
+    @Getter
+    private Double internalBackwardDistance;
 }
