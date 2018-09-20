@@ -13,8 +13,8 @@ public class Program {
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
 //        if(true){
-//            app.run("./testdecompression.vrp", "./decsolution.sol", "./decsolution.result",false,
-//                    "./decdata.csv", "./plots/", 2000, "./decsolution.route", DecompressionMethod.SIMPLE);
+//            app.run("./AnotherBenchmarks/testdecompression.vrp", "./decsolution.sol", "./decsolution.result",true,
+//                    "./decdata.csv", "./plots/", 2000, "./decsolution.route", DecompressionMethod.GREEDY);
 //            return;
 //        }
         System.out.println("Start");

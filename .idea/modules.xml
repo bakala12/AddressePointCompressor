@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AddressPointCompression.iml" filepath="$PROJECT_DIR$/AddressPointCompression.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AddressPointCompressor.iml" filepath="$PROJECT_DIR$/AddressPointCompressor.iml" />
     </modules>
   </component>
 </project>

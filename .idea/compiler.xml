@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AddressPointCompression" />
+        <module name="AddressPointCompressor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AddressPointCompression" target="1.8" />
+      <module name="AddressPointCompressor" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
