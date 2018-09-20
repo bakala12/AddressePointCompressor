@@ -28,11 +28,9 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
     }
 
     @Override
-    public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VrpProblemSolution problemSolution) {
-        Collection<VehicleRoutingProblemSolution> solutions = problemSolution.getSolutions();
-        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions);
-        ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), problemSolution.getCompressionMap());
-        return new ResolvedSolution(originalProblem, routes.cost, routes.routes, problemSolution.getSolutionInfo()); //TODO: check if Solutioninfo should be modified
+    public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap) {
+        ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), compressionMap);
+        return new ResolvedSolution(originalProblem, routes.cost, routes.routes);
     }
 
     protected ConvertedRoutes convertRoutes(VrpProblem problem, VehicleRoutingProblemSolution best, Long depotId, Map<Long, AggregatedService> compressionMap){

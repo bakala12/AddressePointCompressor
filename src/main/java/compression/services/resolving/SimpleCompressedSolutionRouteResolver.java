@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CompressedSolutionRouteResolver extends BaseSolutionRouteResolver implements ISolutionRouteResolver {
+public class SimpleCompressedSolutionRouteResolver extends BaseSolutionRouteResolver implements ISolutionRouteResolver {
     @Override
     protected List<VrpSolutionRouteNode> convertLocationToNodes(VrpProblem problem, Location location, Map<Long, AggregatedService> compressionMap) {
         List<VrpSolutionRouteNode> nodes = new ArrayList<>();

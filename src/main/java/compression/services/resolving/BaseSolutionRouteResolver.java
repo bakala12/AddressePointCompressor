@@ -17,12 +17,10 @@ import java.util.Map;
 public abstract class BaseSolutionRouteResolver implements ISolutionRouteResolver {
 
     @Override
-    public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VrpProblemSolution problemSolution){
-        Collection<VehicleRoutingProblemSolution> solutions = problemSolution.getSolutions();
-        VehicleRoutingProblemSolution best = Solutions.bestOf(solutions);
+    public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap){
         Double cost = best.getCost();
-        List<VrpSolutionRoute> routes = convertRoutes(originalProblem, best, problemSolution.getCompressionMap());
-        return new ResolvedSolution(originalProblem, cost, routes, problemSolution.getSolutionInfo());
+        List<VrpSolutionRoute> routes = convertRoutes(originalProblem, best, compressionMap);
+        return new ResolvedSolution(originalProblem, cost, routes);
     }
 
     protected List<VrpSolutionRoute> convertRoutes(VrpProblem problem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap){

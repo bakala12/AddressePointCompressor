@@ -15,9 +15,9 @@ public class VrpProblemSolution {
     @Getter
     private VehicleRoutingProblem problem;
     @Getter
-    private Collection<VehicleRoutingProblemSolution> solutions; //to be removed
+    private VehicleRoutingProblemSolution bestSolution;
+    @Getter
+    private Double cost;
     @Getter
     private SolutionInfo solutionInfo;
-    @Getter
-    private Map<Long, AggregatedService> compressionMap; //to be removed
 }

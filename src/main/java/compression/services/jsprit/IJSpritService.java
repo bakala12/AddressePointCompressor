@@ -1,5 +1,6 @@
 package compression.services.jsprit;
 
+import compression.model.jsprit.DecompressionMethod;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.VrpProblem;
 
@@ -11,4 +12,7 @@ public interface IJSpritService {
     VrpProblemSolution compressAndSolve(VrpProblem problem);
     VrpProblemSolution compressAndSolve(VrpProblem problem, String dataFolderPath);
     VrpProblemSolution compressAndSolve(VrpProblem problem, String dataFolderPath, String solutionRoutePath);
+    VrpProblemSolution compressAndSolve(VrpProblem problem, DecompressionMethod decompressionMethod);
+    VrpProblemSolution compressAndSolve(VrpProblem problem, String dataFolderPath, DecompressionMethod decompressionMethod);
+    VrpProblemSolution compressAndSolve(VrpProblem problem, String dataFolderPath, String solutionRoutePath, DecompressionMethod decompressionMethod);
 }

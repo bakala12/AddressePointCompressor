@@ -15,6 +15,4 @@ public class ResolvedSolution {
     private Double cost;
     @Getter
     private List<VrpSolutionRoute> routes;
-    @Getter
-    private SolutionInfo solutionInfo;
 }

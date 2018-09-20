@@ -4,13 +4,12 @@ import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolutio
 import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import compression.model.graph.*;
+import compression.model.jsprit.DecompressionMethod;
 import compression.model.jsprit.VrpProblemSolution;
 import compression.model.vrp.helpers.LocationVertex;
 import compression.output.plot.ChartPlotter;
 import compression.output.plot.IChartPlotter;
-import compression.output.result.IRouteWriter;
 import compression.output.result.ISolutionInfoWriter;
-import compression.output.result.RouteWriter;
 import compression.output.result.SolutionInfoWriter;
 import compression.services.IProblemToGraphConverter;
 import compression.services.ProblemToGraphConverter;
@@ -22,10 +21,6 @@ import compression.services.distance.DistanceService;
 import compression.services.distance.IDistanceService;
 import compression.services.jsprit.IJSpritService;
 import compression.services.jsprit.JSpritService;
-import compression.services.resolving.CompressedSolutionRouteResolver;
-import compression.services.resolving.FullSolutionRouteResolver;
-import compression.services.resolving.ISolutionRouteResolver;
-import compression.services.resolving.ResolvedSolution;
 import compression.spanning.IMinimumSpanningArborescenceFinder;
 import compression.spanning.*;
 import compression.input.IProblemReader;
@@ -50,23 +45,23 @@ public class CompressionApplication {
     private final IChartPlotter chartPlotter = new ChartPlotter();
     private final ISolutionInfoWriter solutionInfoWriter = new SolutionInfoWriter();
 
-    public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath, Integer iterations, String solutionRoutePath){
+    public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath,
+                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod){
         try {
             VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
             VrpProblemSolution solution = null;
             service.setMaxNumberOfIterations(iterations);
             if (useCompression) {
                 System.out.println("Compressed problem");
-                solution = service.compressAndSolve(problem, dataPath, solutionRoutePath);
+                solution = service.compressAndSolve(problem, dataPath, solutionRoutePath, decompressionMethod);
             } else {
                 System.out.println("Full problem");
                 solution = service.solve(problem, dataPath, solutionRoutePath);
             }
             System.out.println("Finished");
-            VehicleRoutingProblemSolution best = Solutions.bestOf(solution.getSolutions());
             try (PrintWriter printWriter = new PrintWriter(outputFile)) {
-                System.out.println(best.getCost());
-                SolutionPrinter.print(printWriter, solution.getProblem(), best, SolutionPrinter.Print.VERBOSE);
+                System.out.println(solution.getCost());
+                SolutionPrinter.print(printWriter, solution.getProblem(), solution.getBestSolution(), SolutionPrinter.Print.VERBOSE);
                 printWriter.flush();
             }
             if(resultFilePath != null){

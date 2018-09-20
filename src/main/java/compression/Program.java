@@ -1,5 +1,6 @@
 package compression;
 
+import compression.model.jsprit.DecompressionMethod;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
@@ -12,8 +13,8 @@ public class Program {
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
 //        if(true){
-//            app.run("./Benchmarks/E-n23-k3.vrp", "./solutions/solution.sol", "./solutions/solution.result",false,
-//                    "./solutions/data/data.csv", "./solutions/plots/", 2000, "./solutions/solution.route");
+//            app.run("./testdecompression.vrp", "./decsolution.sol", "./decsolution.result",false,
+//                    "./decdata.csv", "./plots/", 2000, "./decsolution.route", DecompressionMethod.SIMPLE);
 //            return;
 //        }
         System.out.println("Start");
@@ -42,6 +43,9 @@ public class Program {
         Option solutionRoute = new Option("s", "solutionRoute", true, "path to file with solution route");
         solutionRoute.setRequired(false);
         options.addOption(solutionRoute);
+        Option decompressionMethod = new Option("dc", "decompression", true, "decompression method: simple (default) or greedy");
+        decompressionMethod.setRequired(false);
+        options.addOption(decompressionMethod);
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -63,6 +67,7 @@ public class Program {
         Integer iterNum = 2000;
         String resultFilePath = cmd.getOptionValue("r");
         String solutionRoutePath = cmd.getOptionValue("s");
+        DecompressionMethod decompression = DecompressionMethod.SIMPLE;
         if(cmd.hasOption("d")){
             dataPath = cmd.getOptionValue("d");
         }
@@ -80,6 +85,12 @@ public class Program {
                 iterNum = 2000;
             }
         }
-        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath);
+        if(cmd.hasOption("dc")){
+            String dc = cmd.getOptionValue("dc");
+            if(dc.equals("greedy")) {
+                decompression = DecompressionMethod.GREEDY;
+            }
+        }
+        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression);
     }
 }
