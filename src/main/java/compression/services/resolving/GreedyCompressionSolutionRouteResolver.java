@@ -31,6 +31,7 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
     public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap) {
         ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), compressionMap);
         System.out.println("Simple decompression cost: "+best.getCost()+" greedy decompression cost: "+routes.cost);
+        ResolvedSolution normal = new SimpleCompressedSolutionRouteResolver().resolveRoutes(originalProblem, best, compressionMap);
         return new ResolvedSolution(originalProblem, routes.cost, routes.routes);
     }
 
@@ -43,6 +44,7 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
             cost += exRoute.getUpdatedCost();
             VrpSolutionRoute rr = new VrpSolutionRoute(exRoute.getVehicleId(), exRoute.getNodes());
             routes.add(rr);
+            //RouteSegmentHelper.debugCaclulateRouteCost(exRoute, problem.getDepot().getId(), problem.getDistanceMatrix());
         }
         return new ConvertedRoutes(routes, cost);
     }
@@ -84,7 +86,7 @@ class RouteSegmentHelper{
     private static Boolean shouldRotateService(Long lastId, AggregatedService service, Long nextId, DistanceMatrix matrix){
         Double currentDistance = matrix.getDistance(lastId, service.getInputVertex().getId()) + service.getInternalDistance() + matrix.getDistance(service.getOutputVertex().getId(), nextId);
         Double revertedDistance = matrix.getDistance(lastId, service.getOutputVertex().getId()) + service.getInternalBackwardDistance() + matrix.getDistance(service.getInputVertex().getId(), nextId);
-        return currentDistance > revertedDistance;
+        return (currentDistance - revertedDistance) > 1e-10; //Normal comparison by > gives errors!!!
     }
 
     private static AddNextServiceResult addNextService(List<VrpSolutionRouteNode> nodes, Long lastId, AggregatedService service, Boolean shouldRevert, DistanceMatrix matrix, Double currentDistance){
@@ -93,7 +95,7 @@ class RouteSegmentHelper{
         Double cost = currentDistance;
         if(shouldRevert) {
             Collections.reverse(vertices);
-            newlast = service.getOutputVertex().getId();
+            newlast = service.getInputVertex().getId();
         }
         for(LocationVertex v : vertices){
             VrpSolutionRouteNode n = new VrpSolutionRouteNode(v.getId(), changeLocation(v.getLocation()));
@@ -127,5 +129,16 @@ class RouteSegmentHelper{
         lastId = r.getNewLast();
         updatedDistance = r.getUpdatedDistance() + matrix.getDistance(lastId, depotId);
         return new ExtendedVrpSolutionRoute(vehicleId, nodes, updatedDistance);
+    }
+
+    public static void debugCaclulateRouteCost(ExtendedVrpSolutionRoute ex, Long depotId, DistanceMatrix matrix){
+        Double cost =0.0;
+        Long last = depotId;
+        for(VrpSolutionRouteNode n : ex.getNodes()){
+            cost += matrix.getDistance(last, n.getNodeId());
+            last = n.getNodeId();
+        }
+        cost += matrix.getDistance(last, depotId);
+        System.out.println("Route declaredCost: "+ex.getUpdatedCost()+" actual cost: "+cost);
     }
 }
