@@ -30,6 +30,7 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
     @Override
     public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap) {
         ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), compressionMap);
+        System.out.println("Simple decompression cost: "+best.getCost()+" greedy decompression cost: "+routes.cost);
         return new ResolvedSolution(originalProblem, routes.cost, routes.routes);
     }
 
@@ -114,7 +115,7 @@ class RouteSegmentHelper{
                 prev = s;
                 continue;
             }
-            Long nextId = s.getId();
+            Long nextId = s.getInputVertex().getId();
             Boolean shouldReverse = shouldRotateService(lastId, prev, nextId, matrix);
             AddNextServiceResult r = addNextService(nodes, lastId, prev, shouldReverse, matrix, updatedDistance);
             updatedDistance = r.getUpdatedDistance();
