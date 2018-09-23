@@ -6,6 +6,7 @@ import compression.model.vrp.VrpProblem;
 
 public interface IJSpritService {
     void setMaxNumberOfIterations(int maxNumberOfIterations);
+    void setRandomSeed(Long seed);
     VrpProblemSolution solve(VrpProblem problem);
     VrpProblemSolution solve(VrpProblem problem, String dataFolderPath);
     VrpProblemSolution solve(VrpProblem problem, String dataFolderPath, String solutionRoutePath);

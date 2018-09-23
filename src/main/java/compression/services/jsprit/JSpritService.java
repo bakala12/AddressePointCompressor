@@ -72,10 +72,16 @@ public class JSpritService implements IJSpritService {
     private final IRouteWriter solutionRouteWriter = new RouteWriter();
     private final SolutionRouteResolverFactory solutionRoureResolverFactory = new SolutionRouteResolverFactory();
     private int maxNumberOfIterations = 2000;
+    private Long seed = null;
 
     @Override
     public void setMaxNumberOfIterations(int maxNumberOfIterations){
         this.maxNumberOfIterations = maxNumberOfIterations;
+    }
+
+    @Override
+    public void setRandomSeed(Long seed){
+        this.seed = seed;
     }
 
     @Override
@@ -93,7 +99,8 @@ public class JSpritService implements IJSpritService {
         IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem).getConvertedProblem();
         Jsprit.Builder builder = Jsprit.Builder.newInstance(vrp);
-        builder.setRandom(new Random());
+        if(seed != null)
+            builder.setRandom(new Random(seed));
         VehicleRoutingAlgorithm algorithm = builder.buildAlgorithm();
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){
@@ -155,7 +162,8 @@ public class JSpritService implements IJSpritService {
         ConversionResult conversionResult = converter.convertToJsprit(problem);
         VehicleRoutingProblem vrp = conversionResult.getConvertedProblem();
         Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
-        algorithmBuilder.setRandom(new Random());
+        if(seed != null)
+            algorithmBuilder.setRandom(new Random(seed));
         VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){

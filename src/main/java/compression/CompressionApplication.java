@@ -42,6 +42,7 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @NoArgsConstructor
 public class CompressionApplication {
@@ -69,8 +70,9 @@ public class CompressionApplication {
     }
 
     public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath,
-                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, int numberOfRuns, String generalInfoPath){
+                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, Long seed, int numberOfRuns, String generalInfoPath){
         List<RunResult> results = new ArrayList<>();
+        Random rand = new Random(seed);
         for(int i = 1; i <= numberOfRuns; i++) {
             //fix paths
             String  out = FilePathUtils.getFileNameForRun(outputFile, i);
@@ -78,7 +80,7 @@ public class CompressionApplication {
             String data = FilePathUtils.getFileNameForRun(dataPath, i);
             String solution = FilePathUtils.getFileNameForRun(solutionRoutePath, i);
             String plots = FilePathUtils.getDirectoryForPlots(plotPath, i);
-            RunResult runResult = runInternal(inputFile, out, result, useCompression, data, plots, iterations, solution, decompressionMethod);
+            RunResult runResult = runInternal(inputFile, out, result, useCompression, data, plots, iterations, solution, decompressionMethod, rand.nextLong());
             if(dataPath!= null){
                 System.out.println("Generating and saving plots");
                 chartPlotter.plotCostChart(data, Paths.get(plotPath, "cost"+i+".jpeg").toString());
@@ -93,8 +95,8 @@ public class CompressionApplication {
     }
 
     public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath,
-                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod){
-        runInternal(inputFile, outputFile, resultFilePath, useCompression, dataPath, plotPath, iterations, solutionRoutePath, decompressionMethod);
+                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, Long seed){
+        runInternal(inputFile, outputFile, resultFilePath, useCompression, dataPath, plotPath, iterations, solutionRoutePath, decompressionMethod, seed);
         if(dataPath!= null){
             System.out.println("Generating and saving plots");
             chartPlotter.plotCostChart(dataPath, Paths.get(plotPath, "cost.jpeg").toString());
@@ -103,11 +105,13 @@ public class CompressionApplication {
     }
 
     public RunResult runInternal(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath,
-                Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod){
+                Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, Long seed){
         try {
             VrpProblem problem = problemReader.readProblemInstanceFromFile(inputFile);
             VrpProblemSolution solution = null;
             service.setMaxNumberOfIterations(iterations);
+            System.out.println("Using random seed: "+seed);
+            service.setRandomSeed(seed);
             if (useCompression) {
                 System.out.println("Compressed problem");
                 solution = service.compressAndSolve(problem, dataPath, solutionRoutePath, decompressionMethod);

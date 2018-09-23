@@ -14,7 +14,7 @@ public class Program {
         //default arguments to debug
 //        if(true){
 //                app.run("./Benchmarks/E-n76-k7.vrp", "./decsolution1.sol", "./decsolution1.result", true,
-//                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.GREEDY,5,"./decinfo.info");
+//                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.GREEDY, 4712L,5,"./decinfo.info");
 //            return;
 //        }
         System.out.println("Start");
@@ -52,10 +52,12 @@ public class Program {
         Option generalInfoOption = new Option("g", "generalinfo", true, "path to file in which general information about solutions will be stored");
         generalInfoOption.setRequired(false);
         options.addOption(generalInfoOption);
+        Option randomSeedOption = new Option("rand", "randomSeed", true, "random seed");
+        randomSeedOption.setRequired(false);
+        options.addOption(randomSeedOption);
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
-
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
@@ -102,11 +104,23 @@ public class Program {
             String n = cmd.getOptionValue("n");
             try{
                 numberOfRunsValue = Integer.parseInt(n);
-                if(iterNum < 0)
+                if(numberOfRunsValue < 0)
                     throw new Exception();
             } catch (Exception ex){
                 System.out.println("Invalid numberofruns parameter");
                 numberOfRunsValue = 1;
+            }
+        }
+        Long seed = 4711L;
+        if(cmd.hasOption("rand")){
+            String seedStr = cmd.getOptionValue("rand");
+            try{
+                seed = Long.parseLong(seedStr);
+                if(seed < 0)
+                    throw new Exception();
+            } catch (Exception ex){
+                System.out.println("Invalid randomSeed parameter");
+                seed = 4711L;
             }
         }
         String generalInfoPath = null;
@@ -114,9 +128,9 @@ public class Program {
             generalInfoPath = cmd.getOptionValue("g");
         }
         if(numberOfRunsValue > 1){
-            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, numberOfRunsValue, generalInfoPath);
+            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, seed, numberOfRunsValue, generalInfoPath);
         } else{
-            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression);
+            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, seed);
         }
     }
 }
