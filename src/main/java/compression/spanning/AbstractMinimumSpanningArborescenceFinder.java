@@ -3,12 +3,10 @@ package compression.spanning;
 import compression.model.graph.DefaultMinimumSpanningArborescence;
 import compression.model.graph.Edge;
 import compression.model.graph.IMinimumSpanningArborescence;
+import javafx.util.Pair;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractMinimumSpanningArborescenceFinder<V,E>
     implements IMinimumSpanningArborescenceFinder<V,E> {

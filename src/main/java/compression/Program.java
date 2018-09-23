@@ -13,10 +13,8 @@ public class Program {
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
 //        if(true){
-//                app.run("./Benchmarks/E-n101-k14.vrp", "./decsolution1.sol", "./decsolution1.result", false,
-//                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.SIMPLE);
-//                app.run("./Benchmarks/E-n101-k14.vrp", "./decsolution2.sol", "./decsolution2.result", true,
-//                        "./decdata2.csv", "./Results/Plots", 2000, "./decsolution2.route", DecompressionMethod.GREEDY);
+//                app.run("./Benchmarks/E-n76-k7.vrp", "./decsolution1.sol", "./decsolution1.result", true,
+//                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.GREEDY,5,"./decinfo.info");
 //            return;
 //        }
         System.out.println("Start");
@@ -48,6 +46,12 @@ public class Program {
         Option decompressionMethod = new Option("dc", "decompression", true, "decompression method: simple (default) or greedy");
         decompressionMethod.setRequired(false);
         options.addOption(decompressionMethod);
+        Option numberOfRuns = new Option("n", "numberofruns", true, "number of runs for the given benchmark");
+        numberOfRuns.setRequired(false);
+        options.addOption(numberOfRuns);
+        Option generalInfoOption = new Option("g", "generalinfo", true, "path to file in which general information about solutions will be stored");
+        generalInfoOption.setRequired(false);
+        options.addOption(generalInfoOption);
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
@@ -70,6 +74,7 @@ public class Program {
         String resultFilePath = cmd.getOptionValue("r");
         String solutionRoutePath = cmd.getOptionValue("s");
         DecompressionMethod decompression = DecompressionMethod.SIMPLE;
+        Integer numberOfRunsValue = 1;
         if(cmd.hasOption("d")){
             dataPath = cmd.getOptionValue("d");
         }
@@ -93,6 +98,25 @@ public class Program {
                 decompression = DecompressionMethod.GREEDY;
             }
         }
-        app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression);
+        if(cmd.hasOption("n")){
+            String n = cmd.getOptionValue("n");
+            try{
+                numberOfRunsValue = Integer.parseInt(n);
+                if(iterNum < 0)
+                    throw new Exception();
+            } catch (Exception ex){
+                System.out.println("Invalid numberofruns parameter");
+                numberOfRunsValue = 1;
+            }
+        }
+        String generalInfoPath = null;
+        if(cmd.hasOption("g")){
+            generalInfoPath = cmd.getOptionValue("g");
+        }
+        if(numberOfRunsValue > 1){
+            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, numberOfRunsValue, generalInfoPath);
+        } else{
+            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression);
+        }
     }
 }

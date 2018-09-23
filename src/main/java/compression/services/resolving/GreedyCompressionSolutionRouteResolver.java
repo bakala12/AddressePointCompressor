@@ -30,8 +30,6 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
     @Override
     public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap) {
         ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), compressionMap);
-        System.out.println("Simple decompression cost: "+best.getCost()+" greedy decompression cost: "+routes.cost);
-        ResolvedSolution normal = new SimpleCompressedSolutionRouteResolver().resolveRoutes(originalProblem, best, compressionMap);
         return new ResolvedSolution(originalProblem, routes.cost, routes.routes);
     }
 
@@ -44,7 +42,6 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
             cost += exRoute.getUpdatedCost();
             VrpSolutionRoute rr = new VrpSolutionRoute(exRoute.getVehicleId(), exRoute.getNodes());
             routes.add(rr);
-            //RouteSegmentHelper.debugCaclulateRouteCost(exRoute, problem.getDepot().getId(), problem.getDistanceMatrix());
         }
         return new ConvertedRoutes(routes, cost);
     }
@@ -129,16 +126,5 @@ class RouteSegmentHelper{
         lastId = r.getNewLast();
         updatedDistance = r.getUpdatedDistance() + matrix.getDistance(lastId, depotId);
         return new ExtendedVrpSolutionRoute(vehicleId, nodes, updatedDistance);
-    }
-
-    public static void debugCaclulateRouteCost(ExtendedVrpSolutionRoute ex, Long depotId, DistanceMatrix matrix){
-        Double cost =0.0;
-        Long last = depotId;
-        for(VrpSolutionRouteNode n : ex.getNodes()){
-            cost += matrix.getDistance(last, n.getNodeId());
-            last = n.getNodeId();
-        }
-        cost += matrix.getDistance(last, depotId);
-        System.out.println("Route declaredCost: "+ex.getUpdatedCost()+" actual cost: "+cost);
     }
 }

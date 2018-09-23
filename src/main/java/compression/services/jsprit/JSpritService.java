@@ -4,6 +4,7 @@ import com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm;
 import com.graphhopper.jsprit.core.algorithm.box.Jsprit;
 import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution;
+import com.graphhopper.jsprit.core.reporting.SolutionPrinter;
 import com.graphhopper.jsprit.core.util.Solutions;
 import com.graphhopper.jsprit.core.util.StopWatch;
 import compression.model.jsprit.DecompressionMethod;
@@ -21,6 +22,7 @@ import compression.services.jsprit.conversion.*;
 import compression.services.jsprit.extensions.DataCollectorIterationEndListener;
 import compression.services.resolving.*;
 import lombok.RequiredArgsConstructor;
+import com.graphhopper.jsprit.io.problem.VrpXMLWriter;
 
 import java.util.*;
 
@@ -90,7 +92,9 @@ public class JSpritService implements IJSpritService {
     public VrpProblemSolution solve(VrpProblem problem, String dataPath, String solutionRoutePath){
         IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
         VehicleRoutingProblem vrp = converter.convertToJsprit(problem).getConvertedProblem();
-        VehicleRoutingAlgorithm algorithm = Jsprit.createAlgorithm(vrp);
+        Jsprit.Builder builder = Jsprit.Builder.newInstance(vrp);
+        builder.setRandom(new Random());
+        VehicleRoutingAlgorithm algorithm = builder.buildAlgorithm();
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){
             IDataLogger logger = new CsvDataLogger(dataPath);
@@ -151,6 +155,7 @@ public class JSpritService implements IJSpritService {
         ConversionResult conversionResult = converter.convertToJsprit(problem);
         VehicleRoutingProblem vrp = conversionResult.getConvertedProblem();
         Jsprit.Builder algorithmBuilder = Jsprit.Builder.newInstance(vrp);
+        algorithmBuilder.setRandom(new Random());
         VehicleRoutingAlgorithm algorithm = algorithmBuilder.buildAlgorithm();
         algorithm.setMaxIterations(maxNumberOfIterations);
         if(dataPath != null){

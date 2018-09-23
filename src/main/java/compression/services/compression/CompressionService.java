@@ -12,6 +12,7 @@ import compression.spanning.IMinimumSpanningArborescenceFinder;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class CompressionService implements ICompressionService{
         watch.start();
         IMinimumSpanningArborescence<LocationVertex, Edge> spanningArborescence = minimumSpanningArborescenceFinder.getSpanningArborescence(graph.getGraph(), graph.getRoot());
         List<TreeBranch<LocationVertex>> branches = treeBranchFinder.findBranches(spanningArborescence);
+        branches.sort((o1, o2) -> (int)(o1.getVertices().get(1).getId()-o2.getVertices().get(1).getId()));
         List<TreeBranch<LocationVertex>> finalBranches = new ArrayList<>();
         Double maxCapacity = getMexCapavity(problem);
         for (TreeBranch<LocationVertex> branch : branches) {

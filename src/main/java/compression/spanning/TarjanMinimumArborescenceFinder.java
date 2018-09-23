@@ -120,7 +120,7 @@ class IntegerTarjanMinimumArborescenceFinder
         while(uk.getParent()!=null){
             SuperVertexKeeper ukp = vertexManager.get(uk.getParent());
             for(Integer v : ukp.getChildren()){
-                if(v != u){
+                if(!v.equals(u)){
                     SuperVertexKeeper vk = vertexManager.get(v);
                     vk.setParent(null);
                     if(vk.getChildren() != null){
