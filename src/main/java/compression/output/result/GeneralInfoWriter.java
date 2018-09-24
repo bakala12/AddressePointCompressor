@@ -27,7 +27,7 @@ public class GeneralInfoWriter implements IGeneralInfoWriter {
 
             writer.println("CompressedProblemSize: "+(first.getProblemType() == ProblemType.FULL ? 0 : first.getCompressedSize()));
             if(first.getProblemType() == ProblemType.COMPRESSED)
-                writer.println("CompressionLevel"+(first.getCompressedSize() / first.getOriginalSize() * 100));
+                writer.println("CompressionLevel: "+(((double)first.getCompressedSize()) / first.getOriginalSize() * 100));
             else
                 writer.println("NULL");
 

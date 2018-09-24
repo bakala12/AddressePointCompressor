@@ -2,37 +2,49 @@ $inputDir = "..\Benchmarks"
 $outputDir = "..\Results\Output"
 $dataDir = "..\Results\Data"
 $plotDir = "..\Results\Plots"
-$resultFile = "..\Results\results.csv"
+$resultFile = "Results\results.csv"
 
-# Output:
-# BenchmarkName
-# Best known solution
-# Original size
-# Original solution vehicles
-# Original solution value
-# Original solution time
-# Compression size
-# Compression ratio (*)
-# Compression solution
-# Compression solution quality loss (*)
-# Compression time
-# Compression solution time
-# Time boost (*)
+#Benchmark 
+#OptimalSolution
+#ProblemSize
+#UsedVehicles
+#FullSolAvg
+#FullSolStDev
+#FullSolMin
+#FullSolMax
+#FullTimeAvg
+#FullTimeStDev
+#CompressionSize
+#CompressionLevel
+#SimpleDecompressionSolutionAvg
+#SimpleDecompressionSolutionStDev
+#SimpleDecompressionSolutionMin
+#SimpleDecompressionSolutionMax
+#GreedyDecompressionSolutionAvg
+#GreedyDecompressionSolutionStDev
+#GreedyDecompressionSolutionMin
+#GreedyDecompressionSolutionMax
+#CompressedProblemTimeAvg
+#CompressedProblemTimeStDev
+#CompressionTimeAvg
+#CompressionTimeStDev
 
 $stream = $null
+$currDir = Split-Path -Path $MyInvocation.MyCommand.Path
+$currDir = Split-Path -Parent $currDir
+$resultCsvPath = Join-Path -Path $currDir -ChildPath $resultFile
 
 Try{
-	$currDir = Split-Path -Path $MyInvocation.MyCommand.Path
-	#$stream = [System.IO.StreamWriter] "$currDir\$resultFile"
-	#[Void]$stream.WriteLine("BenchmarkName,Best known solution,Original size,Original solution vehicles,Original solution value,Original solution time,Compression size,Compression ratio,Compression solution,Compression solution quality loss,Compression time,Compression solution time,Time boost")
+	$stream = [System.IO.StreamWriter] "$resultCsvPath"
+	[Void]$stream.WriteLine("Benchmark,OptimalSolution,ProblemSize,UsedVehicles,FullSolAvg,FullSolStDev,FullSolMin,FullSolMax,FullTimeAvg,FullTimeStDev,CompressionSize,CompressionLevel,SimpleDecompressionSolutionAvg,SimpleDecompressionSolutionStDev,SimpleDecompressionSolutionMin,SimpleDecompressionSolutionMax,GreedyDecompressionSolutionAvg,GreedyDecompressionSolutionStDev,GreedyDecompressionSolutionMin,GreedyDecompressionSolutionMax,CompressedProblemTimeAvg,CompressedProblemTimeStDev,CompressionTimeAvg,CompressionTimeStDev")
 	Write-Output "Performing benchmark tests"
 	foreach($benchmark in Get-ChildItem $inputDir){
 		$benchmarkName = $benchmark.BaseName
 		Write-Output $benchmarkName
 		.\runtest -BenchmarkName $benchmarkName -InputDir $inputDir -OutputDir $outputDir -DataDir $dataDir -PlotDir $plotDir -NumberOfRuns 4
-		#$res = .\collectResult -BenchmarkName $benchmarkName -ResultDir $outputDir
-		#[Void]$stream.WriteLine($res)
-		#[Void]$stream.Flush()
+		$res = .\collectResult -BenchmarkName $benchmarkName -ResultDir $outputDir
+		[Void]$stream.WriteLine($res)
+		[Void]$stream.Flush()
 	}
 	Write-Output "Tests finished"
 }

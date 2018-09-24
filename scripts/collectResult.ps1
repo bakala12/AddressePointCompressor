@@ -5,101 +5,56 @@ Param(
 	$ResultDir
 )
 
-$currDir = Split-Path -Path $MyInvocation.MyCommand.Path
+$fullResultPath = "$ResultDir\$BenchmarkName\$($BenchmarkName)Full.info"
+$compressedResultPath = "$ResultDir\$BenchmarkName\$($BenchmarkName)Compressed.info"
 
-$normalResultPath = "$currDir\$ResultDir\$BenchmarkName\$($BenchmarkName)Full.result"
-$compressedResultPath = "$currDir\$ResultDir\$BenchmarkName\$($BenchmarkName)Compressed.result"
+$fullLinesIncluded = @(0,1,2,5,8,9,10,11,16,17)
+$compressedLinesIncluded = @(6,7,8,9,10,11,12,13,14,15,16,17,20,21)
+#Headers: 
+#Benchmark 
+#OptimalSolution
+#ProblemSize
+#UsedVehicles
+#FullSolAvg
+#FullSolStDev
+#FullSolMin
+#FullSolMax
+#FullTimeAvg
+#FullTimeStDev
+#CompressionSize
+#CompressionLevel
+#SimpleDecompressionSolutionAvg
+#SimpleDecompressionSolutionStDev
+#SimpleDecompressionSolutionMin
+#SimpleDecompressionSolutionMax
+#GreedyDecompressionSolutionAvg
+#GreedyDecompressionSolutionStDev
+#GreedyDecompressionSolutionMin
+#GreedyDecompressionSolutionMax
+#CompressedProblemTimeAvg
+#CompressedProblemTimeStDev
+#CompressionTimeAvg
+#CompressionTimeStDev
 
-$i=0
-$bestKnown = ""
-$orgSize = ""
-$orgSolVal = ""
-$orgSolTime = ""
-$orgSolVeh = ""
-foreach($line in Get-Content $normalResultPath) {
-	if($i -eq 2){
-		$bestKnown = $line
-	}
-	if($i -eq 3){
-		$orgSize = $line
-	}
-	if($i -eq 4){
-		$orgSolVal = $line
-	}
-	if($i -eq 5){
-		$orgSolTime = $line
-	}
-	if($i -eq 6){
-		$orgSolVeh = $line
-	}
-	$i = $i + 1
-}
-$i=0
-$compSize = ""
-$compSol = ""
-$compTime = ""
-$compSolTime = ""
-foreach($line in Get-Content $compressedResultPath) {
-	if(($i -le 7)){
-		$compSize = $line
-	}
-	if(($i -le 4)){
-		$compSol = $line
-	}
-	if(($i -le 8)){
-		$compTime = $line
-	}
-	if(($i -le 5)){
-		$compSolTime = $line
-	}
-	$i = $i + 1
-}
-
-# Output:
-# BenchmarkName
-# Best known solution
-# Original size
-# Original solution vehicles
-# Original solution value
-# Original solution time
-# Compression size
-# Compression ratio (*)
-# Compression solution
-# Compression solution quality loss (*)
-# Compression time
-# Compression solution time
-# Time boost (*)
-
-$compRatio = $compSize / $orgSize * 100
-$compQualityLoss = ($compSol - $orgSolVal) / ($orgSolVal) * 100
-$timeBoost = ($orgSolTime - $compTime - $compSolTime) / $orgSolTime * 100
+$fullInfo = Get-Content $fullResultPath
+$compressedInfo = Get-Content $compressedResultPath
 
 $builder = [System.Text.StringBuilder]::new()
-[Void]$builder.Append($BenchmarkName)
-[Void]$builder.Append(",")
-[Void]$builder.Append($bestKnown)
-[Void]$builder.Append(",")
-[Void]$builder.Append($orgSize)
-[Void]$builder.Append(",")
-[Void]$builder.Append($orgSolVeh)
-[Void]$builder.Append(",")
-[Void]$builder.Append($orgSolVal)
-[Void]$builder.Append(",")
-[Void]$builder.Append($orgSolTime)
-[Void]$builder.Append(",")
-[Void]$builder.Append($compSize)
-[Void]$builder.Append(",")
-[Void]$builder.Append("$($compRatio)%")
-[Void]$builder.Append(",")
-[Void]$builder.Append($compSol)
-[Void]$builder.Append(",")
-[Void]$builder.Append("$($compQualityLoss)%")
-[Void]$builder.Append(",")
-[Void]$builder.Append($compTime)
-[Void]$builder.Append(",")
-[Void]$builder.Append($compSolTime)
-[Void]$builder.Append(",")
-[Void]$builder.Append("$($timeBoost)%")
-
+$i=0
+foreach($line in $fullInfo) {
+	if($fullLinesIncluded.Contains($i)){
+		[Void]$builder.Append($line.Split(" ")[1])
+		[Void]$builder.Append(",")
+	}
+	$i = $i + 1
+}
+$i=0
+foreach($line in $compressedInfo) {
+	if($compressedLinesIncluded.Contains($i)){
+		[Void]$builder.Append($line.Split(" ")[1])
+		[Void]$builder.Append(",")
+	}
+	$i = $i + 1
+}
 $resultLine = $builder.ToString()
 return $resultLine
