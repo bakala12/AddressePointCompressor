@@ -1,8 +1,9 @@
-$inputDir = "..\Benchmarks"
+$inputDir = "..\TestInstances\Literature"
 $outputDir = "..\Results\Output"
 $dataDir = "..\Results\Data"
 $plotDir = "..\Results\Plots"
 $resultFile = "Results\results.csv"
+$numberOfTestsForBenchmark = 10
 
 #Benchmark 
 #OptimalSolution
@@ -41,7 +42,7 @@ Try{
 	foreach($benchmark in Get-ChildItem $inputDir){
 		$benchmarkName = $benchmark.BaseName
 		Write-Output $benchmarkName
-		.\runtest -BenchmarkName $benchmarkName -InputDir $inputDir -OutputDir $outputDir -DataDir $dataDir -PlotDir $plotDir -NumberOfRuns 4
+		.\runtest -BenchmarkName $benchmarkName -InputDir $inputDir -OutputDir $outputDir -DataDir $dataDir -PlotDir $plotDir -NumberOfRuns $numberOfTestsForBenchmark
 		$res = .\collectResult -BenchmarkName $benchmarkName -ResultDir $outputDir
 		[Void]$stream.WriteLine($res)
 		[Void]$stream.Flush()
