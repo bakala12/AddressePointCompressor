@@ -10,8 +10,16 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementation of parser that parses VRP problem instance.
+ */
 public class VrpProblemParser implements IVrpProblemParser{
 
+    /**
+     * Parses VRP problem instance.
+     * @param stream Input stream.
+     * @return VRP problem instance.
+     */
     @Override
     public VrpProblem parse(InputStream stream) {
         try(InputStreamReader reader = new InputStreamReader(stream)) {

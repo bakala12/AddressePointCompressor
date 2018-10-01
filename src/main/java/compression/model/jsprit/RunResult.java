@@ -3,6 +3,9 @@ package compression.model.jsprit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Represents a single test run for benchmark. It contains parameters and some results.
+ */
 @AllArgsConstructor
 public class RunResult{
     @Getter

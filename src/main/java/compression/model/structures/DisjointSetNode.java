@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents Disjoint set node
+ * @param <T>
+ */
 @RequiredArgsConstructor
 final class DisjointSetNode<T> implements Comparable<DisjointSetNode<T>>{
     @Getter
@@ -13,11 +17,19 @@ final class DisjointSetNode<T> implements Comparable<DisjointSetNode<T>>{
     @Getter @Setter
     private Integer rank = 0;
 
+    /**
+     * Increases the rank of the node.
+     */
     public void increaseRank()
     {
         rank++;
     }
 
+    /**
+     * Comparison mode.
+     * @param o Object to compare.
+     * @return Comparison result.
+     */
     @Override
     public int compareTo( DisjointSetNode<T> o )
     {

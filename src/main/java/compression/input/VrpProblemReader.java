@@ -12,6 +12,11 @@ public class VrpProblemReader<TVrpProblem> implements IProblemReader<TVrpProblem
 
     private final IParser<TVrpProblem> parser;
 
+    /**
+     * Reads VRP problem from resource file.
+     * @param resourceName Name of resource.
+     * @return VRP problem.
+     */
     @Override
     public TVrpProblem readProblemInstanceFromResources(String resourceName) {
         try(InputStream stream = VrpProblem.class.getResourceAsStream(resourceName)){
@@ -21,6 +26,11 @@ public class VrpProblemReader<TVrpProblem> implements IProblemReader<TVrpProblem
         }
     }
 
+    /**
+     * Reads VRP problem instance from a file.
+     * @param path File path.
+     * @return VRP problem.
+     */
     @Override
     public TVrpProblem readProblemInstanceFromFile(String path){
         try(InputStream stream = new FileInputStream(path)) {

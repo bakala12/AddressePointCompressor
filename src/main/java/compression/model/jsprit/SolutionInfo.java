@@ -3,6 +3,9 @@ package compression.model.jsprit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Stores information about the solution.
+ */
 @AllArgsConstructor
 public class SolutionInfo {
     @Getter

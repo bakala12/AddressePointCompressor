@@ -10,6 +10,9 @@ import lombok.Getter;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Represents solution of VRP problem.
+ */
 @AllArgsConstructor
 public class VrpProblemSolution {
     @Getter
