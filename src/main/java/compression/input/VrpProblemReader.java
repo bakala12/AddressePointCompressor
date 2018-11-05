@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+/**
+ * Implementation of problem parser.
+ * @param <TVrpProblem> Type of Vrp problem model.
+ */
 @RequiredArgsConstructor
 public class VrpProblemReader<TVrpProblem> implements IProblemReader<TVrpProblem>{
 

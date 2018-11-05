@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Represents a model for super-vertex.
+ */
 @RequiredArgsConstructor
 class SuperVertexKeeper {
     @Getter

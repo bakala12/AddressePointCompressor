@@ -6,7 +6,7 @@ import lombok.Setter;
 
 /**
  * Represents Disjoint set node
- * @param <T>
+ * @param <T> Type of element.
  */
 @RequiredArgsConstructor
 final class DisjointSetNode<T> implements Comparable<DisjointSetNode<T>>{

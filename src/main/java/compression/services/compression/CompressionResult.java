@@ -6,6 +6,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Defines a compression phase result.
+ */
 @AllArgsConstructor
 public class CompressionResult {
     @Getter

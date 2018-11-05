@@ -10,7 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implements simple decompression algorithm.
+ */
 public class SimpleCompressedSolutionRouteResolver extends BaseSolutionRouteResolver implements ISolutionRouteResolver {
+    /**
+     * Decompresses aggregated vertex to part of route.
+     * @param problem Original VRP problem
+     * @param location Compressed problem vertex.
+     * @param compressionMap Map of aggregated vertices.
+     * @return List of route nodes.
+     */
     @Override
     protected List<VrpSolutionRouteNode> convertLocationToNodes(VrpProblem problem, Location location, Map<Long, AggregatedService> compressionMap) {
         List<VrpSolutionRouteNode> nodes = new ArrayList<>();

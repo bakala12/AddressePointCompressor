@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Collection;
 
+/**
+ * Extension for JSprit library that uses logger to log each algorithm iteration progress.
+ */
 @RequiredArgsConstructor
 public class DataCollectorIterationEndListener implements IterationEndsListener, AlgorithmStartsListener, AlgorithmEndsListener {
 

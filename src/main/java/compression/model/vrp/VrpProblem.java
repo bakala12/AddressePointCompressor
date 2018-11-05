@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * A model class for VRP problem instance.
+ */
 @AllArgsConstructor
 public class VrpProblem {
     @Getter

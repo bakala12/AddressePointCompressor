@@ -17,6 +17,9 @@ import lombok.Setter;
 
 import java.util.*;
 
+/**
+ * Implements greedy decompression algorithm.
+ */
 public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteResolver {
 
     @AllArgsConstructor
@@ -27,6 +30,13 @@ public class GreedyCompressionSolutionRouteResolver implements ISolutionRouteRes
         private Double cost;
     }
 
+    /**
+     * Resolves routes of compressed problem solution and decompresses them.
+     * @param originalProblem Original VRP problem.
+     * @param best Compressed problem solution.
+     * @param compressionMap Compression map
+     * @return Resolved original problem solution.
+     */
     @Override
     public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap) {
         ConvertedRoutes routes = convertRoutes(originalProblem, best, originalProblem.getDepot().getId(), compressionMap);

@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Represents an aggregated vertex of compressed VRP problem.
+ */
 @AllArgsConstructor
 public class AggregatedService {
     @Getter

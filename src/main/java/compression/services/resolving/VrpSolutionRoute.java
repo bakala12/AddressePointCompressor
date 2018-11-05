@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Represents a VRP solution route.
+ */
 @AllArgsConstructor
 public class VrpSolutionRoute {
     @Getter

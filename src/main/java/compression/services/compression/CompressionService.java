@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Implementation of ICompressionService interface.
+ */
 @RequiredArgsConstructor
 public class CompressionService implements ICompressionService{
 
@@ -22,6 +25,11 @@ public class CompressionService implements ICompressionService{
     private final IMinimumSpanningArborescenceFinder<LocationVertex, Edge> minimumSpanningArborescenceFinder;
     private final ITreeBranchFinder<LocationVertex> treeBranchFinder;
 
+    /**
+     * Compresses the VRP problem.
+     * @param problem Original VRP problem.
+     * @return Compression phase result.
+     */
     @Override
     public CompressionResult getAggregatedClients(VrpProblem problem) {
         StopWatch watch = new StopWatch();

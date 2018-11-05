@@ -6,8 +6,16 @@ import compression.model.jsprit.SolutionInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Implementation of ISolutionWriter interface.
+ */
 public class SolutionInfoWriter implements ISolutionInfoWriter {
 
+    /**
+     * Writes solution information to a file.
+     * @param path File path.
+     * @param solutionInfo Solution information
+     */
     @Override
     public void writeSolution(String path, SolutionInfo solutionInfo) {
         boolean compressed = solutionInfo.getProblemType() == ProblemType.COMPRESSED;

@@ -14,8 +14,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Serves common methods for solution decompression and resolving routes.
+ */
 public abstract class BaseSolutionRouteResolver implements ISolutionRouteResolver {
 
+    /**
+     * Resolves routes of compressed problem solution and decompresses them.
+     * @param originalProblem Original VRP problem.
+     * @param best Compressed problem solution.
+     * @param compressionMap Compression map
+     * @return Resolved original problem solution.
+     */
     @Override
     public ResolvedSolution resolveRoutes(VrpProblem originalProblem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap){
         Double cost = best.getCost();
@@ -23,6 +33,13 @@ public abstract class BaseSolutionRouteResolver implements ISolutionRouteResolve
         return new ResolvedSolution(originalProblem, cost, routes);
     }
 
+    /**
+     * Converts routes of compressed problem.
+     * @param problem Original VRP problem.
+     * @param best Best solution for compressed problem.
+     * @param compressionMap Compression map.
+     * @return Decompressed routes.
+     */
     protected List<VrpSolutionRoute> convertRoutes(VrpProblem problem, VehicleRoutingProblemSolution best, Map<Long, AggregatedService> compressionMap){
         List<VrpSolutionRoute> routes = new ArrayList<>();
         for(VehicleRoute r : best.getRoutes()){
@@ -39,5 +56,12 @@ public abstract class BaseSolutionRouteResolver implements ISolutionRouteResolve
         return routes;
     }
 
+    /**
+     * Decompresses aggregated vertex to part of route.
+     * @param problem Original VRP problem
+     * @param location Compressed problem vertex.
+     * @param aggregatedService Map of aggregated vertices.
+     * @return List of route nodes.
+     */
     protected abstract List<VrpSolutionRouteNode> convertLocationToNodes(VrpProblem problem, Location location, Map<Long, AggregatedService> aggregatedService);
 }

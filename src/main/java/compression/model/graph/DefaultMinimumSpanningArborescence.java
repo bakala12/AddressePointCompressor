@@ -3,9 +3,9 @@ package compression.model.graph;
 import java.util.Set;
 
 /**
- *
- * @param <V>
- * @param <E>
+ * A class that represents minimum spanning arborescence.
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
  */
 public class DefaultMinimumSpanningArborescence<V, E>
     implements IMinimumSpanningArborescence<V, E> {

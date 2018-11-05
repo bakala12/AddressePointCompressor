@@ -8,18 +8,35 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.*;
 
+/**
+ * Implementation of finding minimum spanning arborescence of graph using Edmonds algorithm.
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class EdmondsMinimumSpanningArborescenceFinder<V,E>
     extends AbstractMinimumSpanningArborescenceFinder<V,E>
     implements IMinimumSpanningArborescenceFinder<V, E> {
 
+    /**
+     * Initializes a new instance of EdmondsMinimumSpanningArborescenceFinder.
+     */
     public EdmondsMinimumSpanningArborescenceFinder(){
         super(new IntegerEdmondsMinimumSpanningArborescenceFinder());
     }
 }
 
+/**
+ * Implementation of finding minimum spanning arborescence of graph using Edmonds algorithm.
+ */
 class IntegerEdmondsMinimumSpanningArborescenceFinder
     implements IMinimumSpanningArborescenceFinder<Integer, Edge>{
 
+    /**
+     * Finds a minimum spanning arborescence for the given graph using Edmonds algorithm.
+     * @param graph Graph.
+     * @param root Root vertex for the arborescence.
+     * @return Minimum spanning arborescence for the given graph.
+     */
     @Override
     public IMinimumSpanningArborescence<Integer, Edge> getSpanningArborescence(SimpleDirectedWeightedGraph<Integer, Edge> graph, Integer root) {
         Integer maxVertex = graph.vertexSet().size();

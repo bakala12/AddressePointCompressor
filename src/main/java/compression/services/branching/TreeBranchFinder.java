@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 
+/**
+ * Implementation of ITreeBranchFinder interface.
+ * @param <V> Vertex type.
+ */
 public class TreeBranchFinder<V>
         implements ITreeBranchFinder<V> {
 
@@ -25,6 +29,11 @@ public class TreeBranchFinder<V>
         }
     }
 
+    /**
+     * Extracts a list of branches from minimal spanning arborescence.
+     * @param arborescence Minimal spanning arborescence.
+     * @return List of tree branches.
+     */
     @Override
     public List<TreeBranch<V>> findBranches(IMinimumSpanningArborescence<V,Edge> arborescence) {
         TreeNode<V> root = new TreeNode(arborescence.getRoot());

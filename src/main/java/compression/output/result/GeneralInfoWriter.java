@@ -12,7 +12,15 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An implementation of IGeneralInfoWriter interface.
+ */
 public class GeneralInfoWriter implements IGeneralInfoWriter {
+    /**
+     * Writes information about several solutions to a file.
+     * @param path File path.
+     * @param runResults A list of solutions.
+     */
     @Override
     public void writeGeneralSolution(String path, List<RunResult> runResults) {
         try(PrintWriter writer = new PrintWriter(path)){

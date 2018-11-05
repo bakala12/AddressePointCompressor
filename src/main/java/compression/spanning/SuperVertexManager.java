@@ -5,6 +5,9 @@ import compression.model.graph.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class that manages super-vertices
+ */
 final class SuperVertexManager {
     private ArrayList<SuperVertexKeeper> list;
     private int vertices;

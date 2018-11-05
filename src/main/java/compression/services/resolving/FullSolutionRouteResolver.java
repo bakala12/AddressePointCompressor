@@ -8,8 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Serves decompression for full problem where decompression phase is not needed.
+ */
 public class FullSolutionRouteResolver extends BaseSolutionRouteResolver implements ISolutionRouteResolver{
 
+    /**
+     * Converts a solution of full problem to common form. Convert location to simple route node.
+     * @param problem Original VRP problem
+     * @param location Compressed problem vertex.
+     * @param compressionMap Not used.
+     * @return Converted node.
+     */
     @Override
     protected List<VrpSolutionRouteNode> convertLocationToNodes(VrpProblem problem, Location location, Map<Long, AggregatedService> compressionMap) {
         List<VrpSolutionRouteNode> nodes = new ArrayList<>();

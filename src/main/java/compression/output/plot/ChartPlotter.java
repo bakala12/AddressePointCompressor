@@ -16,8 +16,16 @@ import org.jfree.chart.axis.NumberAxis;
 
 import java.io.*;
 
+/**
+ * An implementation of chart plotter.
+ */
 public class ChartPlotter implements IChartPlotter {
 
+    /**
+     * Draws a chart of cost per iteration with default options.
+     * @param sourceDataFilePath Data file source path.
+     * @param outputFilePath Output file.
+     */
     @Override
     public void plotCostChart(String sourceDataFilePath, String outputFilePath) {
         ChartOptions options = new ChartOptions();
@@ -28,6 +36,11 @@ public class ChartPlotter implements IChartPlotter {
         plotCostChart(sourceDataFilePath, outputFilePath, options);
     }
 
+    /**
+     * Draws a chart of time per iteration with default options.
+     * @param sourceDataFilePath Data file source path.
+     * @param outputFilePath Output file.
+     */
     @Override
     public void plotTimeChart(String sourceDataFilePath, String outputFilePath) {
         ChartOptions options = new ChartOptions();
@@ -38,6 +51,12 @@ public class ChartPlotter implements IChartPlotter {
         plotTimeChart(sourceDataFilePath, outputFilePath, options);
     }
 
+    /**
+     * Draws a chart of cost per iteration.
+     * @param sourceDataFilePath Data file source path.
+     * @param outputFilePath Output file.
+     * @param options Chart options.
+     */
     @Override
     public void plotCostChart(String sourceDataFilePath, String outputFilePath, ChartOptions options) {
         ReadDataResult cost = readData(sourceDataFilePath, "Cost", ITERATION_COLUMN, COST_COLUMN, SEPARATOR);
@@ -49,6 +68,12 @@ public class ChartPlotter implements IChartPlotter {
         saveToFile(chart, outputFilePath);
     }
 
+    /**
+     * Draws a chart of time per iteration.
+     * @param sourceDataFilePath Data file source path.
+     * @param outputFilePath Output file.
+     * @param options Chart options.
+     */
     @Override
     public void plotTimeChart(String sourceDataFilePath, String outputFilePath, ChartOptions options) {
         ReadDataResult time = readData(sourceDataFilePath, "Time", ITERATION_COLUMN, TIME_COLUMN, SEPARATOR);

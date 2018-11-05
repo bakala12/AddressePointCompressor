@@ -8,6 +8,9 @@ import lombok.Getter;
 
 import java.util.Map;
 
+/**
+ * Defines a conversion and compression phase result.
+ */
 @AllArgsConstructor
 public class ConversionResult {
     @Getter

@@ -8,15 +8,31 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.*;
 
+/**
+ * Defines abstract flow of getting minimal spanning arborescence for Edmonds and Tarjan algorithms.
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public abstract class AbstractMinimumSpanningArborescenceFinder<V,E>
     implements IMinimumSpanningArborescenceFinder<V,E> {
 
     private final IMinimumSpanningArborescenceFinder<Integer, Edge> internalFinder;
 
+    /**
+     * Constructor method.
+     * @param internalFinder Internal implementation of finder that has verticles mapped for integers.
+     */
     protected AbstractMinimumSpanningArborescenceFinder(IMinimumSpanningArborescenceFinder<Integer, Edge> internalFinder){
         this.internalFinder = internalFinder;
     }
 
+    /**
+     * Finds a minimum spanning arborescence for the given graph. This maps graph vertices to integers, then uses internal
+     * finder to find an arborescence and revert mapping to get actual result.
+     * @param graph Graph.
+     * @param root Root vertex for the arborescence.
+     * @return Minimum spanning arborescence for the given graph.
+     */
     @Override
     public IMinimumSpanningArborescence<V, E> getSpanningArborescence(SimpleDirectedWeightedGraph<V, E> graph, V root) {
         SimpleDirectedWeightedGraph<Integer, Edge> intG = new SimpleDirectedWeightedGraph<>(Edge.class);

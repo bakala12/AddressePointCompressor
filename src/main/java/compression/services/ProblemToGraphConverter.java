@@ -7,8 +7,16 @@ import compression.model.vrp.*;
 import compression.services.distance.DistanceService;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
+/**
+ * Implementation of IProblemToGraphConverter interface for graphs with LocationVertex vertex type.
+ */
 public class ProblemToGraphConverter implements IProblemToGraphConverter<LocationVertex>{
 
+    /**
+     * Converts VRP problem to graph.
+     * @param problem VRP problem.
+     * @return Graph.
+     */
     public RoutedGraph<LocationVertex, Edge> convert(VrpProblem problem){
         switch (problem.getProblemMetric()){
             case Euclidean:

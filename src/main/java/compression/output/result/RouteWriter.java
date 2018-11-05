@@ -12,8 +12,16 @@ import compression.services.resolving.VrpSolutionRouteNode;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * An implementation of IRouteWriter interface.
+ */
 public class RouteWriter implements IRouteWriter{
 
+    /**
+     * Writes solution routes to a file.
+     * @param solution Solution routes.
+     * @param path File path.
+     */
     @Override
     public void writeRoute(ResolvedSolution solution, String path) {
         try(PrintWriter writer = new PrintWriter(path)) {

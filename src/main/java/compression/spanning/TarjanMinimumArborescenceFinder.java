@@ -8,18 +8,35 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 import java.util.*;
 
+/**
+ * Implementation of Tarjan algorithm for finding minimum spanning arborescence.
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
+ */
 public class TarjanMinimumArborescenceFinder<V,E>
     extends AbstractMinimumSpanningArborescenceFinder<V,E>
     implements IMinimumSpanningArborescenceFinder<V,E> {
 
+    /**
+     * Initialzes a new instance of TarjanMinimumArborescenceFinder.
+     */
     public TarjanMinimumArborescenceFinder(){
         super(new IntegerTarjanMinimumArborescenceFinder());
     }
 }
 
+/**
+ * Implementation of Tarjan algorithm for finding minimum spanning arborescence.
+ */
 class IntegerTarjanMinimumArborescenceFinder
     implements IMinimumSpanningArborescenceFinder<Integer, Edge>{
 
+    /**
+     * Finds a minimum spanning arborescence for the given graph using Tarjan algorithm.
+     * @param graph Graph.
+     * @param root Root vertex for the arborescence.
+     * @return Minimum spanning arborescence for the given graph.
+     */
     @Override
     public IMinimumSpanningArborescence<Integer, Edge> getSpanningArborescence(SimpleDirectedWeightedGraph<Integer, Edge> graph, Integer root) {
         contract(graph);

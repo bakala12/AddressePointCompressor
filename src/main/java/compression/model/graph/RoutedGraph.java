@@ -7,8 +7,8 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
 /**
  * Represents a graph with selected root vertex.
- * @param <V>
- * @param <E>
+ * @param <V> Vertex type.
+ * @param <E> Edge type.
  */
 @AllArgsConstructor
 public class RoutedGraph<V,E> {

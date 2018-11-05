@@ -7,6 +7,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Represents resolved VRP solution.
+ */
 @AllArgsConstructor
 public class ResolvedSolution {
     @Getter
