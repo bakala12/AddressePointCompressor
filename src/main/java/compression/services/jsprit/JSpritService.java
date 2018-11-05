@@ -26,6 +26,9 @@ import com.graphhopper.jsprit.io.problem.VrpXMLWriter;
 
 import java.util.*;
 
+/**
+ * An implementation of IJSpritService interface.
+ */
 @RequiredArgsConstructor
 public class JSpritService implements IJSpritService {
 
@@ -73,27 +76,48 @@ public class JSpritService implements IJSpritService {
     private final SolutionRouteResolverFactory solutionRoureResolverFactory = new SolutionRouteResolverFactory();
     private int maxNumberOfIterations = 2000;
     private Long seed = null;
-
+    /**
+     * Sets number of iterations for JSprit.
+     * @param maxNumberOfIterations Number of iterations.
+     */
     @Override
     public void setMaxNumberOfIterations(int maxNumberOfIterations){
         this.maxNumberOfIterations = maxNumberOfIterations;
     }
-
+    /**
+     * Sets random seed for JSprit.
+     * @param seed Random seed.
+     */
     @Override
     public void setRandomSeed(Long seed){
         this.seed = seed;
     }
-
+    /**
+     * Solves full VRP problem - no compression algorithm used.
+     * @param problem Original problem
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution solve(VrpProblem problem){
         return solve(problem, null);
     }
-
+    /**
+     * Solves full VRP problem - no compression algorithm used.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution solve(VrpProblem problem, String dataPath){
         return solve(problem, dataPath, null);
     }
-
+    /**
+     * Solves full VRP problem - no compression algorithm used.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @param solutionRoutePath Path for solution file.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution solve(VrpProblem problem, String dataPath, String solutionRoutePath){
         IVrpProblemToJSpritConverter converter = factory.getConverter(problem);
@@ -131,31 +155,70 @@ public class JSpritService implements IJSpritService {
         return new VrpProblemSolution(vrp, best, best.getCost(), info);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem){
         return compressAndSolve(problem, DecompressionMethod.SIMPLE);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath){
         return compressAndSolve(problem, dataPath, DecompressionMethod.SIMPLE);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @param decompressionMethod Decompression method.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, DecompressionMethod decompressionMethod){
         return compressAndSolve(problem, null, decompressionMethod);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @param decompressionMethod Decompression method.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath, DecompressionMethod decompressionMethod){
         return compressAndSolve(problem, dataPath, null, decompressionMethod);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @param solutionRoutePath Path for solution file.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath, String solutionRoutePath) {
         return compressAndSolve(problem, dataPath, solutionRoutePath, DecompressionMethod.SIMPLE);
     }
 
+    /**
+     * Compresses VRP problem, solves it by JSprit and then decompresses the result.
+     * @param problem Original problem
+     * @param dataPath Folder for algorithm data files.
+     * @param solutionRoutePath Path for solution file.
+     * @param decompressionMethod Decompression method.
+     * @return VRP problem solution.
+     */
     @Override
     public VrpProblemSolution compressAndSolve(VrpProblem problem, String dataPath, String solutionRoutePath, DecompressionMethod decompressionMethod) {
         IVrpProblemToJSpritConverter converter = factory.getCompressedConverter(problem);

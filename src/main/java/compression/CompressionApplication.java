@@ -44,6 +44,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Main class of the application. Handles program flow.
+ */
 @NoArgsConstructor
 public class CompressionApplication {
 

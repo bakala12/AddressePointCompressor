@@ -4,11 +4,11 @@ import com.graphhopper.jsprit.core.problem.VehicleRoutingProblem;
 import compression.model.vrp.VrpProblem;
 
 /**
- * An interface that defines a method for conversion phase.
+ * An interface that defines a method for conversion VRP problem to JSprit problem.
  */
 public interface IVrpProblemToJSpritConverter {
     /**
-     * Perform conversion phase of the algorithm.
+     * Converts VRP problem to JSprit problem.
      * @param problem VRP problem.
      * @return Conversion phase result.
      */

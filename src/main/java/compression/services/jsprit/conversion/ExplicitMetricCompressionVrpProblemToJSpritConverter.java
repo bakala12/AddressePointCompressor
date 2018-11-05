@@ -14,22 +14,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Converts VRP problem with explicit distance matrix to JSprit problem using compression algorithm.
+ */
 public class ExplicitMetricCompressionVrpProblemToJSpritConverter
         extends BaseProblemToJSpritConverter
         implements IVrpProblemToJSpritConverter {
 
     private final ICompressionService compressionService;
 
+    /**
+     * Initializes a new instance of ExplicitMetricCompressionVrpProblemToJSpritConverter
+     * @param compressionService Compression service.
+     * @param distanceService Distance service.
+     */
     public ExplicitMetricCompressionVrpProblemToJSpritConverter(ICompressionService compressionService, IDistanceService distanceService){
         super(distanceService);
         this.compressionService = compressionService;
     }
 
+    /**
+     * Converts location to JSprit location.
+     * @param client Client location
+     * @return JSprit location.
+     */
     @Override
     protected Location convertLocation(Client client) {
         return Location.newInstance(client.getId().toString());
     }
 
+    /**
+     * Converts VRP problem to JSprit problem. This uses compression and convert compressed problem to be solved by JSprit.
+     * @param problem VRP problem.
+     * @return Conversion phase result.
+     */
     @Override
     public ConversionResult convertToJsprit(VrpProblem problem) {
         if(problem.getProblemMetric() != VrpProblemMetric.Explicit){

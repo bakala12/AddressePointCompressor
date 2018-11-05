@@ -9,14 +9,27 @@ import com.graphhopper.jsprit.core.util.VehicleRoutingTransportCostsMatrix;
 import compression.model.vrp.*;
 import compression.services.distance.IDistanceService;
 
+/**
+ * Serves common base method for conversion VRP problem to JSprit problem.
+ */
 public abstract class BaseProblemToJSpritConverter {
 
     private final IDistanceService distanceService;
 
+    /**
+     * Initializes a new instance of BaseProblemToJSpritConverter
+     * @param distanceService Distance service.
+     */
     protected BaseProblemToJSpritConverter(IDistanceService distanceService){
         this.distanceService = distanceService;
     }
 
+    /**
+     * Add vehicles to JSprit problem builder.
+     * @param problemBuilder JSprit problem builder.
+     * @param problem VRP problem.
+     * @param depotLocation Location of the depot.
+     */
     protected void addVehicles(VehicleRoutingProblem.Builder problemBuilder, VrpProblem problem, Location depotLocation){
         for(Vehicle veh : problem.getVehicles()){
             VehicleTypeImpl.Builder vtb = VehicleTypeImpl.Builder.newInstance(veh.getId().toString());
@@ -31,6 +44,11 @@ public abstract class BaseProblemToJSpritConverter {
         }
     }
 
+    /**
+     * Adds client vertices to JSprit problem builder.
+     * @param problemBuilder JSprit problem builder.
+     * @param problem VRP problem.
+     */
     protected void addClients(VehicleRoutingProblem.Builder problemBuilder, VrpProblem problem){
         for(Client cl : problem.getClients()){
             Service s = Service.Builder.newInstance(Long.toString(cl.getId()-1))
@@ -42,6 +60,11 @@ public abstract class BaseProblemToJSpritConverter {
         }
     }
 
+    /**
+     * Creates distance matrix for Euclidean metrics problems.
+     * @param problem
+     * @return
+     */
     protected DistanceMatrix createDistanceMatrix(VrpProblem problem){
         int dimensions = problem.getDimensions();
         DistanceMatrix matrix = new DistanceMatrix(dimensions);
@@ -57,6 +80,11 @@ public abstract class BaseProblemToJSpritConverter {
         return matrix;
     }
 
+    /**
+     * Copies values from distance matrix to JSprit distance matrix.
+     * @param problem VRP problem.
+     * @param matirxCostBuilder JSprit matrix builder.
+     */
     protected void copyDistanceMatrix(VrpProblem problem, VehicleRoutingTransportCostsMatrix.Builder matirxCostBuilder){
         DistanceMatrix matrix = problem.getDistanceMatrix();
         if(matrix == null)
@@ -85,5 +113,10 @@ public abstract class BaseProblemToJSpritConverter {
         }
     }
 
+    /**
+     * Converts location to JSprit location.
+     * @param client Client location
+     * @return JSprit location.
+     */
     protected abstract Location convertLocation(compression.model.vrp.Client client);
 }
