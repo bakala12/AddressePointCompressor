@@ -12,11 +12,11 @@ public class Program {
     public static void main(String[] args){
         CompressionApplication app = new CompressionApplication();
         //default arguments to debug
-//        if(true){
-//                app.run("./Benchmarks/E-n76-k7.vrp", "./decsolution1.sol", "./decsolution1.result", true,
-//                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.GREEDY, 4712L,5,"./decinfo.info");
-//            return;
-//        }
+        if(true){
+                app.run("./AnotherBenchmarks/tarjanexample.vrp", "./decsolution1.sol", "./decsolution1.result", true,
+                        "./decdata1.csv", "./Results/Plots", 2000, "./decsolution1.route", DecompressionMethod.GREEDY, 4712L,5,"./decinfo.info");
+            return;
+        }
         System.out.println("Start");
         Options options = new Options();
         Option input = new Option("i", "input", true, "input file path");
