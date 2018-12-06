@@ -41,6 +41,7 @@ import org.jfree.io.FileUtilities;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -98,12 +99,18 @@ public class CompressionApplication {
     }
 
     public void run(String inputFile, String outputFile, String resultFilePath, Boolean useCompression, String dataPath, String plotPath,
-                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, Long seed){
-        runInternal(inputFile, outputFile, resultFilePath, useCompression, dataPath, plotPath, iterations, solutionRoutePath, decompressionMethod, seed);
+                    Integer iterations, String solutionRoutePath, DecompressionMethod decompressionMethod, Long seed, String generalInfoPath){
+        RunResult result = runInternal(inputFile, outputFile, resultFilePath, useCompression, dataPath, plotPath, iterations, solutionRoutePath, decompressionMethod, seed);
         if(dataPath!= null){
             System.out.println("Generating and saving plots");
             chartPlotter.plotCostChart(dataPath, Paths.get(plotPath, "cost.jpeg").toString());
             chartPlotter.plotTimeChart(dataPath, Paths.get(plotPath, "time.jpeg").toString());
+        }
+        if(generalInfoPath != null){
+            System.out.println("Generating general information about solutions");
+            List<RunResult> results = new LinkedList<>();
+            results.add(result);
+            generalInfoWriter.writeGeneralSolution(generalInfoPath, results);
         }
     }
 

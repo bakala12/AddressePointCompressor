@@ -127,7 +127,7 @@ public class Program {
         if(numberOfRunsValue > 1){
             app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, seed, numberOfRunsValue, generalInfoPath);
         } else{
-            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, seed);
+            app.run(inputFilePath, outputFilePath, resultFilePath, useCompressionValue, dataPath, plotPath, iterNum, solutionRoutePath, decompression, seed, generalInfoPath);
         }
     }
 }
