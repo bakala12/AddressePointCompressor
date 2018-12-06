@@ -17,6 +17,6 @@ public class DistanceService implements IDistanceService {
     public Double getEuclideanDistance(Location from, Location to) {
         Double latDiff = from.getLatitude() - to.getLatitude();
         Double longDiff = from.getLongitude() - to.getLongitude();
-        return Math.sqrt(latDiff*latDiff + longDiff*longDiff);
+        return (double) Math.round(Math.sqrt(latDiff*latDiff + longDiff*longDiff));
     }
 }
