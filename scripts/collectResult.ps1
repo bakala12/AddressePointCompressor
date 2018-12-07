@@ -39,10 +39,10 @@ $compressedLinesIncluded = @(6,7,8,9,10,11,12,13,14,15,16,17,20,21)
 $fullInfo = Get-Content $fullResultPath
 $compressedInfo = Get-Content $compressedResultPath
 
-$builder = [System.Text.StringBuilder]::new()
+$builder = New-Object System.Text.StringBuilder
 $i=0
 foreach($line in $fullInfo) {
-	if($fullLinesIncluded.Contains($i)){
+	if("$fullLinesIncluded".Contains($i)){
 		[Void]$builder.Append($line.Split(" ")[1])
 		[Void]$builder.Append(",")
 	}
@@ -50,7 +50,7 @@ foreach($line in $fullInfo) {
 }
 $i=0
 foreach($line in $compressedInfo) {
-	if($compressedLinesIncluded.Contains($i)){
+	if("$compressedLinesIncluded".Contains($i)){
 		[Void]$builder.Append($line.Split(" ")[1])
 		[Void]$builder.Append(",")
 	}
