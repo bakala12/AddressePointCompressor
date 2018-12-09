@@ -1,9 +1,9 @@
-$inputDir = "..\TestInstances\Literature"
+$inputDir = "..\TestInstances\Test"
 $outputDir = "..\Results\Output"
 $dataDir = "..\Results\Data"
 $plotDir = "..\Results\Plots"
 $resultFile = "Results\results.csv"
-$numberOfTestsForBenchmark = 10
+$numberOfTestsForBenchmark = 1
 
 #Benchmark 
 #OptimalSolution

@@ -6,7 +6,7 @@ import sys
 #Parameters
 #Input file (*.route)
 #Output file (*.html)
-if(len(sys.argv) != 2):
+if(len(sys.argv) != 3):
 	print "Niepoprawna liczba parametrow"
 
 routes.plot(sys.argv[1])
