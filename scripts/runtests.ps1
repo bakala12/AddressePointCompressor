@@ -1,4 +1,4 @@
-$inputDir = "..\TestInstances\Test"
+$inputDir = "..\TestInstances\Literature"
 $outputDir = "..\Results\Output"
 $dataDir = "..\Results\Data"
 $plotDir = "..\Results\Plots"
